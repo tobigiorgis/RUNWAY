@@ -12,7 +12,7 @@ export async function middleware(req: NextRequest) {
     .auth
     .getSession()
   
-    if (!session && !['/', '/discover'].includes(path)) {
+    if (!session && !['/', '/discover','about','post/[id]'].includes(path)) {
       return NextResponse.rewrite(new URL('/login', req.url));
     }
 
