@@ -1,9 +1,11 @@
 import type { Metadata } from 'next'
 import { Inter, Roboto } from 'next/font/google'
+import Head from 'next/head'
+import { Analytics } from '@vercel/analytics/react';
+
 import './globals.css'
 import { Navbar } from '@/components/ui/Navbar'
 import { Toaster } from '@/components/ui/toaster'
-import Head from 'next/head'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -36,6 +38,7 @@ export default function RootLayout({
           <Navbar/>
           {children}
           <Toaster />
+          <Analytics />
         </body>
     </html>
   )
