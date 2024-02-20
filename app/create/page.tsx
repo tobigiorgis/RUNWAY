@@ -117,6 +117,7 @@ export default function Upload() {
                 src="https://sf16-scmcdn-va.ibytedtos.com/goofy/tiktok/web/node/_next/static/images/cloud_icon-6e07be44878e69ee3f7bff3b78405b76.svg"
                 width="49"
                 id="image"
+                alt="upload icon"
               />
               {renderDndContent()}
               <button type="button" className='w-auto bg-black text-white rounded py-1 px-2' onClick={() => document.getElementById('fileInput')?.click()}>

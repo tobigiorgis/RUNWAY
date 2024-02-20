@@ -157,7 +157,7 @@ const SearchPage = () => {
 
   return (
     <main className='h-fit w-full md:mt-20 flex flex-col justify-evenly gap-7 md:px-24 pt-12 flex-wrap items-center'>
-        <h1 className='mt-10'>Results for: "{query}"</h1>
+        <h1 className='mt-10'>Results for: &ldquo;{query}&rdquo;</h1>
         <div className='w-full h-full flex md:flex-row gap-7 flex-col px-7 pb-7'>
         {
             searchResults.map((posts: any, key: number) => (
