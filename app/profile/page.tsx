@@ -6,11 +6,12 @@ import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import { ShowPosts } from '@/components/FeedPosts/ShowPosts'
 import EditProfile from '@/components/FeedPosts/EditProfile'
-import ShareButton from '@/components/Buttons/ShareButton'
+import ShareButton from '@/components/Buttons/ShareMyProfileButton'
 import { CardSkeleton } from '@/components/ui/skeletons'
 import { LikedPosts } from '@/components/FeedPosts/LikedPosts'
 import { Footer } from '@/components/ui/Footer'
 import Link from 'next/link'
+import ShareMyProfileButton from '@/components/Buttons/ShareMyProfileButton'
 
 
 const Profile = () => {
@@ -79,7 +80,7 @@ const Profile = () => {
                             {/* <button className='w-1/3 bg-black text-white rounded py-1 px-2'>
                                 Share
                             </button> */}
-                            <ShareButton />
+                            <ShareMyProfileButton />
                             <Link className='w-1/3 flex items-center justify-center bg-black text-white rounded py-1 px-2' href={`/profile/${profile.id}/lists`}>
                                 <button>
                                     Lists

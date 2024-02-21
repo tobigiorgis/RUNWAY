@@ -1,4 +1,6 @@
-import React from 'react'
+'use client'
+
+import React, { useState } from 'react'
 
 import { Button } from "@/components/ui/button"
 import {
@@ -16,14 +18,24 @@ import { Label } from "@/components/ui/label"
 import { Copy } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { useToast } from '../ui/use-toast'
+import { supabase } from '@/lib/supabase'
 
-const ShareButton = () => {
+const ShareMyProfileButton = () => {
 
   const pathname = usePathname()
   const { toast } = useToast()
-
+  const [url, setUrl] = useState<string>('')
+  
+  const createUrl = async () => {
+    const { data: { user } } = await supabase.auth.getUser()
+    const shareurl = `https://runway-fashion.vercel.app${pathname}/${user?.id}`
+    setUrl(shareurl)
+  }
+  
+  
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(pathname);
+
+    await navigator.clipboard.writeText(url);
 
     toast({
       title: "Copied to clipboard.",
@@ -36,7 +48,7 @@ const ShareButton = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button className='w-1/3 bg-black text-white rounded py-1 px-2'>
+        <button onClick={createUrl} className='w-1/3 bg-black text-white rounded py-1 px-2'>
             Share
         </button> 
       </DialogTrigger>
@@ -54,7 +66,7 @@ const ShareButton = () => {
             </Label>
             <Input
               id="link"
-              defaultValue={pathname}
+              defaultValue={url}
               readOnly
             />
           </div>
@@ -75,4 +87,4 @@ const ShareButton = () => {
   )
 }
 
-export default ShareButton
+export default ShareMyProfileButton

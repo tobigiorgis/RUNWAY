@@ -6,14 +6,13 @@ import { usePathname } from 'next/navigation'
 import { CalendarIcon } from 'lucide-react'
 
 import { supabase } from '@/lib/supabase'
-import ShareButton from '@/components/Buttons/ShareButton'
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card'
-import { followUser, unfollowUser } from '@/lib'
 import { RenderPosts } from '@/components/OtherUserPosts/RenderPosts'
 import { FollowButton } from '@/components/Buttons/FollowButton'
 import UnfollowButton from '@/components/Buttons/UnfollowButton'
 import { Footer } from '@/components/ui/Footer'
 import { RenderLikedPosts } from '@/components/OtherUserPosts/RenderLikedPosts'
+import ShareOtherProfileButton from '@/components/Buttons/ShareOtherProfileButton'
 
 
 const Page = () => {
@@ -117,7 +116,7 @@ const Page = () => {
                                 : 
                                 <FollowButton userId={userId} followers={followersCount} following={followingCount}/>
                             }
-                            <ShareButton />
+                            <ShareOtherProfileButton />
                             <button className='w-1/3 bg-black text-white rounded py-1 px-2'>
                                 Lists
                             </button>
