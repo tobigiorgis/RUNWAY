@@ -1,6 +1,7 @@
 import { likeVideo, unlikeVideo } from '@/lib'
 import { supabase } from '@/lib/supabase'
 import { Share, ArrowUpRight, Heart } from 'lucide-react'
+import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
@@ -129,10 +130,12 @@ export const Following = () => {
 
         const handleLike = async (postId: string) => {
 
+          
+          const { data: { user } } = await supabase.auth.getUser()
+          if (user) {
             // Optimistically update the UI
             setLikedPosts(prevLikedPosts => [...prevLikedPosts, postId]);
 
-            const { data: { user } } = await supabase.auth.getUser()
             const [error, data] = await likeVideo({ user_id: user!.id, post_id: postId });
             if (error) {
               console.error('Error liking post', error);
@@ -140,7 +143,10 @@ export const Following = () => {
               console.log('Post liked', data);
               updateLikeCount(postId)
             }
-          };
+          } else {
+            redirect('/login')
+          }
+        };
 
                 // unlike a post with unlikeVideo from lib/index.ts
         const handleUnlike = async (postId: string) => {

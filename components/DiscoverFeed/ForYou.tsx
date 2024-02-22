@@ -7,6 +7,7 @@ import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 import { likeVideo, unlikeVideo } from '@/lib';
 import { supabase } from '@/lib/supabase';
 import { useToast } from '../ui/use-toast';
+import { redirect } from 'next/navigation'
 
 
 export const ForYou = () => {
@@ -111,24 +112,30 @@ export const ForYou = () => {
 
     const handleLike = async (postId: string) => {
 
-          // Optimistically update the UI
-        setLikedPosts(prevLikedPosts => [...prevLikedPosts, postId]);
-
         const { data: { user } } = await supabase.auth.getUser()
-        const [error, data] = await likeVideo({ user_id: user!.id, post_id: postId });
 
-        if (error) {
-          console.error('Error liking post', error);
+        if (user) {
+
+            // Optimistically update the UI
+            setLikedPosts(prevLikedPosts => [...prevLikedPosts, postId]);
+
+            const [error, data] = await likeVideo({ user_id: user!.id, post_id: postId });
+
+            if (error) {
+            console.error('Error liking post', error);
+            } else {
+            console.log('Post liked', data);
+            updateLikeCount(postId)
+            }
+
+            toast({
+                title: "You liked that one uh?",
+                description: `Post was saved for you!`,
+            })
         } else {
-          console.log('Post liked', data);
-          updateLikeCount(postId)
+            redirect('/login')
         }
-
-        toast({
-            title: "You liked that one uh?",
-            description: `Post was saved for you!`,
-        })
-      };
+    };
 
       // unlike a post with unlikeVideo from lib/index.ts
         const handleUnlike = async (postId: string) => {
