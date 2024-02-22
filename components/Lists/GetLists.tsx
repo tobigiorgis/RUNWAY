@@ -2,11 +2,6 @@
 
 import { supabase } from '@/lib/supabase'
 import React, { useEffect, useState } from 'react'
-import image1 from '../../public/images/dos.jpeg'
-import image2 from '../../public/images/ida.jpeg'
-import image3 from '../../public/images/he.jpeg'
-import image4 from '../../public/images/tj.jpeg'
-import image5 from '../../public/images/corteiz.jpeg'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -15,7 +10,7 @@ import Link from 'next/link'
 export const GetLists = () => {
 
     const [dataLists, setDataLists] = useState<any[]>([])
-    const [images, setImages] = useState<any>();
+    const [images, setImages] = useState<any[]>([]);
 
     const renderLists = async () => {
 
@@ -35,6 +30,24 @@ export const GetLists = () => {
             console.log(data)
         }
     }
+
+    // const getImages =  async () => {
+    //     const ids = dataLists.map(list => list.id);
+    //     console.log(ids);
+    //     const { data, error } = await supabase
+    //         .from('posts_in_lists')
+    //         .select(`post_id, posts(src)`)
+    //         .eq('list_id', ids)
+    //         .limit(1)
+
+    //     if (error) {
+    //         console.log(error)
+    //     }
+    //     if (data) {
+    //         console.log(data)
+    //         setImages(data)
+    //     }
+    //   }
 
     useEffect(() => {
         renderLists()
