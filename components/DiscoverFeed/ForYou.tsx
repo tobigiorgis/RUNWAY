@@ -17,8 +17,7 @@ export const ForYou = () => {
     const [posts, setPosts] = useState<any[]>([])
     const [likedPosts, setLikedPosts] = useState<any[]>([]);
 
-    const getProfiles = async () => {
-        
+    const getPosts = async () => {
 
         let { data: posts, error } = await supabase
         .from('posts')
@@ -42,17 +41,19 @@ export const ForYou = () => {
 
     const fetchLikedPosts = async () => {
         const { data: { user } } = await supabase.auth.getUser()
-        const { data: likedPosts, error } = await supabase
-          .from('users_posts_likes')
-          .select('post_id')
-          .eq('user_id', user?.id)
-      
-        if (error) {
-          console.log(error)
-          return
+        if (user) {
+            const { data: likedPosts, error } = await supabase
+              .from('users_posts_likes')
+              .select('post_id')
+              .eq('user_id', user?.id)
+          
+            if (error) {
+              console.log(error)
+              return
+            }
+          
+            setLikedPosts(likedPosts.map(like => like.post_id))
         }
-      
-        setLikedPosts(likedPosts.map(like => like.post_id))
       }
 
       const updateLikeCount = async (postId: string) => {
@@ -149,7 +150,7 @@ export const ForYou = () => {
 
 
       useEffect(() => {
-        getProfiles()
+        getPosts()
         fetchLikedPosts()
       }, [])
       

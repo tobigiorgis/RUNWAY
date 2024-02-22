@@ -14,56 +14,59 @@ export const Following = () => {
         const getFollowingPosts = async () => {
 
             const { data: { user } } = await supabase.auth.getUser()
+            if (user) {
+              // Get the list of users that the logged-in user is following
+              let { data: following, error: errorFollowing } = await supabase
+                .from('users_followers')
+                .select('follower_id')
+                .eq('user_id', user?.id)
+                .order(
+                  'created_at',
+                  { ascending: false }
+                )
+                
+              console.log(following);
 
-            // Get the list of users that the logged-in user is following
-            let { data: following, error: errorFollowing } = await supabase
-              .from('users_followers')
-              .select('follower_id')
-              .eq('user_id', user?.id)
-              .order(
-                'created_at',
-                { ascending: false }
-              )
+              if (errorFollowing) {
+                console.log(errorFollowing)
+                return
+              }
               
-            console.log(following);
-
-            if (errorFollowing) {
-              console.log(errorFollowing)
-              return
-            }
             
+              // Get the user_ids of the users that the logged-in user is following
+              const followingUserIds = following?.map(follow => follow.follower_id)
+            
+              // Get the posts from the users that the logged-in user is following
+              let { data: posts, error: errorPosts } = await supabase
+                .from('posts')
+                .select(`*, profiles(username)`)
+                .in('user_id', followingUserIds || [])
+            
+              if (errorPosts) {
+                console.log(errorPosts)
+                return
+              }
           
-            // Get the user_ids of the users that the logged-in user is following
-            const followingUserIds = following?.map(follow => follow.follower_id)
-          
-            // Get the posts from the users that the logged-in user is following
-            let { data: posts, error: errorPosts } = await supabase
-              .from('posts')
-              .select(`*, profiles(username)`)
-              .in('user_id', followingUserIds || [])
-          
-            if (errorPosts) {
-              console.log(errorPosts)
-              return
+              setFollowingPosts(posts || [])
+              console.log(followingPosts);
             }
-          
-            setFollowingPosts(posts || [])
-            console.log(followingPosts);
           }
 
           const fetchLikedPosts = async () => {
             const { data: { user } } = await supabase.auth.getUser()
-            const { data: likedPosts, error } = await supabase
-              .from('users_posts_likes')
-              .select('post_id')
-              .eq('user_id', user?.id)
-          
-            if (error) {
-              console.log(error)
-              return
+            if (user) {
+              const { data: likedPosts, error } = await supabase
+                .from('users_posts_likes')
+                .select('post_id')
+                .eq('user_id', user?.id)
+            
+              if (error) {
+                console.log(error)
+                return
+              }
+            
+              setLikedPosts(likedPosts.map(like => like.post_id))
             }
-          
-            setLikedPosts(likedPosts.map(like => like.post_id))
           }
     
         useEffect(() => {
