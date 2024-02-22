@@ -7,7 +7,7 @@ import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 import { likeVideo, unlikeVideo } from '@/lib';
 import { supabase } from '@/lib/supabase';
 import { useToast } from '../ui/use-toast';
-import { redirect } from 'next/navigation'
+import { redirect, useRouter } from 'next/navigation'
 
 
 export const ForYou = () => {
@@ -17,6 +17,7 @@ export const ForYou = () => {
     const [isHovered, setIsHovered] = useState(null);
     const [posts, setPosts] = useState<any[]>([])
     const [likedPosts, setLikedPosts] = useState<any[]>([]);
+    const router = useRouter()
 
     const getPosts = async () => {
 
@@ -133,7 +134,7 @@ export const ForYou = () => {
                 description: `Post was saved for you!`,
             })
         } else {
-            redirect('/login')
+            router.push('/login')
         }
     };
 

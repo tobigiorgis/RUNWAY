@@ -1,7 +1,7 @@
 import { likeVideo, unlikeVideo } from '@/lib'
 import { supabase } from '@/lib/supabase'
 import { Share, ArrowUpRight, Heart } from 'lucide-react'
-import { redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
@@ -10,6 +10,7 @@ export const Following = () => {
     const [followingPosts, setFollowingPosts] = useState<any[]>([])
     const [isHovered, setIsHovered] = useState(null);
     const [likedPosts, setLikedPosts] = useState<any[]>([]);
+    const router = useRouter()
     
 
         const getFollowingPosts = async () => {
@@ -144,7 +145,7 @@ export const Following = () => {
               updateLikeCount(postId)
             }
           } else {
-            redirect('/login')
+            router.push('/login')
           }
         };
 
