@@ -49,20 +49,22 @@ export const Navbar = () => {
 
     const getUsername = async () => {
       const { data: { user } } = await supabase.auth.getUser()
-      const { data, error } = await supabase
-      .from('profiles')
-      .select('username')
-      .eq('id', user?.id)
+      if (user) {
+        const { data, error } = await supabase
+        .from('profiles')
+        .select('username')
+        .eq('id', user?.id)
 
-      if (error) {
-        console.log(error);
-      } 
+        if (error) {
+          console.log(error);
+        } 
 
-      if (data) {
-        const userIs = data[0].username
-        setUsername(userIs)
-        console.log(username); 
-        setUserId(user?.id || null);
+        if (data) {
+          const userIs = data[0].username
+          setUsername(userIs)
+          console.log(username); 
+          setUserId(user?.id || null);
+        }
       }
     }
 
