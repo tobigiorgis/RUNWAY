@@ -2,9 +2,6 @@
 
 import React, { useEffect, useState } from 'react'
 
-
-import { supabase } from '@/lib/supabase';
-import { likeVideo } from '@/lib';
 import { ForYou } from '@/components/DiscoverFeed/ForYou';
 import { Following } from '@/components/DiscoverFeed/Following';
 import { Footer } from '@/components/ui/Footer';
@@ -14,17 +11,6 @@ import { Footer } from '@/components/ui/Footer';
 const Discover = () => {
 
     const [activeTab, setActiveTab] = useState('forYou');
-
-
-    // const handleLike = async (postId: string) => {
-    //     const { data: { user } } = await supabase.auth.getUser()
-    //     const [error, data] = await likeVideo({ user_id: user!.id, post_id: postId });
-    //     if (error) {
-    //       console.error('Error liking post', error);
-    //     } else {
-    //       console.log('Post liked', data);
-    //     }
-    //   };
 
   return (
     <main

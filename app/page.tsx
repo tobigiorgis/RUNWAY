@@ -2,17 +2,17 @@
 
 import { Footer } from "@/components/ui/Footer";
 import { FeaturedProduct } from "@/components/ui/product";
-import { useSupabase } from "@/hooks/useSupabase";
+// import { useSupabase } from "@/hooks/useSupabase";
 import Link from "next/link";
 import { useEffect } from "react";
 
 export default function Home() {
 
-  const { getSession } = useSupabase();
+  // const { getSession } = useSupabase();
 
-  useEffect(() => {
-    getSession()
-  }, []);
+  // useEffect(() => {
+  //   getSession()
+  // }, []);
 
   return (
     <main className={`flex h-screen w-full flex-col items-center bg-white justify-center pt-20 gap-10`}>

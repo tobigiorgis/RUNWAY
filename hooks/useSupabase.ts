@@ -1,54 +1,54 @@
-// functional logic hook
+// // functional logic hook
 
-import { supabase } from "@/lib/supabase";
+// import { supabase } from "@/lib/supabase";
 
-export const useSupabase = () => {
-  const getSession = async () => {
-    const {
-      data: {
-        session
-      }
-    } = await supabase.auth.getSession();
+// export const useSupabase = () => {
+//   const getSession = async () => {
+//     const {
+//       data: {
+//         session
+//       }
+//     } = await supabase.auth.getSession();
 
-    const { access_token, refresh_token }: any = session;
+//     const { access_token, refresh_token }: any = session;
 
-    console.log(session)
+//     console.log(session)
 
-    await setSession(access_token, refresh_token);
+//     await setSession(access_token, refresh_token);
 
-    return session
-  }
+//     return session
+//   }
 
-  // const getUser = async () => {
+//   // const getUser = async () => {
 
-  //   const { data: { user } } = await supabase.auth.getUser()
+//   //   const { data: { user } } = await supabase.auth.getUser()
   
-  //   return user;
-  // }
+//   //   return user;
+//   // }
 
-  const refreshSession = async () => {
-    const {
-      data: {
-        session
-      }
-    } = await supabase.auth.refreshSession();
+//   const refreshSession = async () => {
+//     const {
+//       data: {
+//         session
+//       }
+//     } = await supabase.auth.refreshSession();
 
-    return session
-  }
+//     return session
+//   }
 
-  const setSession = async (access_token: string, refresh_token: string) => {
-    const { data, error } = await supabase.auth.setSession({
-      access_token,
-      refresh_token
-    });
+//   const setSession = async (access_token: string, refresh_token: string) => {
+//     const { data, error } = await supabase.auth.setSession({
+//       access_token,
+//       refresh_token
+//     });
 
-    return true
-  }
+//     return true
+//   }
 
-  return {
-    setSession,
-    refreshSession,
-    getSession,
-    // getUser
-  }
-}
+//   return {
+//     setSession,
+//     refreshSession,
+//     getSession,
+//     // getUser
+//   }
+// }

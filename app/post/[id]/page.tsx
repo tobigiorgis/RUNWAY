@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { supabase } from '@/lib/supabase'
 import { usePathname, useRouter } from 'next/navigation'
 import { toast } from '@/components/ui/use-toast'
-import { followUser, likeVideo, unlikeVideo } from '@/lib'
+import { likeVideo, unlikeVideo } from '@/lib'
 import { Heart } from 'lucide-react'
 import Link from 'next/link'
 import { Footer } from '@/components/ui/Footer'
@@ -188,8 +188,6 @@ const Page = () => {
           description: "You can view it on your lists.",
         })
     }
-
-
 
     useEffect(() => {
         getRightPost()
