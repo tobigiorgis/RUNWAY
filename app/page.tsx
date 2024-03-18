@@ -20,7 +20,7 @@ export default function Home() {
         <h1 className='md:text-5xl text-2xl'>WHERE FASHION LOVERS HANG</h1>
         <h4 className='text-m mt-2 md:text-lg'>Curate and discover outfits.</h4>
         <Link href='/about'>
-          <p className="text-xs mt-1 text-gray-300 hover:border-b cursor-crosshair">What is RUNWAY?</p>
+          <p className="text-xs mt-1 text-gray-300 border-b cursor-crosshair">What is RUNWAY?</p>
         </Link>
       </div>
       <Link href='/login'>

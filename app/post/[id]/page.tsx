@@ -165,12 +165,12 @@ const Page = () => {
       };
 
       const handleCopy = async () => {
-        await navigator.clipboard.writeText(pathname);
+        await navigator.clipboard.writeText(window.location.href);
     
         toast({
           title: "Copied to clipboard.",
           description: "You can share it now! ✨",
-      })
+        })
       }
 
       async function addPostToList(listId: string) {
