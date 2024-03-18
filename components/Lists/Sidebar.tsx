@@ -37,7 +37,7 @@ export const Sidebar = () => {
         <Link href={`/profile//lists`}> 
             <h3 className='text-gray-400 text-m font-medium'>Lists</h3>
         </Link>
-        <ul className='w-full flex'>
+        <ul className='w-full flex flex-col'>
         {
             dataLists.map((list, index) => (
             <Link key={index} className='w-full' href={`/profile/${list.user_id}/lists/${list.id}`}>

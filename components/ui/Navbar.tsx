@@ -112,7 +112,7 @@ export const Navbar = () => {
     
   
   return (
-    <div className='flex flex-row justify-between md:items-start items-center w-full md:top-0 fixed md:px-24 md:py-7 py-5 px-4 bg-transparency-90 z-50'>
+    <div className='flex flex-row justify-between md:items-start items-center w-full md:top-0 fixed md:px-24 md:py-7 py-5 px-4 bg-transparency-20 bg-white z-50'>
       <div className='flex flex-row items-center md:gap-4'>
         <Link href={'/'}>
           <h1 className='md:text-xl text-m'>RUNWAY</h1>

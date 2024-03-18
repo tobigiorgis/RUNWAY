@@ -15,9 +15,9 @@ export default function Home() {
   // }, []);
 
   return (
-    <main className={`flex h-screen w-full flex-col items-center bg-white justify-center pt-20 gap-2`}>
+    <main className={`flex h-screen w-full flex-col items-center bg-white justify-center pt-20 md:gap-2 gap-10`}>
       <div className='flex flex-col items-center justify-between w-full relative top-100'>
-        <h1 className='md:text-5xl text-2xl'>WHERE FASHION LOVERS MEET</h1>
+        <h1 className='md:text-5xl text-2xl'>WHERE FASHION LOVERS HANG</h1>
         <h4 className='text-m mt-2 md:text-lg'>Curate and discover outfits.</h4>
         <Link href='/about'>
           <p className="text-xs mt-1 text-gray-300 hover:border-b cursor-crosshair">What is RUNWAY?</p>

@@ -62,7 +62,7 @@ const Page = () => {
         if (followStatus && followStatus.length === 0) {
             setIsFollowing(false);
         }
-        console.log(followStatus);
+        // console.log(followStatus);
         if (error) {
             console.log(error);
         }
@@ -71,7 +71,7 @@ const Page = () => {
 
     useEffect(() => {
         checkFollowStatus();
-        console.log(isFollowing);
+        // console.log(isFollowing);
         getProfiles()
       }, [userId, isFollowing]);
     

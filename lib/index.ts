@@ -162,7 +162,7 @@ export const createProfile = async ({ fullname, username, bio, website }: Profil
         full_name: fullname,
         username: username,
         bio: bio,
-        website: website
+        website: website ?? null
       }
     ])
     .eq('id', user?.id)

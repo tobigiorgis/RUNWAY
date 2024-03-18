@@ -21,7 +21,6 @@ export const Topbar = () => {
   
         if (data) {
             setDataLists(data)
-            console.log(data)
         }
     }
   

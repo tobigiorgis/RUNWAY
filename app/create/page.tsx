@@ -82,9 +82,10 @@ export default function Upload() {
 
     if (error) return console.log(error);
     else {
-      console.log("video published!!!");
+      console.log("post published!!!");
       setPosted(true);
       wait().then(() => setPosted(false));
+      
     }
 };
   
@@ -112,7 +113,7 @@ export default function Upload() {
           <div className='md:w-1/2 w-full flex flex-col items-start gap-2' {...getRootProps()}>
             <label className='font-semibold w-full h-auto items-start' htmlFor="image">Photo</label>
             <div className='w-full md:h-full h-[40vh] border-2 border-dashed border-black bg-slate-100 rounded gap-2 p-5 flex-col flex items-center justify-center'>
-              <input id="fileInput" {...getInputProps()} />
+              <input required id="fileInput" {...getInputProps()} />
               <img
                 src="https://sf16-scmcdn-va.ibytedtos.com/goofy/tiktok/web/node/_next/static/images/cloud_icon-6e07be44878e69ee3f7bff3b78405b76.svg"
                 width="49"
@@ -132,7 +133,7 @@ export default function Upload() {
             <label className='font-semibold flex items-start w-full' htmlFor="title">
               Title
             </label>
-            <input id="title" className='mt-2 pl-2 bg-slate-100 w-full rounded h-10' name="title" placeholder="add a cool title" />
+            <input required id="title" className='mt-2 pl-2 bg-slate-100 w-full rounded h-10' name="title" placeholder="add a cool title" />
 
             <label htmlFor="description" className='font-semibold flex items-start w-full mt-4'>
               Description
@@ -142,12 +143,12 @@ export default function Upload() {
             <label className='font-semibold flex items-start w-full mt-4' htmlFor="product">
               Product name
             </label>
-            <input id="product" className='mt-2 pl-2 bg-slate-100 w-full rounded h-10' name="product" placeholder="what you wearing?" />
+            <input required id="product" className='mt-2 pl-2 bg-slate-100 w-full rounded h-10' name="product" placeholder="what you wearing?" />
 
             <label className='font-semibold flex items-start w-full mt-4' htmlFor="productlink">
               Product link
             </label>
-            <input id="productlink" className='mt-2 pl-2 bg-slate-100 w-full rounded h-10' name="productlink" placeholder="paste that affiliate link to make some $$$" />
+            <input required id="productlink" className='mt-2 pl-2 bg-slate-100 w-full rounded h-10' name="productlink" placeholder="paste that affiliate link to make some $$$" />
 
             <label className='font-semibold flex items-start w-full mt-4' htmlFor="tags">
               Tags
