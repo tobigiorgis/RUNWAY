@@ -18,10 +18,10 @@ const Page = () => {
     const website = evt.target.website.value
 
     const [ error ] = await createProfile({
-      fullname: fullname.value,
-      username: username.value,
-      bio: bio.value,
-      website: website.value,
+      fullname,
+      username,
+      bio,
+      website
     })
     if (error) {
       console.log(error)
