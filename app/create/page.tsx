@@ -6,7 +6,7 @@ import { useDropzone } from "react-dropzone";
 
 import { publishVideo, uploadVideo } from "@/lib";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Footer } from "@/components/ui/Footer";
+import Image from "next/image";
 
 
 export default function Upload() {
@@ -63,6 +63,7 @@ export default function Upload() {
       <>
         <h4 className="mt-3 text-gray-400">Drag and drop here</h4>
         <p className="text-gray-400">or</p>
+        <h4 className="mt-3 text-gray-400">Select a picture</h4>
       </>
     );
   };
@@ -104,6 +105,7 @@ export default function Upload() {
     setTags(tags.filter((tag, idx) => idx !== index));
   };
   
+  
   return (
     <main className={`flex h-full py-20 flex-col bg-white items-center`}>
       <div className='w-full md:px-24 px-8 py-5 h-full flex flex-col border-gray-200 border-t'>
@@ -113,7 +115,7 @@ export default function Upload() {
           <div className='md:w-1/2 w-full flex flex-col items-start gap-2' {...getRootProps()}>
             <label className='font-semibold w-full h-auto items-start' htmlFor="image">Photo</label>
             <div className='w-full md:h-full h-[40vh] border-2 border-dashed border-black bg-slate-100 rounded gap-2 p-5 flex-col flex items-center justify-center'>
-              <input required id="fileInput" {...getInputProps()} />
+              <input type="file" required id="fileInput" {...getInputProps()} />
               <img
                 src="https://sf16-scmcdn-va.ibytedtos.com/goofy/tiktok/web/node/_next/static/images/cloud_icon-6e07be44878e69ee3f7bff3b78405b76.svg"
                 width="49"
@@ -121,11 +123,11 @@ export default function Upload() {
                 alt="upload icon"
               />
               {renderDndContent()}
-              <button type="button" className='w-auto bg-black text-white rounded py-1 px-2' onClick={() => document.getElementById('fileInput')?.click()}>
+              {/* <button type="button" className='w-auto bg-black text-white rounded py-1 px-2' onClick={() => document.getElementById('fileInput')?.click()}>
                 {
                   uploaded ? "Change picture" : "Select a picture"
                 }
-              </button>
+              </button> */}
             </div>
           </div>
 

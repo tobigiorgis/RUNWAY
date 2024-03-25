@@ -49,7 +49,7 @@ export default function Login() {
   <div className="container flex flex-col items-center justify-center md:h-1/2 h-screen md:pt-40 md:mx-auto w-full gap-4">
     <div className='w-full md:w-1/2 flex flex-col items-start'>
       <h2 className="font-semibold text-2xl">Login</h2>
-      <p className="text-sm mt-1 w-full">Insert your email either to Login or Signup. You will get a link that will log/sign you when clicked.</p>
+      <p className="text-sm mt-1 w-full">Type your email either to Login or Signup. You will get a link that will log/sign you when clicked.</p>
       <label className="mt-4">Email</label>
       <input
         className="w-full bg-slate-100 rounded px-2 py-1 mt-2"
