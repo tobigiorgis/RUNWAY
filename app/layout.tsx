@@ -33,6 +33,7 @@ export default function RootLayout({
     <html lang="en">
       <Head>
         <link rel="icon" href="/favicon.ico" />
+        <script src="https://getlaunchlist.com/js/widget.js" defer></script>
       </Head>
         <body className={inter.className}>
           <Navbar/>

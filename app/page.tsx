@@ -32,14 +32,27 @@ export default function Home() {
       <div className='flex flex-row justify-between w-3/4 cursor-crosshair'>
         <FeaturedProduct product={{createdBy: 'Dosantimed', image: 'https://qqdcidmbajmncgqukjhm.supabase.co/storage/v1/object/public/uploads/landing/dos.jpeg'}} moveFactor={0.8} className='hidden md:flex relative top-30 left-100'/>
         <FeaturedProduct product={{createdBy: 'HeliotEmil', image: 'https://qqdcidmbajmncgqukjhm.supabase.co/storage/v1/object/public/uploads/landing/he.jpeg'}} moveFactor={0.4} className='relative md:bottom-10 md:left-70 left-10'/>
-        <FeaturedProduct product={{createdBy: 'idazeile', image: 'https://qqdcidmbajmncgqukjhm.supabase.co/storage/v1/object/public/uploads/landing/ida.jpeg'}} moveFactor={0.6} className='relative md:top-30 md:left-120 top-12'/>
+        <FeaturedProduct product={{createdBy: 'idazeile', image: 'https://qqdcidmbajmncgqukjhm.supabase.co/storage/v1/object/public/uploads/landing/ida.jpeg'}} moveFactor={0.6} className='relative md:top-30 md:left-110 top-12'/>
         <FeaturedProduct product={{createdBy: 'TwoJeys', image: 'https://qqdcidmbajmncgqukjhm.supabase.co/storage/v1/object/public/uploads/landing/tj.jpeg'}} moveFactor={0.2} className='hidden md:flex relative bottom-10 left-10'/>
       </div>
-      <Link href='/login'>
+      {/* <Link href='/login'>
         <button className="hidden md:flex bg-black text-white p-2 rounded">
           Create account
         </button>
-      </Link>
+      </Link> */}
+      <div className="bg-black px-1 py-1 rounded-3xl opacity-20">
+        <form
+          className="launchlist-form"
+          action="https://getlaunchlist.com/s/Lz49GN"
+          method="POST"
+          >
+
+          <input className="rounded-2xl bg-black pl-2 text-white focus:outline-none" name="email" type="email" placeholder="Enter your email" />
+          
+          <button className="text-black hover:bg-gray-200 rounded-3xl px-4 py-2 bg-white" type="submit">Join Waitlist</button>
+        </form>
+      </div>
+
       <Footer />
     </main>
     )

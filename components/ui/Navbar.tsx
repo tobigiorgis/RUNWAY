@@ -218,7 +218,8 @@ export const Navbar = () => {
             : (
               <div className='flex justify-evenly items-center'>
                 <button>
-                    <Link href={'/login'}>LOGIN</Link>
+                    {/* <Link href={'/login'}>LOGIN</Link> */}
+                    <Link href={'/'}>Join Waitlist</Link>
                 </button>
               </div>
             )
