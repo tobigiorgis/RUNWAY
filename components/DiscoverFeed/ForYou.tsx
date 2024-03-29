@@ -191,20 +191,20 @@ export const ForYou = () => {
                                             </div>
 
                                             <div  className="w-full px-3 py-3 flex flex-row items-center justify-between">
-                                            <button 
-                                                className='bg-white text-black flex flex-row rounded-lg py-1 px-2 items-center gap-2 justify-center overflow-hidden'
-                                                style={{ maxWidth: '8vw' }}
-                                                onClick={() => {
-                                                    const url = posts.product_link.startsWith('http') ? posts.product_link : `http://${posts.product_link}`;
-                                                    window.open(url, '_blank');
-                                                }}
-                                                >
-                                                <ArrowUpRight className='flex-shrink-0' size={18} />
-                                                <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                                                    <span>{posts.product_name}</span>
-                                                </div>
+                                                <button 
+                                                    className='bg-white text-black w-auto max-w-[40vw] md:w-[8vw] flex flex-row rounded-lg py-1 px-2 items-center gap-2 justify-start overflow-hidden'
+                                                    // style={{ maxWidth: '8vw' }}
+                                                    onClick={() => {
+                                                        const url = posts.product_link.startsWith('http') ? posts.product_link : `http://${posts.product_link}`;
+                                                        window.open(url, '_blank');
+                                                    }}
+                                                    >
+                                                    <ArrowUpRight className='flex-shrink-0' size={18} />
+                                                    <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                                        <span>{posts.product_name}</span>
+                                                    </div>
                                                 {/* <span className='overflow-hidden'>{posts.product_name}</span> */}
-                                            </button>
+                                                </button>
                                                 {
                                                     likedPosts.includes(posts.id) ? (
                                                         <button  onClick={(event) => handleUnlike(posts.id)}>
