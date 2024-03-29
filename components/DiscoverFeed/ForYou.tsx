@@ -192,7 +192,7 @@ export const ForYou = () => {
 
                                             <div  className="w-full px-3 py-3 flex flex-row items-center justify-between">
                                                 <button 
-                                                    className='bg-white text-black w-auto max-w-[40vw] md:w-[8vw] flex flex-row rounded-lg py-1 px-2 items-center gap-2 justify-start overflow-hidden'
+                                                    className='bg-white text-black w-auto max-w-[40vw] md:w-auto md:max-w-[8vw] flex flex-row rounded-lg py-1 px-2 items-center gap-2 justify-start overflow-hidden'
                                                     // style={{ maxWidth: '8vw' }}
                                                     onClick={() => {
                                                         const url = posts.product_link.startsWith('http') ? posts.product_link : `http://${posts.product_link}`;

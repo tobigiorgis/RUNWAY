@@ -173,7 +173,7 @@ export const LikedPosts = () => {
 
                         <div  className="w-full px-3 py-3 flex flex-row items-center justify-between">
                           <button 
-                            className='bg-white text-black text-sm flex flex-row rounded-lg py-1  px-2 items-center gap-2 justify-center'
+                            className='bg-white text-black text-sm w-auto max-w-[40vw] md:w-auto md:max-w-[8vw] flex flex-row rounded-lg py-1  px-2 items-center gap-2 justify-center'
                             onClick={() => {
                               const url = feedPost.product_link.startsWith('http') ? feedPost.product_link : `http://${feedPost.product_link}`;
                               window.open(url, '_blank');

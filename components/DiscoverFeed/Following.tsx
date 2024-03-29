@@ -197,7 +197,7 @@ export const Following = () => {
 
                                             <div  className="w-full px-3 py-3 flex flex-row items-center justify-between">
                                                 <button 
-                                                className='bg-white text-black flex flex-row rounded-lg py-1  px-2 items-center gap-2 justify-center'
+                                                className='bg-white text-black flex flex-row w-auto max-w-[40vw] md:w-auto md:max-w-[8vw] rounded-lg py-1  px-2 items-center gap-2 justify-center'
                                                 onClick={() => {
                                                     const url = posts.product_link.startsWith('http') ? posts.product_link : `http://${posts.product_link}`;
                                                     window.open(url, '_blank');
