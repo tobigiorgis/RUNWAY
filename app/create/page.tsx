@@ -68,6 +68,10 @@ export default function Upload() {
     );
   };
 
+  const renderJoinDrawer = () => {
+    
+  }
+
   const handleSubmit = async (evt: any) => {
     evt.preventDefault();
     if (!uploaded) return;
