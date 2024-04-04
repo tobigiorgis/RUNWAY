@@ -181,7 +181,7 @@ export default function Upload() {
               ))}
             </div>
             <Dialog open={posted}>
-                <button className='text-sm rounded h-7 w-1/3 mt-5 bg-black text-slate-100'>Post</button>
+                <button type="submit" className='text-sm rounded h-7 w-1/3 mt-5 bg-black text-slate-100'>Post</button>
             <DialogContent>
               <DialogHeader>
                 <DialogTitle>Runway Posted!</DialogTitle>
