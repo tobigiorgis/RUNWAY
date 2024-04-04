@@ -48,6 +48,9 @@ export const publishVideo = async ({ postSrc, description, product, productlink,
   return [error, data]
 }
 
+// I want to allow users to delete a post
+
+
 type List = {
   name: string
   privacy: boolean
