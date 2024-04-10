@@ -57,6 +57,7 @@ export default function Login() {
 
     } catch (error) {
       console.log(error)
+      
     }
   }
 
@@ -92,6 +93,7 @@ export default function Login() {
         <input
           type='text'
           name='email'
+          // placeholder="kanye@example.com"
           value={data?.email}
           onChange={handleChange}
           className="bg-black text-white rounded px-2 py-1 mt-2 w-full focus:outline-none "
@@ -102,9 +104,10 @@ export default function Login() {
         <input
           type='password'
           name='password'
+          placeholder=""
           value={data?.password}
           onChange={handleChange}
-          className="bg-black text-white rounded px-2 py-1 mt-2 w-full focus:outline-none"
+          className="bg-black text-white justify-center rounded px-2 py-1 mt-2 w-full focus:outline-none"
           />
       </div>
       {/* {success && <div className="my-4 bg-green-100 px-2 text-green-600">An email has been sent to {data.email} to login.</div>} */}

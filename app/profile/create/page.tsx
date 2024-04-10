@@ -30,7 +30,7 @@ const Page = () => {
       updateProfileCreated()
       setUserCreated(true)
       router.refresh()
-      router.push('/profile')
+      router.push('/discover')
     }
   }
 

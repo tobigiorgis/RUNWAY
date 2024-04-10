@@ -28,7 +28,7 @@ const ShareMyProfileButton = () => {
   
   const createUrl = async () => {
     const { data: { user } } = await supabase.auth.getUser()
-    const shareurl = `https://runway-fashion.vercel.app${pathname}/${user?.id}`
+    const shareurl = `https://userunway.ar${pathname}/${user?.id}`
     setUrl(shareurl)
   }
   

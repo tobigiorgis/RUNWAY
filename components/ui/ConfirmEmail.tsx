@@ -9,7 +9,8 @@ export const ConfirmEmail = ({email}: any) => {
     <div className="container flex flex-col items-center justify-center mt-40 md:mx-auto w-full gap-1">
         <MailWarning size={48} />
         <h2 className='font-bold text-xl mt-2'>Check your email</h2>
-        <p>We just sent a verification email to {email}</p>
+        <p>We just sent a verification email to {email}.</p>
+        <p>Please click on the confirmation link to verify your account.</p>
         <button className='bg-black px-2 py-1 text-white rounded mt-4'>
             <Link href="/login">Go to login</Link>
         </button>

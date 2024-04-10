@@ -26,7 +26,7 @@ const ShareOtherProfileButton = () => {
   const params = useParams<{ id: string }>()
   const { toast } = useToast()
   console.log(params.id)
-  const shareurl = `https://runway-fashion.vercel.app${pathname}/${params.id}`
+  const shareurl = `https://userunway.ar${pathname}/${params.id}`
   
   
   const handleCopy = async () => {
@@ -44,7 +44,7 @@ const ShareOtherProfileButton = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button className='w-1/3 bg-black text-white rounded py-1 px-2'>
+        <button className='w-1/3 bg-black text-white rounded py-1 px-2 text-center'>
             Share
         </button> 
       </DialogTrigger>
