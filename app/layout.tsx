@@ -16,7 +16,7 @@ const roboto = Roboto({
 })
 
 export const metadata: Metadata = {
-  title: 'Runway | Find the outfit you love',
+  title: 'Runway | Where fashion lovers hang',
   description: 'Find the outfit you love',
   icons: {
     icon: '/favicon.ico',

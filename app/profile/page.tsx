@@ -123,7 +123,7 @@ const Profile = () => {
 
                 </>
             ) : (
-                <div>
+                <div className='pt-10'>
                     <button onClick={goToCreateProfile}>
                         Create profile
                     </button>

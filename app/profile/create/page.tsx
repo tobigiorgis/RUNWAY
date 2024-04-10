@@ -29,6 +29,7 @@ const Page = () => {
       console.log('Profile created!')
       updateProfileCreated()
       setUserCreated(true)
+      router.refresh()
       router.push('/profile')
     }
   }
