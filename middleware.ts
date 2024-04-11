@@ -12,7 +12,7 @@ export async function middleware(req: NextRequest) {
     .auth
     .getSession()
   
-    if (!session && !['/', '/discover', '/about', '/login', '/signup'].includes(path) && !/^\/post\/[^\/]+$/.test(path)) {
+    if (!session && !['/', '/discover', '/about', '/login', '/signup', '/reset'].includes(path) && !/^\/post\/[^\/]+$/.test(path)) {
       return NextResponse.rewrite(new URL('/waitlist', req.url));
     }
 

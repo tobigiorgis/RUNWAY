@@ -114,6 +114,27 @@ export const unlikeVideo = async ({ user_id, post_id }: Like) => {
 
 }
 
+type Comment = {
+  user_id: string
+  post_id: string
+  comment: string
+}
+
+export const commentVideo = async ({ user_id, post_id, comment }: Comment) => {
+
+  const { data, error } = await supabase
+    .from('users_posts_comments')
+    .insert([
+      {
+        user_id: user_id,
+        post_id: post_id,
+        comment: comment
+      }
+    ])
+
+  return [error, data]
+}
+
 // Function to follow user and insert the user id and follower id into the users_followers table
 type Follow = {
   user_id: string

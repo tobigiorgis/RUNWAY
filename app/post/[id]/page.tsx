@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { supabase } from '@/lib/supabase'
 import { usePathname, useRouter } from 'next/navigation'
 import { toast } from '@/components/ui/use-toast'
-import { likeVideo, unlikeVideo } from '@/lib'
+import { commentVideo, likeVideo, unlikeVideo } from '@/lib'
 import { Heart } from 'lucide-react'
 import Link from 'next/link'
 import { Footer } from '@/components/ui/Footer'
@@ -16,6 +16,7 @@ const Page = () => {
     const [feedPosts, setFeedPosts] = useState<any[]>([])
     const [likedPosts, setLikedPosts] = useState<any[]>([]);
     const [lists, setLists] = useState<any[]>([]);
+    const [comments, setComments] = useState<any[]>([]);
     const pathname = usePathname()
     const postId = pathname.split('/')[2]
 
@@ -41,6 +42,26 @@ const Page = () => {
             setFeedPosts(data)
             console.log(feedPosts)
         }   
+    }
+
+    const getComments = async () => {
+
+        const {data, error} = await supabase
+        .from('users_posts_comments')
+        .select(`*, profiles(
+            username
+            )`
+        )
+        .eq('post_id', postId)
+
+        if (error) {
+            console.log(error);
+        }
+
+        if (data) {
+            setComments(data)
+        }   
+
     }
 
     const fetchLists = async () => {
@@ -71,6 +92,23 @@ const Page = () => {
       
         setLikedPosts(likedPosts.map(like => like.post_id))
       }
+
+    const handleComment = async (evt: any) => {
+        evt.preventDefault();
+
+        const comment = evt.target.value;
+        const { data: { user } } = await supabase.auth.getUser()
+        const [error, data] = await commentVideo({ user_id: user!.id, post_id: postId, comment });
+
+        if (error) {
+            console.log(error)
+        } else {
+            toast({
+                title: "Comment added",
+                description: `You commented on this post!`,
+            })
+        }
+    }
 
     const updateLikeCount = async (postId: string) => {
 
@@ -193,6 +231,7 @@ const Page = () => {
         getRightPost()
         fetchLikedPosts()
         fetchLists()
+        getComments()
     }, [])
     
   return (
@@ -200,77 +239,101 @@ const Page = () => {
         <button className='w-1/12 hidden md:flex md:mt-10' onClick={() => router.back()}>
             back
         </button>
-        <div className='bg-slate-100 md:h-[550px] h-[70vh] rounded-lg md:w-3/4 md:mt-10 md:mb-0'>
-            {
-                feedPosts.map((feedPosts: any, key: number) => {
-                    return (
-                        <div key={key} className='flex md:flex-row flex-col h-fit w-full md:gap-12 gap-1'>
-                            <div className='rounded-l-lg md:h-[550px] flex-1 relative'>
-                                <Image priority className='rounded-t-lg md:rounded-l-lg h-[45vh] md:h-full w-full' src={feedPosts.src} alt='Image' width={500} height={200}/>
-                            </div>
-                            <div className='md:p-5 py-2 px-5 w-full md:flex-1 flex flex-col justify-between gap-9'>
-                                <div className='flex flex-row w-full justify-between'>
-                                    <Link href={`/profile/${feedPosts.profiles.id}`}>
-                                        <h1 className='font-medium text-lg'>{feedPosts.profiles.username}</h1>
-                                    </Link>
-                                    <div className='flex flex-row gap-3 text-sm items-center'>
-                                        <p>{feedPosts.likes}</p>
-                                    {
-                                        likedPosts.includes(feedPosts.id) ? (
-                                            <button  onClick={(event) => handleUnlike(feedPosts.id)}>
-                                                <Heart size={20} fill='red' color='red'/>
+        <div className='flex flex-col h-auto md:w-3/4 gap-8'>
+            <div className='bg-slate-100 md:h-[550px] h-[70vh] rounded-lg md:mt-10 md:mb-0'>
+                {
+                    feedPosts.map((feedPosts: any, key: number) => {
+                        return (
+                            <div key={key} className='flex md:flex-row flex-col h-fit w-full md:gap-12 gap-1'>
+                                <div className='rounded-l-lg md:h-[550px] flex-1 relative'>
+                                    <Image priority className='rounded-t-lg md:rounded-l-lg h-[45vh] md:h-full w-full' src={feedPosts.src} alt='Image' width={500} height={200}/>
+                                </div>
+                                <div className='md:p-5 py-2 px-5 w-full md:flex-1 flex flex-col justify-between gap-9'>
+                                    <div className='flex flex-row w-full justify-between'>
+                                        <Link href={`/profile/${feedPosts.profiles.id}`}>
+                                            <h1 className='font-medium text-lg'>{feedPosts.profiles.username}</h1>
+                                        </Link>
+                                        <div className='flex flex-row gap-3 text-sm items-center'>
+                                            <p>{feedPosts.likes}</p>
+                                        {
+                                            likedPosts.includes(feedPosts.id) ? (
+                                                <button  onClick={(event) => handleUnlike(feedPosts.id)}>
+                                                    <Heart size={20} fill='red' color='red'/>
+                                                </button>
+                                            ) : (
+                                                <button onClick={(event) => handleLike(feedPosts.id)}>
+                                                    LIKE
+                                                </button>
+                                            )
+                                        }
+                                            {/* <button>
+                                                ADD TO LIST
+                                            </button> */}
+                                            <DropdownMenu>
+                                                <DropdownMenuTrigger className="focus:outline-none">ADD TO LIST</DropdownMenuTrigger>
+                                                <DropdownMenuContent>
+                                                    <DropdownMenuLabel>Lists</DropdownMenuLabel>
+                                                    <DropdownMenuSeparator />
+                                                    {
+                                                        lists.map((list, index) => (
+                                                            <DropdownMenuItem key={index} onClick={() => addPostToList(list.id)}>
+                                                                {list.name}
+                                                            </DropdownMenuItem>
+                                                        ))
+                                                    }
+                                                </DropdownMenuContent>
+                                            </DropdownMenu>
+                                            <button onClick={handleCopy}>
+                                                SHARE
                                             </button>
-                                        ) : (
-                                            <button onClick={(event) => handleLike(feedPosts.id)}>
-                                                LIKE
-                                            </button>
-                                        )
-                                    }
-                                        {/* <button>
-                                            ADD TO LIST
-                                        </button> */}
-                                        <DropdownMenu>
-                                            <DropdownMenuTrigger className="focus:outline-none">ADD TO LIST</DropdownMenuTrigger>
-                                            <DropdownMenuContent>
-                                                <DropdownMenuLabel>Lists</DropdownMenuLabel>
-                                                <DropdownMenuSeparator />
-                                                {
-                                                    lists.map((list, index) => (
-                                                        <DropdownMenuItem key={index} onClick={() => addPostToList(list.id)}>
-                                                            {list.name}
-                                                        </DropdownMenuItem>
-                                                    ))
-                                                }
-                                            </DropdownMenuContent>
-                                        </DropdownMenu>
-                                        <button onClick={handleCopy}>
-                                            SHARE
-                                        </button>
 
-                                        {/* <button>
-                                            FOLLOW
-                                        </button> */}
+                                            {/* <button>
+                                                FOLLOW
+                                            </button> */}
+                                        </div>
                                     </div>
+                                    <div>
+                                        <h2 className='font-semibold text-2xl'>{feedPosts.title}</h2>
+                                        <p>{feedPosts.description}</p>
+                                        <p>{feedPosts.product_name}</p>
+                                    </div>
+                                        <button
+                                            className='text-sm hover:font-semibold'
+                                            onClick={() => {
+                                            const url = feedPosts.product_link.startsWith('http') ? feedPosts.product_link : `http://${feedPosts.product_link}`;
+                                                window.open(url, '_blank');
+                                            }}
+                                        >
+                                            BUY ITEM
+                                        </button>
                                 </div>
-                                <div>
-                                    <h2 className='font-semibold text-2xl'>{feedPosts.title}</h2>
-                                    <p>{feedPosts.description}</p>
-                                    <p>{feedPosts.product_name}</p>
-                                </div>
-                                    <button
-                                        className='text-sm hover:font-semibold'
-                                        onClick={() => {
-                                        const url = feedPosts.product_link.startsWith('http') ? feedPosts.product_link : `http://${feedPosts.product_link}`;
-                                            window.open(url, '_blank');
-                                        }}
-                                    >
-                                        BUY ITEM
-                                    </button>
                             </div>
-                        </div>
-                    )
-                })
-            }
+                        )
+                    })
+                }
+            </div>
+            <div className='w-full flex flex-col bg-black text-white gap-2 px-4 py-4 h-auto mb-10 rounded-lg'>
+                <h3>Comments</h3>
+                {
+                    comments.map((comment: any, key: number) => {
+                        return (
+                            <div key={key} className='flex flex-row gap-4'>
+                                <Link href={`/profile/${comment.profiles.id}`}>
+                                    <h3 className='font-semibold'>{comment.profiles.username}</h3>
+                                </Link>
+                                <p>{comment.comment}</p>
+                            </div>
+                        )
+                    })
+                
+                }
+                <form onSubmit={handleComment}>
+                    <div className='flex flex-row w-full justify-between gap-2'>
+                        <input required id='comment' name='comment' type='text' placeholder='Add a comment' className='rounded py-1 px-2 bg-neutral-800 text-white placeholder:text-sm focus:outline-none w-full'/>
+                        <button className='flex px-2 py-1 border border-neutral-500 rounded'>Send</button>
+                    </div>
+                </form>
+            </div>
         </div>
         <button className='w-1/12 hidden md:flex invisible'>
             

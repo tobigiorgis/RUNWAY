@@ -86,7 +86,7 @@ export default function Login() {
     <div className="w-full md:w-1/3 flex flex-col gap-3">
       <div className="flex flex-col gap-1">
         <h2 className="font-bold text-xl">Login to Runway</h2>
-        <p>Don&apos;t have an account? <Link className="text-sky-700" href={'/signup'}>Sign up</Link></p>
+        {/* <p>Don&apos;t have an account? <Link className="text-sky-700" href={'/signup'}>Sign up</Link></p> */}
       </div>
       <div className='flex justify-between flex-col'>
         <label>Email</label>
