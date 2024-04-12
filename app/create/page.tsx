@@ -92,6 +92,13 @@ export default function Upload() {
       wait().then(() => setPosted(false));
       
     }
+    // Clean all input values
+    evt.target.title.value = '';
+    evt.target.description.value = '';
+    evt.target.product.value = '';
+    evt.target.productlink.value = '';
+    setTags([]);
+    setUploaded(null);
 };
   
   const handleKeyDown = (event: any) => {
