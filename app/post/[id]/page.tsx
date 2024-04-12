@@ -96,7 +96,8 @@ const Page = () => {
     const handleComment = async (evt: any) => {
         evt.preventDefault();
 
-        const comment = evt.target.value;
+        const comment = evt.target.elements.comment.value;
+        
         const { data: { user } } = await supabase.auth.getUser()
         const [error, data] = await commentVideo({ user_id: user!.id, post_id: postId, comment });
 
@@ -108,6 +109,8 @@ const Page = () => {
                 description: `You commented on this post!`,
             })
         }
+
+        evt.target.reset(); 
     }
 
     const updateLikeCount = async (postId: string) => {
@@ -329,8 +332,8 @@ const Page = () => {
                 }
                 <form onSubmit={handleComment}>
                     <div className='flex flex-row w-full justify-between gap-2'>
-                        <input required id='comment' name='comment' type='text' placeholder='Add a comment' className='rounded py-1 px-2 bg-neutral-800 text-white placeholder:text-sm focus:outline-none w-full'/>
-                        <button className='flex px-2 py-1 border border-neutral-500 rounded'>Send</button>
+                        <input required id='comment' name='comment' type='text' placeholder='Add a comment' className='rounded py-1 px-2 bg-neutral-800 text-white placeholder:text-sm focus:outline-none w-full' />
+                        <button type='submit' className='flex px-2 py-1 border border-neutral-500 rounded'>Send</button>
                     </div>
                 </form>
             </div>
