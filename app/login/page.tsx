@@ -110,6 +110,9 @@ export default function Login() {
           className="bg-black text-white justify-center rounded px-2 py-1 mt-2 w-full focus:outline-none"
           />
       </div>
+      <Link href="/reset">
+        Forgot your password?
+      </Link>
       {/* {success && <div className="my-4 bg-green-100 px-2 text-green-600">An email has been sent to {data.email} to login.</div>} */}
       <div>
         <button className="px-4 py-1 bg-gray-200 rounded cursor-pointer w-full mt-5 font-medium" onClick={loginWithPassword}>Continue</button>
