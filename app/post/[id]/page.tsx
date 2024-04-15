@@ -10,19 +10,21 @@ import { Heart } from 'lucide-react'
 import Link from 'next/link'
 import { Footer } from '@/components/ui/Footer'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/shadcn/dropdown-menu'
+import { Metadata } from 'next'
+
 
 const Page = () => {
-
+    
     const [feedPosts, setFeedPosts] = useState<any[]>([])
     const [likedPosts, setLikedPosts] = useState<any[]>([]);
     const [lists, setLists] = useState<any[]>([]);
     const [comments, setComments] = useState<any[]>([]);
     const pathname = usePathname()
     const postId = pathname.split('/')[2]
-
+    
     const router = useRouter()
-
-
+    
+    
     const getRightPost = async () => {
 
         const { data, error } = await supabase
@@ -347,3 +349,23 @@ const Page = () => {
 }
 
 export default Page
+
+
+export async function generateMetadata(feedPosts: any) {
+    return {
+        title: `${feedPosts[0]?.title}`,
+        description: `${feedPosts[0]?.description}`,
+        openGraph: {
+            title: `${feedPosts[0]?.title}`,
+            description: `${feedPosts[0]?.description}`,
+            images: [
+                {
+                    url: `${feedPosts[0]?.src}`,
+                    width: 1260,
+                    height: 800,
+                    alt: 'Image',
+                },
+            ],
+        }
+    }
+}
