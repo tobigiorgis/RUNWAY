@@ -64,9 +64,9 @@ if (!data || data.length === 0) {
 }
 
 return {
-    title: data && data[0]?.title,
-    description: data && data[0]?.description,
-    
+    // title: data && data[0]?.title,
+    // description: data && data[0]?.description,
+    // icons: [],
     openGraph: {
         title: `${data && data[0]?.title} by ${data && data[0]?.profiles.username} on Runway`,
         description: `Take a look at this oufit!`,
@@ -74,6 +74,8 @@ return {
         type: 'website',
         images: [{
             url: data && data[0]?.src,
+            width: 256,
+            height: 256,
             alt: data && data[0]?.title,
         }],
     },
