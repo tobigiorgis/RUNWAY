@@ -110,7 +110,7 @@ export default function Login() {
           className="bg-black text-white justify-center rounded px-2 py-1 mt-2 w-full focus:outline-none"
           />
       </div>
-      <Link href="/reset">
+      <Link href="/reset" className="text-sm">
         Forgot your password?
       </Link>
       {/* {success && <div className="my-4 bg-green-100 px-2 text-green-600">An email has been sent to {data.email} to login.</div>} */}

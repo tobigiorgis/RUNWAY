@@ -207,7 +207,7 @@ export const Navbar = () => {
                     <DropdownMenuItem>Saved</DropdownMenuItem>
                     <DropdownMenuItem> 
                       <button className="button block" type="submit" onClick={logout}>
-                        Sign out
+                        Log out
                       </button>
                     </DropdownMenuItem>
                   </DropdownMenuContent>

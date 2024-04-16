@@ -240,20 +240,20 @@ const MainProductDetail = () => {
     }, [])
     
   return (
-    <main className='md:pt-20 w-full md:h-full min-h-screen flex flex-row md:items-start items-center md:justify-evenly justify-center px-6 py-0 z-10'>
+    <main className='pt-20 w-full md:h-full min-h-screen flex flex-row md:items-start items-center md:justify-evenly justify-center md:px-6 py-0 z-10'>
         <button className='w-1/12 hidden md:flex md:mt-10' onClick={() => router.back()}>
             back
         </button>
-        <div className='flex flex-col h-auto md:w-3/4 gap-8'>
-            <div className='bg-slate-100 md:h-[550px] h-[70vh] rounded-lg md:mt-10 md:mb-0'>
+        <div className='flex flex-col h-auto w-full md:w-3/4 gap-10'>
+            <div className='md:bg-slate-100 md:h-[550px] h-[70vh] rounded-lg md:mt-10 md:mb-0'>
                 {
                     feedPosts.map((feedPosts: any, key: number) => {
                         return (
                             <div key={key} className='flex md:flex-row flex-col h-fit w-full md:gap-12 gap-1'>
                                 <div className='rounded-l-lg md:h-[550px] flex-1 relative'>
-                                    <Image priority className='rounded-t-lg md:rounded-l-lg h-[45vh] md:h-full w-full' src={feedPosts.src} alt='Image' width={500} height={200}/>
+                                    <Image priority className='md:rounded-t-lg md:rounded-l-lg h-[55vh] md:h-full w-full' src={feedPosts.src} alt='Image' width={500} height={200}/>
                                 </div>
-                                <div className='md:p-5 py-2 px-5 w-full md:flex-1 flex flex-col justify-between gap-9'>
+                                <div className='md:p-5 py-2 px-3 w-full md:flex-1 flex flex-col justify-between gap-9'>
                                     <div className='flex flex-row w-full justify-between'>
                                         <Link href={`/profile/${feedPosts.profiles.id}`}>
                                             <h1 className='font-medium text-lg'>{feedPosts.profiles.username}</h1>
@@ -271,9 +271,6 @@ const MainProductDetail = () => {
                                                 </button>
                                             )
                                         }
-                                            {/* <button>
-                                                ADD TO LIST
-                                            </button> */}
                                             <DropdownMenu>
                                                 <DropdownMenuTrigger className="focus:outline-none">ADD TO LIST</DropdownMenuTrigger>
                                                 <DropdownMenuContent>
@@ -317,16 +314,16 @@ const MainProductDetail = () => {
                     })
                 }
             </div>
-            <div className='w-full flex flex-col bg-black text-white gap-2 px-4 py-4 h-auto mb-10 rounded-lg'>
-                <h3>Comments</h3>
+            <div className='w-full flex flex-col md:bg-black text-white gap-2 px-4 py-4 h-auto mb-10 rounded-lg mt-10 md:mt-0'>
+                <h3 className='text-black font-semibold md:text-white'>Comments</h3>
                 {
                     comments.map((comment: any, key: number) => {
                         return (
                             <div key={key} className='flex flex-row gap-4'>
                                 <Link href={`/profile/${comment.profiles.id}`}>
-                                    <h3 className='font-semibold'>{comment.profiles.username}</h3>
+                                    <h3 className='font-semibold text-black md:text-white'>{comment.profiles.username}</h3>
                                 </Link>
-                                <p>{comment.comment}</p>
+                                <p className='text-black md:text-white'>{comment.comment}</p>
                             </div>
                         )
                     })
@@ -335,7 +332,7 @@ const MainProductDetail = () => {
                 <form onSubmit={handleComment}>
                     <div className='flex flex-row w-full justify-between gap-2'>
                         <input required id='comment' name='comment' type='text' placeholder='Add a comment' className='rounded py-1 px-2 bg-neutral-800 text-white placeholder:text-sm focus:outline-none w-full' />
-                        <button type='submit' className='flex px-2 py-1 border border-neutral-500 rounded'>Send</button>
+                        <button type='submit' className='flex px-2 py-1 border border-neutral-500 rounded text-black md:text-white'>Send</button>
                     </div>
                 </form>
             </div>
