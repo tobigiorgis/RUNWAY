@@ -85,26 +85,26 @@ export default function Login() {
     </div> */}
     <div className="w-full md:w-1/3 flex flex-col gap-3">
       <div className="flex flex-col gap-1">
-        <h2 className="font-bold text-xl">Login to Runway</h2>
-        {/* <p>Don&apos;t have an account? <Link className="text-sky-700" href={'/signup'}>Sign up</Link></p> */}
+        <h2 className="font-bold text-xl">Yooo, welcome back!</h2>
+        {/* <p>First time here? <Link className="text-sky-700" href={'/signup'}>Sign up for free</Link></p> */}
       </div>
       <div className='flex justify-between flex-col'>
-        <label>Email</label>
+        {/* <label>Email</label> */}
         <input
           type='text'
           name='email'
-          // placeholder="kanye@example.com"
+          placeholder="Your email"
           value={data?.email}
           onChange={handleChange}
           className="bg-black text-white rounded px-2 py-1 mt-2 w-full focus:outline-none "
           />
       </div>
       <div className='flex justify-between flex-col'>
-        <label>Password</label>
+        {/* <label>Password</label> */}
         <input
           type='password'
           name='password'
-          placeholder=""
+          placeholder="Your password"
           value={data?.password}
           onChange={handleChange}
           className="bg-black text-white justify-center rounded px-2 py-1 mt-2 w-full focus:outline-none"

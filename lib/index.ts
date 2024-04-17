@@ -18,6 +18,38 @@ export const uploadVideo = async ({ postFile }: { postFile: File }) => {
   return [error, file]
 }
 
+export const uploadProfilePic = async ({ profilePic }: { profilePic: File }) => {
+  const filename = window.crypto.randomUUID()
+
+  console.log(profilePic);
+
+  const prefix = process.env.NEXT_PUBLIC_SUPABASE_STORAGE_URL
+  const { data, error } = await supabase.storage
+    .from('uploads')
+    .upload(`profilesPics/${filename}.jpg`, profilePic)
+    console.log(data?.path);
+
+    const file = data?.path ? `${prefix}${data.path}` : ''
+  return [error, file]
+
+}
+
+export const updateProfilePic = async ({ profilePic }: { profilePic: string }) => {
+  const { data: { user } } = await supabase.auth.getUser()
+
+  const { data, error } = await supabase
+    .from('profiles')
+    .update([
+      {
+        profile_pic: profilePic
+      }
+    ])
+    .eq('id', user?.id)
+
+  return [error, data]
+
+}
+
 type Post = {
   title: string
   postSrc: string
@@ -48,7 +80,7 @@ export const publishVideo = async ({ postSrc, description, product, productlink,
   return [error, data]
 }
 
-// I want to allow users to delete a post
+
 
 
 type List = {

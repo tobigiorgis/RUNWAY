@@ -162,7 +162,7 @@ const updateUnlikeCount = async (postId: string) => {
     {
       feedPosts.map((feedPosts: any, key: number) => {
         return (
-        <div 
+          <div 
               style={{ backgroundImage: `url(${feedPosts.src})`, backgroundSize: 'cover', backgroundPosition: 'center'}}
               className='md:w-1/5 w-full h-80 rounded hover:opacity-85' 
               key={key}
@@ -187,7 +187,7 @@ const updateUnlikeCount = async (postId: string) => {
 
                       <div  className="w-full px-3 py-3 flex flex-row items-center justify-between">
                         <button 
-                          className='bg-white text-black text-sm w-auto max-w-[40vw] md:w-auto md:max-w-[8vw] flex flex-row rounded-lg py-1  px-2 items-center gap-2 justify-center'
+                          className='bg-white text-black text-sm w-auto max-w-[40vw] md:w-auto md:max-w-[8vw] flex flex-row rounded-lg py-1 px-2 items-center gap-2 justify-center'
                           onClick={(event) => {
                             event.stopPropagation();
                             const url = feedPosts.product_link.startsWith('http') ? feedPosts.product_link : `http://${feedPosts.product_link}`;
