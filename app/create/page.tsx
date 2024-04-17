@@ -28,7 +28,7 @@ export default function Upload() {
 
   
 
-  const { isDragAccept, isDragReject, getRootProps, getInputProps, open } =
+  const { isDragAccept, isDragReject, getRootProps, getInputProps } =
     useDropzone({
       disabled: uploading || uploaded !== null,
       maxFiles: 1,
@@ -122,7 +122,7 @@ export default function Upload() {
         <form className='w-full flex md:flex-row flex-col mt-5 md:h-full h-fit gap-4' onSubmit={handleSubmit}>
           <div className='md:w-1/2 w-full flex flex-col items-start gap-2' {...getRootProps()}>
             <label className='font-semibold w-full h-auto items-start' htmlFor="image">Photo</label>
-            <div className='w-full md:h-full h-[40vh] border-2 border-dashed border-black bg-slate-100 rounded gap-2 p-5 flex-col flex items-center justify-center' onClick={open}>
+            <div className='w-full md:h-full h-[40vh] border-2 border-dashed border-black bg-slate-100 rounded gap-2 p-5 flex-col flex items-center justify-center'>
               <input type="file" name="image" required id="fileInput" {...getInputProps()} />
               <img
                 src="https://sf16-scmcdn-va.ibytedtos.com/goofy/tiktok/web/node/_next/static/images/cloud_icon-6e07be44878e69ee3f7bff3b78405b76.svg"
