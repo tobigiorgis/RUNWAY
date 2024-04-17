@@ -7,6 +7,7 @@ import { useDropzone } from "react-dropzone";
 import { publishVideo, uploadVideo } from "@/lib";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import Image from "next/image";
+import { toast } from "@/components/ui/use-toast";
 
 
 export default function Upload() {
@@ -82,7 +83,12 @@ export default function Upload() {
 
     const [error] = await publishVideo({ postSrc: uploaded, title, description, product, productlink, tags: tags});
 
-    if (error) return console.log(error);
+    if (error) {
+      return toast({
+        title: "Post failed",
+        description: `There was an error: ${error.message}`,
+    })
+    }
     else {
       console.log("post published!!!");
       setPosted(true);
