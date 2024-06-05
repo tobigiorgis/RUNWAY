@@ -3,11 +3,14 @@ import Link from 'next/link';
 
 import { ArrowUpRight, Heart, Share } from 'lucide-react';
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
+import { motion, useMotionValue } from 'framer-motion';
 
 import { likeVideo, unlikeVideo } from '@/lib';
 import { supabase } from '@/lib/supabase';
 import { useToast } from '../ui/use-toast';
 import { redirect, useRouter } from 'next/navigation'
+import { Dialog } from '../ui/dialog';
+import ShareMyProfileButton from '@/components/Buttons/ShareMyProfileButton';
 
 
 export const ForYou = () => {
@@ -157,6 +160,17 @@ export const ForYou = () => {
 
 
 
+        const handleDragEnd = ( info: any, postId: string ) => {
+            console.log(info.offsetX);
+            
+            if (info && info.offsetX < -50) {
+              handleLike(postId);
+            } else if (info && info.offsetX > 50) {
+              <Dialog/>
+            }
+          };
+
+
       useEffect(() => {
         getPosts()
         fetchLikedPosts()
@@ -168,12 +182,18 @@ export const ForYou = () => {
             {
                 posts.map((posts: any, key: number) => {
                     return (
-                        <div
+                        <motion.div
                             key={key}
                             className='h-80 md:w-1/6 w-full rounded hover:opacity-85'
                             style={{ backgroundImage: `url(${posts.src})`, backgroundSize: 'cover', backgroundPosition: 'center'}}
                             onMouseEnter={() => setIsHovered(posts.id)}
                             onMouseLeave={() => setIsHovered(null)}
+                            drag='x'
+                            onDragEnd={(info) => handleDragEnd(info, posts.id)}
+                            dragConstraints={{ left: -50, right: 50 }}
+                            dragElastic={0.2}
+                            animate={{ x: 0 }}
+                            transition={{ type: "spring", stiffness: 300 }}
                         >
                                 {isHovered === posts.id && (
                                     <div key={key} className='w-full h-full flex flex-col justify-between'>
@@ -219,7 +239,7 @@ export const ForYou = () => {
                                             </div>
                                     </div>
                                 )}
-                        </div>
+                        </motion.div>
                     )
                 })
             }

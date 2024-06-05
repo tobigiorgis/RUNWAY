@@ -194,7 +194,9 @@ const updateUnlikeCount = async (postId: string) => {
                             window.open(url, '_blank');
                           }}>
                           <ArrowUpRight size={16} />
-                          {feedPosts.product_name}
+                          <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                            <span>{feedPosts.product_name}</span>
+                          </div>
                         </button>
                         {
                           likedPosts.includes(feedPosts.id) ? (

@@ -196,7 +196,7 @@ export default function Upload() {
               <DialogHeader>
                 <DialogTitle>Runway Posted!</DialogTitle>
                 <DialogDescription>
-                  Post has been added to your account. Your friends will love it 🚀
+                  Post has been added to your feed. Your friends will love it 🚀
                 </DialogDescription>
               </DialogHeader>
             </DialogContent>
