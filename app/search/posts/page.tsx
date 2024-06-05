@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase';
 import { useSearchParams } from 'next/navigation';
 import { ArrowUpRight, Heart, Share } from 'lucide-react';
@@ -157,6 +157,7 @@ const SearchPage = () => {
 
   return (
     <main className='h-fit w-full md:mt-20 flex flex-col justify-evenly gap-7 md:px-24 pt-12 flex-wrap items-center'>
+      <Suspense>
         <h1 className='mt-10'>Results for: &ldquo;{query}&rdquo;</h1>
         <div className='w-full h-full flex md:flex-row gap-7 flex-col px-7 pb-7'>
         {
@@ -211,6 +212,7 @@ const SearchPage = () => {
             ))
         }
         </div>
+        </Suspense>
         <Footer/>
     </main>
   )
