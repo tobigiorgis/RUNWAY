@@ -253,7 +253,7 @@ const MainProductDetail = () => {
         fetchLikedPosts()
         fetchLists()
         getComments()
-    }, [])
+    })
 
 
     // Fix this useEffect to fetch related posts
@@ -358,7 +358,7 @@ const MainProductDetail = () => {
                                     {
                                         featuredLists.map((list: any, index: number) => {
                                             return (
-                                                <div className='gap-3 flex flex-col'>
+                                                <div className='gap-3 flex flex-col' key={index}>
                                                     <h3 className='font-medium'>Lists that include this post ↓</h3>
                                                     <div
                                                         className='shadow-sm bg-zinc border border-slate rounded-xl md:w-2/5 w-1/2 h-full flex px-2  flex-col items-center justify-evenly'
