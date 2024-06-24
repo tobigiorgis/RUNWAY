@@ -149,12 +149,12 @@ export const Navbar = () => {
             searchInput === '' ? (
               <div hidden ></div>
             ) : (
-              <div className='bg-opacity-60 rounded bg-zinc-200 md:relative md:w-full'>
-                <p className='md:text-sm text-gray-500 py-1 w-full text-center'> Enter to search posts related to &ldquo;{searchInput}&rdquo;</p>
-                <h3 className='md:text-sm pl-2 text-gray-400 py-1'>Profiles</h3>
+              <div className='bg-opacity-60 rounded bg-zinc md:relative md:w-full'>
+                <p className='md:text-sm text-gray py-1 w-full text-center'> Enter to search posts related to &ldquo;{searchInput}&rdquo;</p>
+                <h3 className='md:text-sm pl-2 text-gray py-1'>Profiles</h3>
               {searchResults.map((result: any, key: number) => {
                   return (
-                  <div key={key} className='flex flex-row items-center py-1 pl-2 hover:bg-zinc-300'>
+                  <div key={key} className='flex flex-row items-center py-1 pl-2 hover:bg-zinc'>
                     <Link className='w-full' href={`/profile/${result.id}`} onClick={() => setSearchInput('')}>
                       <div className='flex flex-row items-center gap-4 w-full'>
                         <h4>@{result.username}</h4>

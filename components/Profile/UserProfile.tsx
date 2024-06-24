@@ -98,7 +98,7 @@ const UserProfile = () => {
                             <HoverCardTrigger asChild>
                                 <h1 className='font-bold' >{profile.username}</h1>
                             </HoverCardTrigger>
-                            <HoverCardContent className="w-80 bg-zinc-200 opacity-80">
+                            <HoverCardContent className="w-80 bg-zinc opacity-80">
                                 <div className="flex justify-between space-x-4">
                                     <div className="space-y-1">
                                         <h4 className="text-sm font-semibold">{profile.full_name}</h4>
