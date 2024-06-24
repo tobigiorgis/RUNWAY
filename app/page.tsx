@@ -1,5 +1,6 @@
 "use client";
 
+import CreateAccountButton from "@/components/Buttons/CreateAccountButton";
 import { Footer } from "@/components/ui/Footer";
 import WaitlistForm from "@/components/ui/WaitlistForm";
 import { FeaturedProduct } from "@/components/ui/product";
@@ -35,7 +36,7 @@ export default function Home() {
 
       <div className='flex flex-row justify-between w-3/4 cursor-crosshair'>
         <FeaturedProduct product={{createdBy: 'Dosantimed', image: 'https://qqdcidmbajmncgqukjhm.supabase.co/storage/v1/object/public/uploads/landing/dos.jpeg'}} moveFactor={0.8} className='hidden md:flex relative top-30 left-100'/>
-        <FeaturedProduct product={{createdBy: 'HeliotEmil', image: 'https://qqdcidmbajmncgqukjhm.supabase.co/storage/v1/object/public/uploads/landing/he.jpeg'}} moveFactor={0.4} className='relative md:bottom-10 md:left-70 left-10'/>
+        <FeaturedProduct product={{createdBy: 'HeliotEmil', image: 'https://qqdcidmbajmncgqukjhm.supabase.co/storage/v1/object/public/uploads/landing/he.jpeg'}} moveFactor={0.4} className='relative md:bottom-0 md:left-70 left-10'/>
         <FeaturedProduct product={{createdBy: 'idazeile', image: 'https://qqdcidmbajmncgqukjhm.supabase.co/storage/v1/object/public/uploads/landing/ida.jpeg'}} moveFactor={0.6} className='relative md:top-30 md:left-110 top-12'/>
         <FeaturedProduct product={{createdBy: 'TwoJeys', image: 'https://qqdcidmbajmncgqukjhm.supabase.co/storage/v1/object/public/uploads/landing/tj.jpeg'}} moveFactor={0.2} className='hidden md:flex relative bottom-10 left-10'/>
       </div>
@@ -57,7 +58,8 @@ export default function Home() {
         </form>
       </div> */}
       <div className="hidden md:flex">
-        <WaitlistForm/>
+        {/* <WaitlistForm/> */}
+        <CreateAccountButton/>
       </div>
 
       <Footer />

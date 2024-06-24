@@ -16,6 +16,13 @@ module.exports = {
         "2xl": "1400px",
       },
     },
+    colors: {
+      'gray': '#d9d9d9',
+      'white': '#fbfbfb',
+      'black': '#000000',
+      'slate': '#f8fafc',
+      'zinc': '#f3f4f6',
+    },
     extend: {
       keyframes: {
         "accordion-down": {

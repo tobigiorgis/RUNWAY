@@ -115,8 +115,8 @@ const UserProfile = () => {
                                 </div>
                             </HoverCardContent>
                         </HoverCard>
-                        <h3 className='text-slate-400'>Followers {profile.followers_count}</h3>
-                        <h3 className='text-slate-400'>Following {profile.following_count}</h3>
+                        <h3 className='text-gray-400'>Followers {profile.followers_count}</h3>
+                        <h3 className='text-gray-400'>Following {profile.following_count}</h3>
                     </div>
                     <p className='pt-3'>{profile.bio}</p>
                 </div>

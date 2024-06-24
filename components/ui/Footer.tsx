@@ -1,10 +1,29 @@
-import { PlusCircle, Sparkles, User } from 'lucide-react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
-import React from 'react'
+import { PlusCircle, Sparkles, User } from 'lucide-react'
+import { Events, scrollSpy } from 'react-scroll';
 
 export const Footer = () => {
+
+    const [isScrolled, setIsScrolled] = useState(false);
+
+        useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 0);
+        };
+
+        Events.scrollEvent.register('begin', handleScroll);
+        Events.scrollEvent.register('end', handleScroll);
+        scrollSpy.update();
+
+        return () => {
+            Events.scrollEvent.remove('begin');
+            Events.scrollEvent.remove('end');
+        };
+        }, []);
+
   return (
-    <div className='flex md:hidden w-2/5 items-center justify-between bg-zinc-100 px-4 py-2 rounded-2xl opacity-70 bottom-10 fixed'>
+    <div className={`flex md:hidden w-2/5 items-center justify-between bg-zinc-100 px-4 py-2 rounded-2xl opacity-70 bottom-10 fixed ${isScrolled ? 'hidden' : ''}`}>
         <div>
             <Link href={`/discover`}>
                 <Sparkles size={30} />

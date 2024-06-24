@@ -34,14 +34,14 @@ export const Topbar = () => {
             {
                 dataLists.map((list, index) => (
                     <Link key={index} href={`/profile/${list.user_id}/lists/${list.id}`}>
-                        <li key={index} className='uppercase bg-gray-200 backdrop-blur-sm w-fit flex items-center justify-center p-2 rounded text-black text-sm'>
+                        <li key={index} className='uppercase bg-zinc backdrop-blur-sm w-fit flex items-center justify-center p-2 rounded text-black text-sm'>
                             {list.name}
                         </li>
                 </Link>
                 ))
             }
         </div>
-        <button className='w-2/5 bg-white px-1 rounded z-10'>
+        <button className='w-3/5 bg-white px-1 rounded z-10'>
             + New List
         </button>
     </div>

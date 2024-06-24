@@ -76,7 +76,7 @@ export default function Login() {
       <p className="text-sm mt-1 w-full">Type your email either to Login or Signup. You will get a link that will log/sign you when clicked.</p>
       <label className="mt-4">Email</label>
       <input
-        className="w-full bg-slate-100 rounded px-2 py-1 mt-2"
+        className="w-full bg-gray-100 rounded px-2 py-1 mt-2"
         type='text'
         name='email'
         value={data?.email}
@@ -86,7 +86,7 @@ export default function Login() {
     <div className="w-full md:w-1/3 flex flex-col gap-3">
       <div className="flex flex-col gap-1">
         <h2 className="font-bold text-xl">Yooo, welcome back!</h2>
-        {/* <p>First time here? <Link className="text-sky-700" href={'/signup'}>Sign up for free</Link></p> */}
+        <p className="">First time here? <Link className="text-gray hover:underline-offset-auto" href={'/signup'}>Sign up for free</Link></p>
       </div>
       <div className='flex justify-between flex-col'>
         {/* <label>Email</label> */}
@@ -110,12 +110,12 @@ export default function Login() {
           className="bg-black text-white justify-center rounded px-2 py-1 mt-2 w-full focus:outline-none"
           />
       </div>
-      <Link href="/reset" className="text-sm">
+      <Link href="/reset" className="text-sm hover:underline-offset-4">
         Forgot your password?
       </Link>
       {/* {success && <div className="my-4 bg-green-100 px-2 text-green-600">An email has been sent to {data.email} to login.</div>} */}
       <div>
-        <button className="px-4 py-1 bg-gray-200 rounded cursor-pointer w-full mt-5 font-medium" onClick={loginWithPassword}>Continue</button>
+        <button className="px-4 py-1 bg-gray rounded cursor-pointer w-full mt-5 font-medium" onClick={loginWithPassword}>Continue</button>
       </div>
     </div>
     {/* <div className="flex flex-row md:gap-20 w-full md:w-3/4">

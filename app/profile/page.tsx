@@ -165,8 +165,8 @@ const Profile = () => {
                         </Dialog>
                             <div className='flex flex-row gap-2 items-center'>
                                 <h1 className='font-bold' >{profile.username}</h1>
-                                <h3 className='text-slate-400'>Followers {profile.followers_count}</h3>
-                                <h3 className='text-slate-400'>Following {profile.following_count}</h3>
+                                <h3 className='text-gray-400'>Followers {profile.followers_count}</h3>
+                                <h3 className='text-gray-400'>Following {profile.following_count}</h3>
                             </div>
                             <p className=''>{profile.bio}</p>
                         </div>

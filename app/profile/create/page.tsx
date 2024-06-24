@@ -51,16 +51,16 @@ const Page = () => {
 
           <form className='flex flex-col h-full w-1/2 mt-10 gap-2' onSubmit={handleSubmit}>
             <label htmlFor="fullname">Full Name</label>
-            <input required className='bg-slate-100 rounded px-2 py-1 focus:outline-black' type="text" name="fullname" id="fullname" placeholder='ex. Virgil Abloh' />
+            <input required className='bg-gray-100 rounded px-2 py-1 focus:outline-black' type="text" name="fullname" id="fullname" placeholder='ex. Virgil Abloh' />
 
             <label htmlFor="username">Username</label>
-            <input required className='bg-slate-100 rounded px-2 py-1 focus:outline-black' type="text" name="username" id="username" placeholder='ex. virgil'/>
+            <input required className='bg-gray-100 rounded px-2 py-1 focus:outline-black' type="text" name="username" id="username" placeholder='ex. virgil'/>
             
             <label htmlFor="bio">Bio</label>
-            <input required className='bg-slate-100 rounded px-2 py-1 focus:outline-black' type="text" name="bio" id="bio" placeholder='be creative'/>
+            <input required className='bg-gray-100 rounded px-2 py-1 focus:outline-black' type="text" name="bio" id="bio" placeholder='be creative'/>
             
             <label htmlFor="website">Website <span className='text-sm text-gray-400'>(optional)</span></label>
-            <input className='bg-slate-100 rounded px-2 py-1 focus:outline-black' type="text" name="website" id="website" placeholder='drop your website'/>
+            <input className='bg-gray-100 rounded px-2 py-1 focus:outline-black' type="text" name="website" id="website" placeholder='drop your website'/>
             
             <button className='bg-black text-white p-2 rounded-lg mt-5'>Create profile</button>
           </form>

@@ -5,6 +5,7 @@ import { Analytics } from '@vercel/analytics/react';
 
 import './globals.css'
 import { Navbar } from '@/components/ui/Navbar'
+import { NavbarTest } from '@/components/ui/NavbarTest'
 import { Toaster } from '@/components/ui/toaster'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -36,7 +37,8 @@ export default function RootLayout({
         <script src="https://getlaunchlist.com/js/widget.js" defer></script>
       </Head>
         <body className={inter.className}>
-          <Navbar/>
+          {/* <Navbar/> */}
+          <NavbarTest/>
           {children}
           <Toaster />
           <Analytics />

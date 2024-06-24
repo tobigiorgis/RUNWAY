@@ -11,6 +11,7 @@ import { useToast } from '../ui/use-toast';
 import { redirect, useRouter } from 'next/navigation'
 import { Dialog } from '../ui/dialog';
 import ShareMyProfileButton from '@/components/Buttons/ShareMyProfileButton';
+import PostInFeed from './PostInFeed';
 
 
 export const ForYou = () => {
@@ -178,11 +179,13 @@ export const ForYou = () => {
       
     
   return (
-    <section className='h-fit w-full md:mt-20 mt-8 flex flex-row justify-evenly gap-7 md:px-20 px-8 flex-wrap'>
+    <section className='h-fit w-full md:mt-20 mt-8 flex flex-row justify-evenly gap-5 md:px-20 px-8 flex-wrap'>
             {
                 posts.map((posts: any, key: number) => {
                     return (
-                        <motion.div
+                        <>
+                        <PostInFeed posts={posts} key={key}/>
+                        {/* <motion.div
                             key={key}
                             className='h-80 md:w-1/6 w-full rounded hover:opacity-85'
                             style={{ backgroundImage: `url(${posts.src})`, backgroundSize: 'cover', backgroundPosition: 'center'}}
@@ -223,7 +226,6 @@ export const ForYou = () => {
                                                     <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                                                         <span>{posts.product_name}</span>
                                                     </div>
-                                                {/* <span className='overflow-hidden'>{posts.product_name}</span> */}
                                                 </button>
                                                 {
                                                     likedPosts.includes(posts.id) ? (
@@ -239,7 +241,8 @@ export const ForYou = () => {
                                             </div>
                                     </div>
                                 )}
-                        </motion.div>
+                        </motion.div> */}
+                        </>
                     )
                 })
             }

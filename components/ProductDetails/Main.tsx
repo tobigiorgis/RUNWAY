@@ -6,7 +6,7 @@ import { supabase } from '@/lib/supabase'
 import { usePathname, useRouter } from 'next/navigation'
 import { toast } from '@/components/ui/use-toast'
 import { commentVideo, likeVideo, unlikeVideo } from '@/lib'
-import { Heart } from 'lucide-react'
+import { GalleryVerticalEnd, Heart } from 'lucide-react'
 import Link from 'next/link'
 import { Footer } from '@/components/ui/Footer'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/shadcn/dropdown-menu'
@@ -19,6 +19,7 @@ const MainProductDetail = () => {
     const [likedPosts, setLikedPosts] = useState<any[]>([]);
     const [lists, setLists] = useState<any[]>([]);
     const [comments, setComments] = useState<any[]>([]);
+    const [featuredLists, setFeaturedLists] = useState<any[]>([]);
     const pathname = usePathname()
     const postId = pathname.split('/')[2]
     
@@ -45,6 +46,19 @@ const MainProductDetail = () => {
             console.log(feedPosts)
         }   
     }
+
+    // const fetchRelatedPosts = async () => {
+    //     const { data, error } = await supabase
+    //       .from('posts')
+    //       .select('*')
+    //       .filter('tags', 'eq', feedPosts[0].tags);
+      
+    //     if (error) {
+    //       console.error('Error fetching posts:', error);
+    //     } else {
+    //       console.log('Fetched posts:', data);
+    //     }
+    //   };
 
     const getComments = async () => {
 
@@ -232,20 +246,62 @@ const MainProductDetail = () => {
         })
     }
 
+
+
     useEffect(() => {
         getRightPost()
         fetchLikedPosts()
         fetchLists()
         getComments()
     }, [])
+
+
+    // Fix this useEffect to fetch related posts
+    useEffect(() => {
+        // const fetchRelatedPosts = async () => {
+        //   if (feedPosts.length > 0) {
+        //     const { data, error } = await supabase
+        //       .from('posts')
+        //       .select('*')
+        //       .eq('tags', feedPosts[0].tags);
+      
+        //     if (error) {
+        //       console.error('Error fetching posts:', error);
+        //     } else {
+        //       console.log('Fetched posts:', data);
+        //     }
+        //   }
+        // };
+
+    const fetchProductLists = async () => {
+        if (feedPosts.length > 0) {
+            const { data, error } = await supabase
+            .from('posts_in_lists')
+            .select('*, users_lists(*, profiles(username))')
+            .eq('post_id', feedPosts[0].id);
+        
+            if (error) {
+                console.error('Error fetching lists:', error);
+            } else {
+                console.log('Fetched lists:', data);
+                setFeaturedLists(data);
+                }
+            };
+        }
+
+
+            fetchProductLists()
+            // fetchRelatedPosts();
+      }, [feedPosts]);
+
     
   return (
-    <main className='pt-20 w-full md:h-full min-h-screen flex flex-row md:items-start items-center md:justify-evenly justify-center md:px-6 py-0 z-10'>
+    <main className='pt-20 pb-10 w-full md:h-full min-h-screen flex flex-row md:items-start items-center md:justify-evenly justify-center md:px-6 py-0 z-10'>
         <button className='w-1/12 hidden md:flex md:mt-10' onClick={() => router.back()}>
             back
         </button>
         <div className='flex flex-col h-auto w-full md:w-3/4 gap-10'>
-            <div className='md:bg-slate-100 md:h-[550px] h-[70vh] rounded-lg md:mt-10 md:mb-0'>
+            <div className=' md:h-[550px] h-auto rounded-lg md:mt-10 md:mb-0'>
                 {
                     feedPosts.map((feedPosts: any, key: number) => {
                         return (
@@ -297,8 +353,36 @@ const MainProductDetail = () => {
                                     <div>
                                         <h2 className='font-semibold text-2xl'>{feedPosts.title}</h2>
                                         <p>{feedPosts.description}</p>
-                                        <p>{feedPosts.product_name}</p>
+                                        {/* <p>{feedPosts.product_name}</p> */}
                                     </div>
+                                    {
+                                        featuredLists.map((list: any, index: number) => {
+                                            return (
+                                                <div className='gap-3 flex flex-col'>
+                                                    <h3 className='font-medium'>Lists that include this post ↓</h3>
+                                                    <div
+                                                        className='shadow-sm bg-zinc border border-slate rounded-xl md:w-2/5 w-1/2 h-full flex px-2  flex-col items-center justify-evenly'
+                                                        key={index}
+                                                    >
+                                                        <Link className='flex w-full flex-col items-center gap-4 py-2' href={`/profile/${list.user_id}/lists/${list.id}`}>
+                                                            <div className='px-2 text-sm flex flex-row items-center justify-between w-full'>
+                                                                <h4 className='text-black font-medium text-lg'>{list.users_lists.name}</h4>
+                                                                <p>by {list.users_lists.profiles.username}</p>
+                                                            </div>
+                                                            <div className='flex flex-row gap-2 items-center justify-center'>
+                                                                <div className='px-2 py-1 flex flex-row items-center gap-1 text-sm text-gray rounded-lg'>
+                                                                    <GalleryVerticalEnd size={10} color='gray'/>
+                                                                    <p>+{list.users_lists.posts_added} posts saved</p>
+                                                                </div>
+                                                            </div>
+                                                            <p className='font-medium text-sm hover:font-semibold'>Check out</p>
+                                                        </Link>
+                                                    </div>
+                                                </div>
+                                            )
+                                        })
+                                    
+                                    }
                                         <button
                                             className='text-sm hover:font-semibold'
                                             onClick={() => {
@@ -314,7 +398,7 @@ const MainProductDetail = () => {
                     })
                 }
             </div>
-            <div className='w-full flex flex-col md:bg-black text-white gap-2 px-4 py-4 h-auto mb-10 rounded-lg mt-10 md:mt-0'>
+            <div className='w-full flex flex-col md:bg-gray text-white opacity-90 gap-2 px-4 py-4 h-auto mb-10 rounded-lg md:mt-0'>
                 <h3 className='text-black font-semibold md:text-white'>Comments</h3>
                 {
                     comments.map((comment: any, key: number) => {
@@ -331,7 +415,7 @@ const MainProductDetail = () => {
                 }
                 <form onSubmit={handleComment}>
                     <div className='flex flex-row w-full justify-between gap-2'>
-                        <input required id='comment' name='comment' type='text' placeholder='Add a comment' className='rounded py-1 px-2 bg-neutral-800 text-white placeholder:text-sm focus:outline-none w-full' />
+                        <input required id='comment' name='comment' type='text' placeholder='Add a comment' className='rounded py-1 px-2 bg-neutral-800 text-black placeholder:text-sm focus:outline-none w-full' />
                         <button type='submit' className='flex px-2 py-1 border border-neutral-500 rounded text-black md:text-white'>Send</button>
                     </div>
                 </form>
