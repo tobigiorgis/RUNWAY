@@ -31,8 +31,8 @@ export default function Home() {
         </button>
       </Link> */}
       <div className="md:hidden">
-        {/* <WaitlistForm/> */}
-        <CreateAccountButton/>
+        <WaitlistForm/>
+        {/* <CreateAccountButton/> */}
       </div>
 
       <div className='flex flex-row justify-between w-3/4 cursor-crosshair'>
@@ -59,8 +59,8 @@ export default function Home() {
         </form>
       </div> */}
       <div className="hidden md:flex">
-        {/* <WaitlistForm/> */}
-        <CreateAccountButton/>
+        <WaitlistForm/>
+        {/* <CreateAccountButton/> */}
       </div>
 
       <Footer />
