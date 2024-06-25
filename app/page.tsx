@@ -31,7 +31,8 @@ export default function Home() {
         </button>
       </Link> */}
       <div className="md:hidden">
-        <WaitlistForm/>
+        {/* <WaitlistForm/> */}
+        <CreateAccountButton/>
       </div>
 
       <div className='flex flex-row justify-between w-3/4 cursor-crosshair'>
@@ -63,6 +64,15 @@ export default function Home() {
       </div>
 
       <Footer />
+
+      <div className="pt-20 flex flex-row gap-1">
+        <p className="text-gray text-xs">Tuviste algun problema?</p>
+        <Link
+            href='mailto:userunway@gmail.com'  
+        >
+            <p className='text-xs text-gray '>Contactanos!</p>
+        </Link>
+      </div>
     </main>
     )
 }

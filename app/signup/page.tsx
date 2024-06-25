@@ -4,7 +4,6 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-import { FeaturedProduct } from "@/components/ui/product";
 import { supabase } from "@/lib/supabase";
 import { ConfirmEmail } from "@/components/ui/ConfirmEmail";
 
