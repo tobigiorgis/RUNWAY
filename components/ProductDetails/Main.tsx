@@ -355,34 +355,36 @@ const MainProductDetail = () => {
                                         <p>{feedPosts.description}</p>
                                         {/* <p>{feedPosts.product_name}</p> */}
                                     </div>
-                                    {
-                                        featuredLists.map((list: any, index: number) => {
-                                            return (
-                                                <div className='gap-3 flex flex-col' key={index}>
-                                                    <h3 className='font-medium'>Lists that include this post ↓</h3>
-                                                    <div
-                                                        className='shadow-sm bg-zinc border border-slate rounded-xl md:w-2/5 w-1/2 h-full flex px-2  flex-col items-center justify-evenly'
-                                                        key={index}
-                                                    >
-                                                        <Link className='flex w-full flex-col items-center gap-4 py-2' href={`/profile/${list.user_id}/lists/${list.id}`}>
-                                                            <div className='px-2 text-sm flex flex-row items-center justify-between w-full'>
-                                                                <h4 className='text-black font-medium text-lg'>{list.users_lists.name}</h4>
-                                                                <p>by {list.users_lists.profiles.username}</p>
-                                                            </div>
-                                                            <div className='flex flex-row gap-2 items-center justify-center'>
-                                                                <div className='px-2 py-1 flex flex-row items-center gap-1 text-sm text-gray rounded-lg'>
-                                                                    <GalleryVerticalEnd size={10} color='gray'/>
-                                                                    <p>+{list.users_lists.posts_added} posts saved</p>
+                                    <div className='flex flex-col gap-3'>
+                                        <h3 className='font-medium'>Lists that include this post ↓</h3>
+                                        {
+                                            featuredLists.map((list: any, index: number) => {
+                                                return (
+                                                    <div className='gap-3 flex flex-col' key={index}>
+                                                        <div
+                                                            className='shadow-sm bg-zinc border border-slate rounded-xl md:w-2/5 w-1/2 h-full flex px-2  flex-col items-center justify-evenly'
+                                                            key={index}
+                                                        >
+                                                            <Link className='flex w-full flex-col items-center gap-4 py-2' href={`/profile/${list.user_id}/lists/${list.id}`}>
+                                                                <div className='px-2 text-sm flex flex-row items-center justify-between w-full'>
+                                                                    <h4 className='text-black font-medium text-lg'>{list.users_lists.name}</h4>
+                                                                    <p>by {list.users_lists.profiles.username}</p>
                                                                 </div>
-                                                            </div>
-                                                            <p className='font-medium text-sm hover:font-semibold'>Check out</p>
-                                                        </Link>
+                                                                <div className='flex flex-row gap-2 items-center justify-center'>
+                                                                    <div className='px-2 py-1 flex flex-row items-center gap-1 text-sm text-gray rounded-lg'>
+                                                                        <GalleryVerticalEnd size={10} color='gray'/>
+                                                                        <p>+{list.users_lists.posts_added} posts saved</p>
+                                                                    </div>
+                                                                </div>
+                                                                <p className='font-medium text-sm hover:font-semibold'>Check out</p>
+                                                            </Link>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            )
-                                        })
-                                    
-                                    }
+                                                )
+                                            })
+                                        
+                                        }
+                                    </div>
                                         <button
                                             className='text-sm hover:font-semibold'
                                             onClick={() => {

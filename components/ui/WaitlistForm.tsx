@@ -11,7 +11,7 @@ const WaitlistForm = () => {
 
             <input className="rounded-2xl bg-black pl-2 text-white focus:outline-none" name="email" type="email" placeholder="Enter your email" />
         
-            <button className="text-black hover:bg-gray-200 rounded-3xl px-4 py-2 bg-white" type="submit">Join Waitlist</button>
+            <button className="text-black hover:bg-gray rounded-3xl px-4 py-2 bg-white" type="submit">Join Waitlist</button>
         </form>
     </div>
   )
