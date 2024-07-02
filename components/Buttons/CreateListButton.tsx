@@ -43,7 +43,7 @@ return (
   <>
     <Dialog>
         <DialogTrigger asChild>
-            <button className=' w-full p-1 rounded text-black font-medium mt-2 text-sm'>
+            <button className=' w-full p-1 rounded text-slate font-medium mt-2 text-sm hover:font-semibold'>
                 + Create new list
             </button>
         </DialogTrigger>

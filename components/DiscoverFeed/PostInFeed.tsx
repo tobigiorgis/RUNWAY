@@ -19,7 +19,7 @@ const PostInFeed = ({posts, key}: any) => {
             </button>
         </div>
         <Link href={`/post/${posts.id}`} key={key} legacyBehavior>
-            <Image className='rounded-md' src={posts.src} alt={posts.alt} width={390} height={100} />
+            <Image className='rounded-md cursor-pointer' src={posts.src} alt={posts.alt} width={390} height={100} />
         </Link>
                                 {/* {isHovered === posts.id && (
                                     <div key={key} className='w-full h-full flex flex-col justify-between'>

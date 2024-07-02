@@ -118,56 +118,17 @@ export const NavbarTest = () => {
         <Link href={'/'}>
           <h1 className='md:text-xl text-m'>RUNWAY</h1>
         </Link>
-        <button className={`hidden md:flex md:text-sm md:rounded md:p-1 ${pathname === '/discover' ? 'bg-gray-200 font-medium' : ''}`}>
+        <button className={`hidden md:flex md:text-sm md:rounded md:p-1 ${pathname === '/discover' ? 'bg-light font-medium' : ''}`}>
           <Link href={'/discover'}>
             Discover
           </Link>
         </button>
-        <button className={`hidden md:flex md:text-sm md:rounded md:p-1 ${pathname === '/create' ? 'bg-gray-200 font-medium' : ''}`}>
+        <button className={`hidden md:flex md:text-sm md:rounded md:p-1 ${pathname === '/create' ? 'bg-light font-medium' : ''}`}>
           <Link href={'/create'}>
             Create
           </Link>
         </button>
       </div>
-        
-      {/* <div className='flex flex-col md:w-[50vw] gap-2 w-[40vw]'>
-        <input 
-          className='bg-gray-100 text-sm active:outline-none h-9 placeholder:text-gray px-3 w-full focus:outline-none rounded-md hover:duration-300' 
-          type="text" 
-          placeholder="What's your next pick?" 
-          value={searchInput}
-          onChange={async (e) => {
-            setSearchInput(e.target.value);
-            await handleSearch();
-          }}
-          onKeyUp={(e) => {
-            if (e.key === 'Enter') {
-              postsSearch(e);
-            }
-          }}
-          />
-          {
-            searchInput === '' ? (
-              <div hidden ></div>
-            ) : (
-              <div className='bg-opacity-60 rounded bg-zinc-200 md:relative md:w-full'>
-                <p className='md:text-sm text-gray-500 py-1 w-full text-center'> Enter to search posts related to &ldquo;{searchInput}&rdquo;</p>
-                <h3 className='md:text-sm pl-2 text-gray-400 py-1'>Profiles</h3>
-              {searchResults.map((result: any, key: number) => {
-                  return (
-                  <div key={key} className='flex flex-row items-center py-1 pl-2 hover:bg-zinc-300'>
-                    <Link className='w-full' href={`/profile/${result.id}`} onClick={() => setSearchInput('')}>
-                      <div className='flex flex-row items-center gap-4 w-full'>
-                        <h4>@{result.username}</h4>
-                      </div>
-                    </Link>
-                  </div>
-                )
-              })}
-            </div>
-            )
-          }
-        </div> */}
 
           {
             sessionActive ? (
@@ -183,22 +144,53 @@ export const NavbarTest = () => {
                   </DialogTrigger>
                   <DialogContent className='border-none opacity-80 w-[90vw]'>
                     <DialogHeader>
-                      <div className='flex w-full flex-row justify-between border-b-zinc-900 pb-2'>
+                      <div className='flex w-full flex-row justify-between pb-2'>
                         <input
                           placeholder='Search profiles'
                           className='bg-white outline-none active:outline-none text-md'
+                          value={searchInput}
+                          onChange={async (e) => {
+                            setSearchInput(e.target.value);
+                            await handleSearch();
+                          }}
+                          onKeyUp={(e) => {
+                            if (e.key === 'Enter') {
+                              postsSearch(e);
+                            }
+                          }}
                         >
                         </input>
                         <DialogClose>
                           <X size={16} color='gray'/>
                         </DialogClose>
                       </div>
-                      <div className='w-full flex flex-col flex-start justify-start'>
+                      {/* <div className='w-full flex flex-col flex-start justify-start'>
                         <h4 className='text-sm font-medium flex'>Profiles</h4>
                         <div className='flex'>
                           <h5 className='text-md'>@tobi</h5>
                         </div>
-                      </div>
+                      </div> */}
+                      {
+                        searchInput === '' ? (
+                          <div hidden ></div>
+                        ) : (
+                          <div className='bg-opacity-60 rounded bg-slate md:relative md:w-full'>
+                            <p className='md:text-sm text-gray py-1 w-full text-center'> Enter to search posts related to &ldquo;{searchInput}&rdquo;</p>
+                            <h3 className='md:text-sm pl-2 text-gray py-1'>Profiles</h3>
+                          {searchResults.map((result: any, key: number) => {
+                              return (
+                              <div key={key} className='flex flex-row items-center py-1 pl-2 hover:bg-zinc'>
+                                <Link className='w-full' href={`/profile/${result.id}`} onClick={() => setSearchInput('')}>
+                                  <div className='flex flex-row items-center gap-4 w-full'>
+                                    <h4>@{result.username}</h4>
+                                  </div>
+                                </Link>
+                              </div>
+                            )
+                          })}
+                          </div>
+                        )
+                      }
                     </DialogHeader>
                   </DialogContent>
                 </Dialog>

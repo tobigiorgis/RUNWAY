@@ -106,6 +106,27 @@ export const createList = async ({ name, privacy}: List) => {
     return [error, data]
 }
 
+type AddToList = {
+  list_id: string
+  url: string
+  type: string
+}
+
+export const addToList = async ({ list_id, url, type }: AddToList) => {
+  const table = type === 'ig' ? 'ig_posts_in_lists' : 'pins_in_lists';
+
+  const { data, error } = await supabase
+    .from(table)
+    .insert([
+      {
+        list_id: list_id,
+        url: url
+      }
+    ])
+
+  return [error, data]
+}
+
 // Function to like post and insert the user id and post id into the likes table
 type Like = {
   user_id: string
@@ -204,10 +225,11 @@ type Profile = {
   fullname: string
   username: string
   bio: string
+  style?: string | null
   website?: string | null
 }
 
-export const createProfile = async ({ fullname, username, bio, website }: Profile) => {
+export const createProfile = async ({ fullname, username, bio, style, website }: Profile) => {
 
   const { data: { user } } = await supabase.auth.getUser()
 
@@ -218,6 +240,7 @@ export const createProfile = async ({ fullname, username, bio, website }: Profil
         full_name: fullname,
         username: username,
         bio: bio,
+        style: style ?? null,
         website: website ?? null
       }
     ])

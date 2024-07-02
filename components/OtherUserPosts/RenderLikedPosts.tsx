@@ -182,8 +182,12 @@ export const RenderLikedPosts = () => {
                               const url = feedPost.product_link.startsWith('http') ? feedPost.product_link : `http://${feedPost.product_link}`;
                               window.open(url, '_blank');
                             }}>
-                            <ArrowUpRight size={16} />
-                            {feedPost.posts.product_name}
+                            <ArrowUpRight className='flex-shrink-0' size={16} />
+                            <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                              <span>
+                                {feedPost.posts.product_name}
+                              </span>
+                            </div>
                           </button>
                           {
                             likedPosts.includes(feedPost.post_id) ? (

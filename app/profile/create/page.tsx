@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import { redirect, useRouter } from 'next/navigation'
 import { createProfile, updateProfileCreated } from '@/lib'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
 const Page = () => {
 
@@ -15,12 +16,14 @@ const Page = () => {
     const fullname = evt.target.fullname.value
     const username = evt.target.username.value
     const bio = evt.target.bio.value
+    const style = evt.target.style.value
     const website = evt.target.website.value
 
     const [ error ] = await createProfile({
       fullname,
       username,
       bio,
+      style,
       website
     })
     if (error) {
@@ -58,6 +61,20 @@ const Page = () => {
             
             <label htmlFor="bio">Bio</label>
             <input required className='bg-gray-100 rounded px-2 py-1 focus:outline-black' type="text" name="bio" id="bio" placeholder='be creative'/>
+
+            <Select name='style'>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select your favorite style" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="streetwear">streetwear</SelectItem>
+                  <SelectItem value="y2k">y2k</SelectItem>
+                  <SelectItem value="gorpcore">gorpcore</SelectItem>
+                  <SelectItem value="workwear">workwear</SelectItem>
+                  <SelectItem value="old money">old money</SelectItem>
+                  <SelectItem value="vintage">vintage</SelectItem>
+                </SelectContent>
+              </Select>
             
             <label htmlFor="website">Website <span className='text-sm text-gray-400'>(optional)</span></label>
             <input className='bg-gray-100 rounded px-2 py-1 focus:outline-black' type="text" name="website" id="website" placeholder='drop your website'/>

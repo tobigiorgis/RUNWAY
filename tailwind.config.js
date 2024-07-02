@@ -22,6 +22,8 @@ module.exports = {
       'black': '#000000',
       'slate': '#f8fafc',
       'zinc': '#f3f4f6',
+      'light': '#e5e7eb',
+      'dark': '#737373',
     },
     extend: {
       keyframes: {

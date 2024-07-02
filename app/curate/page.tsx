@@ -1,76 +1,56 @@
 'use client'
 
-import { useState } from "react";
-import axios from "axios";
-import { cleanInstagramUrl } from '../../utils/cleanInstagramUrl';
+import React, { useState } from 'react'
+import { InstagramEmbed, PinterestEmbed } from 'react-social-media-embed';
 
-interface InstagramPost {
-    title?: string;
-    author_name: string;
-    author_url: string;
-    media_id: string;
-    thumbnail_url: string;
-    type: string;
-    provider_name: string;
-    provider_url: string;
-    version: string;
-    width: number;
-    height: number;
-    html: string;
-  }
 
 const Curate = () => {
 
-    const [url, setUrl] = useState<string>('');
-    const [postData, setPostData] = useState<InstagramPost | null>(null);
-    const [error, setError] = useState<string | null>(null);
-  
-    const fetchInstagramData = async (instagramUrl: string) => {
-      try {
-        console.log(instagramUrl);
-        const cleanedUrl = cleanInstagramUrl(instagramUrl);
-        console.log(cleanedUrl);
-        const response = await axios.get<InstagramPost>(`https://graph.instagram.com/oembed?url=${cleanedUrl}`);
-        setPostData(response.data);
-        setError(null);
-      } catch (err) {
-        setError('Error fetching Instagram data');
-        setPostData(null);
-      }
-    };
-  
-    const handleSubmit = (e: React.FormEvent) => {
-      e.preventDefault();
-      fetchInstagramData(url);
-    };
-    
+  const [link, setLink] = useState('')
+  const [plink, setPlink] = useState('')
+  const [embedLink, setEmbedLink] = useState<string | null>(null)
+  const [pembedLink, setPembedLink] = useState<string | null>(null)
+
+  const postEmbed = () => {
+    setEmbedLink(link)
+  }
+  const postPinterestEmbed = () => {
+    setPembedLink(plink)
+  }
     return (
-        <div className="container mx-auto p-4 pt-40">
-            <h1 className="text-3xl font-bold mb-4">Instagram Post Fetcher</h1>
-            <form onSubmit={handleSubmit} className="mb-4">
-            <input
+        <div className='pt-20 flex justify-evenly flex-row'>
+          <div className='flex flex-col gap-3'>
+          <h2>IG post</h2>
+            <div className='flex flex-row justify-between gap-2'>
+              <input
                 type="text"
-                value={url}
-                onChange={(e) => setUrl(e.target.value)}
-                placeholder="Enter Instagram post URL"
-                className="border p-2 rounded w-full mb-2"
-            />
-            <button type="submit" className="bg-black text-white rounded px-4 py-2">
-                Fetch Post
-            </button>
-            </form>
-  
-            {error && <p className="text-red-500">{error}</p>}
-            {postData && (
-            <div className="bg-white p-4 rounded-lg shadow-md">
-                <h2 className="text-2xl font-bold mb-2">{postData.title || 'Instagram Post'}</h2>
-                <img src={postData.thumbnail_url} alt={postData.title || 'Instagram Post'} className="rounded-lg mb-2" />
-                <p>{postData.author_name}</p>
-                <a href={postData.author_url} className="text-blue-500" target="_blank" rel="noopener noreferrer">
-                View on Instagram
-                </a>
+                placeholder="Search"
+                className="h-10 pl-2 border-2 border-gray rounded-md"     
+                value={link}
+                onChange={e => setLink(e.target.value)} // Update link when the input changes
+                />
+              <button className='bg-black text-zinc p-2 rounded' onClick={postEmbed}>
+                Display post
+              </button>
             </div>
-            )}
+            {embedLink && <InstagramEmbed url={embedLink} width={328} />}
+          </div>
+          <div className='flex flex-col gap-3'>
+            <h2>Pinterest post</h2>
+            <div className='flex flex-row justify-between gap-2'>
+              <input
+                type="text"
+                placeholder="Search"
+                className="h-10 pl-2 border-2 border-gray rounded-md"     
+                value={plink}
+                onChange={e => setPlink(e.target.value)} // Update link when the input changes
+                />
+              <button className='bg-black text-zinc p-2 rounded max-h-10' onClick={postPinterestEmbed}>
+                Display post
+              </button>
+            </div>
+            {pembedLink && <PinterestEmbed url={pembedLink} width={328} height={467}/>}
+          </div>
         </div>
     )
 }

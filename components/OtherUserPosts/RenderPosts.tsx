@@ -193,7 +193,7 @@ const updateUnlikeCount = async (postId: string) => {
                             const url = feedPosts.product_link.startsWith('http') ? feedPosts.product_link : `http://${feedPosts.product_link}`;
                             window.open(url, '_blank');
                           }}>
-                          <ArrowUpRight size={16} />
+                          <ArrowUpRight className='flex-shrink-0' size={16} />
                           <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                             <span>{feedPosts.product_name}</span>
                           </div>

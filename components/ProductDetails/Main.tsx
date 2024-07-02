@@ -2,12 +2,14 @@
 
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
-import { supabase } from '@/lib/supabase'
 import { usePathname, useRouter } from 'next/navigation'
+import Link from 'next/link'
+
+import { GalleryVerticalEnd, Heart } from 'lucide-react'
+
+import { supabase } from '@/lib/supabase'
 import { toast } from '@/components/ui/use-toast'
 import { commentVideo, likeVideo, unlikeVideo } from '@/lib'
-import { GalleryVerticalEnd, Heart } from 'lucide-react'
-import Link from 'next/link'
 import { Footer } from '@/components/ui/Footer'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/shadcn/dropdown-menu'
 
@@ -250,7 +252,7 @@ const MainProductDetail = () => {
 
     useEffect(() => {
         getRightPost()
-        fetchLikedPosts()
+        // fetchLikedPosts()
         fetchLists()
         getComments()
     })

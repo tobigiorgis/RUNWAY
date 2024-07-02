@@ -174,7 +174,7 @@ export const ForYou = () => {
 
       useEffect(() => {
         getPosts()
-        fetchLikedPosts()
+        // fetchLikedPosts()
       }, [])
       
     

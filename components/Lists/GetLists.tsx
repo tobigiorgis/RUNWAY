@@ -78,21 +78,21 @@ export const GetLists = () => {
                     //     </div>
                     // </div>
                     <div
-                        className='shadow-sm border border-slate rounded-xl md:w-1/4 w-full h-2/3 flex flex-col items-center justify-center'
+                        className='shadow-sm bg-black opacity-95 border border-slate rounded-xl md:w-1/4 w-full h-2/3 flex flex-col items-center justify-center'
                         key={index}
                     >
                     <Link className='flex w-full flex-col items-center gap-7' href={`/profile/${list.user_id}/lists/${list.id}`}>
-                        <h3 className='text-black font-medium text-xl'>{list.name}</h3>
+                        <h3 className='text-white font-medium text-xl'>{list.name}</h3>
                         <div className=' flex flex-row gap-2'>
-                            <div className='px-2 py-1 bg-zinc opacity-80 text-sm font-medium rounded-lg'>
+                            <div className='px-2 py-1 bg-black opacity-90 border border-slate text-white text-xs flex items-center justify-center font-medium rounded-lg'>
                                 <p>
                                     {new Date(list.created_at).toLocaleDateString(undefined, { month: 'long', year: 'numeric' })}
                                 </p>
                             </div>
-                            <div className='px-2 py-1 bg-zinc opacity-80 text-sm font-medium rounded-lg'>
+                            <div className='px-2 py-1 bg-black opacity-90 border border-slate text-white text-xs flex items-center justify-center font-medium rounded-lg'>
                                 <p>{list.profiles.username}</p>
                             </div>
-                            <div className='px-2 py-1 bg-zinc opacity-80 text-sm font-medium rounded-lg'>
+                            <div className='px-2 py-1 bg-black opacity-90 border border-slate text-white text-xs flex items-center justify-center font-medium rounded-lg'>
                                 <p>{list.private === true ? 'Private' : 'Public'}</p>
                             </div>
                         </div>
