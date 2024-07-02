@@ -122,7 +122,7 @@ const ListDetail = () => {
     
     
   return (
-    <div className='flex w-full h-full mt-10 gap-3'>
+    <div className='flex w-full h-full md:mt-10'>
         {
             list.map((list: any, index: number) => (
                 <div className='w-full flex gap-1 md:gap-3 flex-col' key={index}>
@@ -177,7 +177,7 @@ const ListDetail = () => {
                           </DialogContent>
                         </Dialog>
                     </div>
-                    <div className='w-full flex flex-row gap-5 flex-wrap'>
+                    <div className='w-full flex flex-row gap-5 mt-5 flex-wrap'>
                         {/* <p className='text-xs font-medium text-gray md:hidden'>{list.private === true ? 'Private' : 'Public'}</p> */}
                     {
                         select == 'Runways' ? posts.map((post: any, key: number) => (
@@ -228,6 +228,7 @@ const ListDetail = () => {
                     {
                       select == 'Pins' ? pins.map((pin: any, key: number) => (
                         <div
+                          className='flex justify-center w-full max-w-[550px]'
                           key={key}
                         >
                           <PinterestEmbed url={pin.url} width={212} height={320}/>
@@ -238,6 +239,7 @@ const ListDetail = () => {
                     {
                       select == 'Ig posts' ? igposts.map((igpost: any, key: number) => (
                         <div
+                          className='flex justify-center'
                           key={key}
                         >
                           <InstagramEmbed url={igpost.url} width={328}/>
