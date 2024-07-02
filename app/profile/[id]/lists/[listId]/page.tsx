@@ -227,7 +227,9 @@ const ListDetail = () => {
                     }
                     {
                       select == 'Pins' ? pins.map((pin: any, key: number) => (
-                        <div>
+                        <div
+                          key={key}
+                        >
                           <PinterestEmbed url={pin.url} width={212} height={320}/>
                         </div>
                       ))
@@ -235,7 +237,9 @@ const ListDetail = () => {
                     }
                     {
                       select == 'Ig posts' ? igposts.map((igpost: any, key: number) => (
-                        <div>
+                        <div
+                          key={key}
+                        >
                           <InstagramEmbed url={igpost.url} width={328}/>
                         </div>
                       ))
