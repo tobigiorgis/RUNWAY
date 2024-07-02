@@ -228,7 +228,7 @@ const ListDetail = () => {
                     {
                       select == 'Pins' ? pins.map((pin: any, key: number) => (
                         <div
-                          className='flex justify-center w-full max-w-[550px]'
+                          className='flex justify-center w-full md:w-1/5'
                           key={key}
                         >
                           <PinterestEmbed url={pin.url} width={212} height={320}/>
