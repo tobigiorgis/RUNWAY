@@ -122,7 +122,7 @@ const ListDetail = () => {
     
     
   return (
-    <div className='flex w-full h-full mt-10 mb-10'>
+    <div className='flex w-full h-full mt-10 gap-3'>
         {
             list.map((list: any, index: number) => (
                 <div className='w-full flex gap-1 md:gap-3 flex-col' key={index}>
@@ -178,7 +178,7 @@ const ListDetail = () => {
                         </Dialog>
                     </div>
                     <div className='w-full flex flex-row gap-5 flex-wrap'>
-                        <p className='text-xs font-medium text-gray md:hidden'>{list.private === true ? 'Private' : 'Public'}</p>
+                        {/* <p className='text-xs font-medium text-gray md:hidden'>{list.private === true ? 'Private' : 'Public'}</p> */}
                     {
                         select == 'Runways' ? posts.map((post: any, key: number) => (
                             <div 
