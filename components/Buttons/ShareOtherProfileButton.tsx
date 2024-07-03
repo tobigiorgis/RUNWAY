@@ -44,7 +44,7 @@ const ShareOtherProfileButton = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button className='w-1/3 bg-black text-white rounded py-1 px-2 text-center'>
+        <button className='w-auto bg-black text-white rounded py-1 px-2'>
             Share
         </button> 
       </DialogTrigger>

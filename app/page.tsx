@@ -66,11 +66,11 @@ export default function Home() {
       <Footer />
 
       <div className="pt-20 flex flex-row gap-1">
-        <p className="text-gray text-xs">Tuviste algun problema?</p>
+        <p className="text-gray text-xs">Any feedback?</p>
         <Link
             href='mailto:userunway@gmail.com'  
         >
-            <p className='text-xs text-gray '>Contactanos!</p>
+            <p className='text-xs text-gray '>Contact us!</p>
         </Link>
       </div>
     </main>

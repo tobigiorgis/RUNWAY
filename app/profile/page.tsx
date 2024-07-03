@@ -129,7 +129,7 @@ const Profile = () => {
             <>
             {profile.map((profile: any, key: number) => {
                 return (
-                    <div key={key} className='flex items-center flex-col gap-8 pt-10'>
+                    <div key={key} className='flex items-center flex-col gap-5 pt-10'>
                         <div className='flex items-center flex-col gap-3'>
                         <Dialog>
                             <DialogTrigger asChild>
@@ -159,7 +159,7 @@ const Profile = () => {
 
                             </DialogHeader>
                             <DialogFooter>
-                                <Button className='bg-black outline-none' type="submit" onClick={handleSubmit}>Save changes</Button>
+                                <Button className='bg-black text-zinc outline-none' type="submit" onClick={handleSubmit}>Save changes</Button>
                             </DialogFooter>
                             </DialogContent>
                         </Dialog>
@@ -168,16 +168,13 @@ const Profile = () => {
                                 {/* <h3 className='text-gray'>Followers {profile.followers_count}</h3> */}
                                 {/* <h3 className='text-gray'>Following {profile.following_count}</h3> */}
                             </div>
-                            <p className=''>{profile.bio}</p>
+                            <div className='flex justify-center flex-col items-center'>
+                                <p className='text-dark text-sm'>{profile.style}</p>
+                                <p className=''>{profile.bio}</p>
+                            </div>
                         </div>
                         <div className='flex items-center justify-center gap-2 w-3/4'>
-                            {/* <button className='w-1/3 bg-black text-white rounded py-1 px-2'>
-                                Edit
-                            </button> */}
                             <EditProfile username={profile.username} bio={profile.bio} name={profile.full_name} website={profile.website}/>
-                            {/* <button className='w-1/3 bg-black text-white rounded py-1 px-2'>
-                                Share
-                            </button> */}
                             <ShareMyProfileButton />
                             <Link className='w-1/3 flex items-center justify-center bg-black text-white rounded py-1 px-2' href={`/profile/${profile.id}/lists`}>
                                 <button>

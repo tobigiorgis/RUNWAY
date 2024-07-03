@@ -62,7 +62,7 @@ export const FollowButton = ({userId, followers, following}: any) => {
 
     return (
         <div>
-            <button onClick={handleFollow} className='w-auto font-medium text-black rounded py-1 px-2 bg-[#E5E4E2]'>
+            <button onClick={handleFollow} className='w-auto font-medium text-black rounded py-1 px-2 bg-light'>
                 Follow
             </button>
         </div>

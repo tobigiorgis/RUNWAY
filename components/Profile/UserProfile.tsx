@@ -83,7 +83,7 @@ const UserProfile = () => {
     <main className={`w-full h-full pt-20 flex items-center flex-col justify-between`}>
     {profile.map((profile: any, key: number) => {
         return (
-            <div key={key} className='flex items-center flex-col gap-3 pt-10'>
+            <div key={key} className='flex items-center flex-col gap-5 pt-10'>
                 <Dialog>
                     <DialogTrigger asChild>
                         <Avatar>
@@ -92,7 +92,7 @@ const UserProfile = () => {
                         </Avatar>
                     </DialogTrigger>
                 </Dialog>
-                <div className='flex items-center flex-col'>
+                <div className='flex items-center flex-col gap-2'>
                     <div className='flex flex-row gap-2 items-center'>
                         <HoverCard>
                             <HoverCardTrigger asChild>
@@ -115,10 +115,13 @@ const UserProfile = () => {
                                 </div>
                             </HoverCardContent>
                         </HoverCard>
-                        <h3 className='text-gray-400'>Followers {profile.followers_count}</h3>
-                        <h3 className='text-gray-400'>Following {profile.following_count}</h3>
+                        {/* <h3 className='text-gray'>Followers {profile.followers_count}</h3> */}
+                        {/* <h3 className='text-gray'>Following {profile.following_count}</h3> */}
                     </div>
-                    <p className='pt-3'>{profile.bio}</p>
+                    <div className='flex justify-center flex-col items-center'>
+                        <p className='text-dark text-sm'>{profile.style}</p>
+                        <p className=''>{profile.bio}</p>
+                    </div>
                 </div>
                 <div className='flex items-center justify-center gap-2 w-3/4'>
                     {/* <button onClick={handleFollow} className={`w-auto font-medium text-black rounded py-1 px-2 ${isFollowing ? 'bg-black text-zinc-200' : 'bg-[#E5E4E2]'}`}> */}
