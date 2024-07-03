@@ -52,21 +52,21 @@ const Page = () => {
           <h1 className='font-semibold text-xl mt-20'>We are excited to have you!</h1>
           <h3 className='font-medium text-sm'>Start by creating your RUNWAY profile ❤️‍🔥</h3>
 
-          <form className='flex flex-col h-full w-1/2 mt-10 gap-2' onSubmit={handleSubmit}>
-            <label htmlFor="fullname">Full Name</label>
+          <form className='flex flex-col h-full md:w-1/2 w-full mt-10 gap-1 px-5' onSubmit={handleSubmit}>
+            <label className='font-medium' htmlFor="fullname">Full Name</label>
             <input required className='bg-light rounded px-2 py-1 focus:outline-black' type="text" name="fullname" id="fullname" placeholder='ex. Virgil Abloh' />
 
-            <label htmlFor="username">Username</label>
+            <label className='mt-2 font-medium' htmlFor="username">Username</label>
             <input required className='bg-light rounded px-2 py-1 focus:outline-black' type="text" name="username" id="username" placeholder='ex. virgil'/>
             
-            <label htmlFor="bio">Bio</label>
+            <label className='mt-2 font-medium' htmlFor="bio">Bio</label>
             <input required className='bg-light rounded px-2 py-1 focus:outline-black' type="text" name="bio" id="bio" placeholder='be creative'/>
 
-            <label htmlFor="website">Website <span className='text-sm text-gray-400'>(optional)</span></label>
+            <label className='mt-2 font-medium' htmlFor="website">Website <span className='text-sm text-gray-400'>(optional)</span></label>
             <input className='bg-light rounded px-2 py-1 focus:outline-black' type="text" name="website" id="website" placeholder='drop your website'/>
 
             <Select name='style'>
-                <SelectTrigger>
+                <SelectTrigger className='mt-4'>
                   <SelectValue placeholder="Select your favorite style" />
                 </SelectTrigger>
                 <SelectContent>
