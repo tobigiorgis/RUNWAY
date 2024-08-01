@@ -10,6 +10,7 @@ import Link from 'next/link'
 export const GetLists = () => {
 
     const [dataLists, setDataLists] = useState<any[]>([])
+    const [followingLists, setFollowingLists] = useState<any[]>([])
     const [images, setImages] = useState<any[]>([]);
 
     const renderLists = async () => {
@@ -29,6 +30,26 @@ export const GetLists = () => {
             setDataLists(data)
             // console.log(data)
         }
+    }
+
+    const renderFollowingLists = async () => {
+        
+        const { data: { user } } = await supabase.auth.getUser()
+
+        const { data, error } = await supabase
+            .from('users_following_lists')
+            .select('*, users_lists(*, profile(username))')
+            .eq('user_id', user?.id)
+
+        
+            if (error) {
+                console.log(error)
+            }
+      
+            if (data) {
+                setFollowingLists(data)
+                console.log(data)
+            }
     }
 
     const getImages =  async () => {
@@ -56,7 +77,7 @@ export const GetLists = () => {
     
 
   return (
-    <div className='flex w-full h-full gap-12'>
+    <div className='flex w-full h-full gap-12 flex-col md:flex-row'>
         {
             dataLists.map((list, index) => {
                 return (
@@ -81,7 +102,7 @@ export const GetLists = () => {
                         className='shadow-sm bg-black opacity-95 border border-slate rounded-xl md:w-1/4 w-full h-2/3 flex flex-col items-center justify-center'
                         key={index}
                     >
-                    <Link className='flex w-full flex-col items-center gap-7' href={`/profile/${list.user_id}/lists/${list.id}`}>
+                    <Link className='flex w-full flex-col py-5 md:py-0 items-center gap-7' href={`/profile/${list.user_id}/lists/${list.id}`}>
                         <h3 className='text-white font-medium text-xl'>{list.name}</h3>
                         <div className=' flex flex-row gap-2'>
                             <div className='px-2 py-1 bg-black opacity-90 border border-slate text-white text-xs flex items-center justify-center font-medium rounded-lg'>
@@ -96,13 +117,13 @@ export const GetLists = () => {
                                 <p>{list.private === true ? 'Private' : 'Public'}</p>
                             </div>
                         </div>
-                        <Image
-                            src={images[index]?.posts_in_lists[index]?.posts?.src}
-                            width={100}
-                            height={100}
-                            alt={`Image ${index + 1}`}
-                            className='rounded-md' 
-                        />
+                            <Image
+                                src={images[index]?.posts_in_lists[index]?.posts?.src}
+                                width={100}
+                                height={100}
+                                alt={`Image ${index + 1}`}
+                                className='rounded-md' 
+                            />
                     </Link>
                     </div>
                 )

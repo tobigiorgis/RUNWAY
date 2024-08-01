@@ -1,12 +1,10 @@
 'use client'
 import { useEffect, useState } from "react";
 
-import { Progress } from "@/components/ui/progress"
 import { useDropzone } from "react-dropzone";
 
 import { publishVideo, uploadVideo } from "@/lib";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import Image from "next/image";
 import { toast } from "@/components/ui/use-toast";
 
 
@@ -33,7 +31,7 @@ export default function Upload() {
     useDropzone({
       disabled: uploading || uploaded !== null,
       maxFiles: 1,
-      accept: {'image/bmp,image/jpeg,image/png,image/tiff,image/webp': []} ,
+      accept: {'image/*': []} ,
       onDrop,
     });
 
@@ -62,9 +60,9 @@ export default function Upload() {
 
     return (
       <>
-        <h4 className="mt-3 text-gray-400">Drag and drop here</h4>
-        <p className="text-gray-400">or</p>
-        <h4 className="mt-3 text-gray-400">Select a picture</h4>
+        <h4 className="mt-3 text-gray">Drag and drop here</h4>
+        <p className="text-gray">or</p>
+        <h4 className="mt-3 text-gray">Select a picture</h4>
       </>
     );
   };
@@ -122,13 +120,13 @@ export default function Upload() {
   
   return (
     <main className={`flex h-full py-20 flex-col bg-white items-center`}>
-      <div className='w-full md:px-24 px-8 py-5 h-full flex flex-col border-gray-200 border-t'>
+      <div className='w-full md:px-24 px-8 py-5 h-full flex flex-col border-gray border-t'>
         <h1 className='font-bold text-xl'>Create runway</h1>
 
         <form className='w-full flex md:flex-row flex-col mt-5 md:h-full h-fit gap-4' onSubmit={handleSubmit}>
           <div className='md:w-1/2 w-full flex flex-col items-start gap-2' {...getRootProps()}>
             <label className='font-semibold w-full h-auto items-start' htmlFor="image">Photo</label>
-            <div className='w-full md:h-full h-[40vh] border-2 border-dashed border-black bg-gray-100 rounded gap-2 p-5 flex-col flex items-center justify-center'>
+            <div className='w-full md:h-full h-[40vh] border-2 border-dashed border-black bg-gray rounded gap-2 p-5 flex-col flex items-center justify-center'>
               <input type="file" name="image" id="fileInput" {...getInputProps()} />
               <img
                 src="https://sf16-scmcdn-va.ibytedtos.com/goofy/tiktok/web/node/_next/static/images/cloud_icon-6e07be44878e69ee3f7bff3b78405b76.svg"
@@ -171,18 +169,18 @@ export default function Upload() {
             </label>
             <input
               id="tags"
-              className='mt-2 pl-2 bg-gray-100 w-full rounded h-10 focus:outline-gray'
+              className='mt-2 pl-2 bg-gray w-full rounded h-10 focus:outline-gray'
               name="tags"
               placeholder="add tags"
               onKeyDown={handleKeyDown}
             />
             <div className="mt-3">
               {tags.map((tag, index) => (
-                <span key={index} className='bg-gray-200 text-gray-700 font-semibold rounded px-2 py-1 mr-2'>
+                <span key={index} className='bg-gray text-gray font-semibold rounded px-2 py-1 mr-2'>
                   {tag}
                   <button
                     type="button"
-                    className='ml-2 text-gray-400 text-xs'
+                    className='ml-2 text-gray text-xs'
                     onClick={() => handleDelete(index)}
                   >
                     X

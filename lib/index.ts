@@ -11,7 +11,11 @@ export const uploadVideo = async ({ postFile }: { postFile: File }) => {
   const prefix = process.env.NEXT_PUBLIC_SUPABASE_STORAGE_URL
   const { data, error } = await supabase.storage
     .from('uploads')
-    .upload(`posts/${filename}.jpg`, postFile)
+    .upload(`posts/${filename}.jpg`, postFile, {
+      cacheControl: '3600',
+      upsert: false,
+      contentType: postFile.type, // Explicitly set the content type)
+    });
     console.log(data?.path);
 
     const file = data?.path ? `${prefix}${data.path}` : ''
@@ -79,8 +83,6 @@ export const publishVideo = async ({ postSrc, description, product, productlink,
 
   return [error, data]
 }
-
-
 
 
 type List = {
@@ -216,6 +218,25 @@ export const unfollowUser = async ({ user_id, follower_id }: Follow) => {
     .eq('user_id', user_id)
     .eq('follower_id', follower_id)
 
+  return [error, data]
+}
+
+// Function to follow list
+
+type FollowList = {
+  user_id: string
+  list_id: string
+}
+
+export const followList = async ({ user_id, list_id }: FollowList) => {
+  const { data, error } = await supabase
+    .from('users_following_lists')
+    .insert([
+      {
+        user_id: user_id,
+        list_id: list_id
+      }
+    ])
   return [error, data]
 }
 

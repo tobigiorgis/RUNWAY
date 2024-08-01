@@ -24,6 +24,7 @@ module.exports = {
       'zinc': '#f3f4f6',
       'light': '#e5e7eb',
       'dark': '#737373',
+      'sky': '#38bdf8',
     },
     extend: {
       keyframes: {

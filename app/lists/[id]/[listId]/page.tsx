@@ -2,12 +2,13 @@
 
 import React, { Suspense, useEffect, useState } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 import { ArrowUpRight, Heart, Instagram, Pin, Plus, Share } from 'lucide-react'
+import { InstagramEmbed, PinterestEmbed } from 'react-social-media-embed'
 
 import { supabase } from '@/lib/supabase'
-import { usePathname } from 'next/navigation'
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
+import { followList } from '@/lib'
 import {
   Select,
   SelectContent,
@@ -15,17 +16,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { Button } from '@/components/ui/button'
-import { Label } from '@/components/ui/label'
-import { Input } from '@/components/ui/input'
-import { addToList } from '@/lib'
-import { toast } from '@/components/ui/use-toast'
-import { InstagramEmbed, PinterestEmbed } from 'react-social-media-embed'
 
-const ListDetail = () => {
+const ListDetailOnlyView = () => {
 
     const pathname = usePathname()
-    const listId = pathname.split('/')[4]
+    const listId = pathname.split('/')[3]
     const [list, setList] = useState<any[]>([])
     const [posts, setPosts] = useState<any[]>([])
     const [pins, setPins] = useState<any[]>([])
@@ -96,16 +91,19 @@ const ListDetail = () => {
             }
     }
 
-    const curatePost = async (url: string, type: string) => {
-      const [error, data] = await addToList({ list_id: listId, url, type });
-      if (error) {
-        console.error('Error adding post to list:', error);
-      } else {
-        toast({
-          title: "Pin added to list!",
-          description: `Let's go!`,
-      })
-      }
+    const handleFollow = async () => {
+
+        const { data: { user } } = await supabase.auth.getUser()
+        // call function from lib/index
+        const [error, data] = await followList({ user_id: user!.id, list_id: listId });
+
+
+        if (error) {
+            console.error('Error following list', error);
+          } else {
+            console.log('List followed', data);
+            window.location.reload()
+          }
     }
       
     useEffect(() => {
@@ -117,6 +115,8 @@ const ListDetail = () => {
         fetchPinterestPosts();
         fetchIgPosts();
     }, [select])
+
+    console.log(select)
     
     
   return (
@@ -136,44 +136,9 @@ const ListDetail = () => {
                             <SelectItem value="Ig posts">Ig posts</SelectItem>
                           </SelectContent>
                         </Select>
-                        <Dialog>
-                          <DialogTrigger className='hover:bg-zinc rounded-sm cursor-pointer' asChild>
-                            <Plus size={20} />
-                          </DialogTrigger>
-                          <DialogContent className="sm:max-w-[425px]">
-                            <DialogHeader>
-                              <DialogTitle>Curate post</DialogTitle>
-                              <DialogDescription>
-                                Add a post from Pinterest or Instagram to save on your RUNWAY list.
-                              </DialogDescription>
-                            </DialogHeader>
-                            <div className="grid gap-4 py-4">
-                              <div className="flex items-center gap-4">
-                                <Label htmlFor="username" className="text-right">
-                                  URL
-                                </Label>
-                                <Input
-                                  id="username"
-                                  className="col-span-3"
-                                  placeholder='paste here'
-                                  onChange={e => setUrl(e.target.value)}
-                                  value={url}
-                                />
-                              </div>
-                            </div>
-                            <DialogFooter className='flex flex-row gap-2'>
-                              <Button onClick={e => setTag('pins')} variant="outline" className="gap-1 focus:bg-black focus:text-white">
-                                <Pin size={20} />
-                                Pinterest
-                              </Button>
-                              <Button onClick={e => setTag('ig')} variant="outline" className="gap-1 focus:bg-black focus:text-white">
-                                <Instagram size={20} />
-                                Instagram
-                              </Button>
-                              <Button onClick={() => curatePost(url, tag)} className='flex justify-center bg-gray text-black w-full' type="submit">Add</Button>
-                            </DialogFooter>
-                          </DialogContent>
-                        </Dialog>
+                        <button className='text-dark hover:font-medium' onClick={handleFollow}>
+                            Follow +
+                        </button>
                     </div>
                     <div className='w-full flex flex-row gap-5 mt-5 flex-wrap'>
                         {/* <p className='text-xs font-medium text-gray md:hidden'>{list.private === true ? 'Private' : 'Public'}</p> */}
@@ -223,17 +188,6 @@ const ListDetail = () => {
                         ))
                         : ''
                     }
-                    {/* I want to create a div if posts = null */}
-                    {
-                      posts.length === 0 ? (
-                        <div className='w-full h-full flex mt-20 justify-center items-center flex-col'>
-                          <h4 className='text-md text-gray'>No posts in this list yet</h4>
-                          <Link href={'/discover'} className='font-medium text-sm'>
-                            Go discover outfits
-                          </Link>
-                        </div>
-                      ) : ''
-                    }
                     {
                       select == 'Pins' ? pins.map((pin: any, key: number) => (
                         <div
@@ -264,4 +218,4 @@ const ListDetail = () => {
   )
 }
 
-export default ListDetail
+export default ListDetailOnlyView

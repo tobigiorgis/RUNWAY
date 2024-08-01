@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
 
-import { GalleryVerticalEnd, Heart } from 'lucide-react'
+import { GalleryVerticalEnd, Heart, Plus, Share } from 'lucide-react'
 
 import { supabase } from '@/lib/supabase'
 import { toast } from '@/components/ui/use-toast'
@@ -302,17 +302,41 @@ const MainProductDetail = () => {
         <button className='w-1/12 hidden md:flex md:mt-10' onClick={() => router.back()}>
             back
         </button>
-        <div className='flex flex-col h-auto w-full md:w-3/4 gap-10'>
+        <div className='flex flex-col h-auto w-full md:w-3/4 md:gap-10'>
             <div className=' md:h-[550px] h-auto rounded-lg md:mt-10 md:mb-0'>
                 {
                     feedPosts.map((feedPosts: any, key: number) => {
                         return (
                             <div key={key} className='flex md:flex-row flex-col h-fit w-full md:gap-12 gap-1'>
-                                <div className='rounded-l-lg md:h-[550px] flex-1 relative'>
-                                    <Image priority className='md:rounded-t-lg md:rounded-l-lg h-[55vh] md:h-full w-full' src={feedPosts.src} alt='Image' width={500} height={200}/>
+                                <div className='flex w-full md:hidden px-4 justify-between'>
+                                    <div>
+                                        <h3 className='font-medium text-lg'>{feedPosts.profiles.username}</h3>
+                                        <p>{feedPosts.description}</p>
+                                    </div>
+                                    <button className='text-dark'>
+                                        Follow +
+                                    </button>
+                                </div>
+                                <div className='rounded-l-lg md:h-[550px] flex-1 relative px-4 py-2'>
+                                    <Image priority className='md:rounded-t-lg md:rounded-l-lg rounded-lg h-[55vh] md:h-full w-full' src={feedPosts.src} alt='Image' width={500} height={200}/>
+                                </div>
+                                <div className='flex md:hidden flex-col px-4'>
+                                    <p className='text-gray'>Product</p>
+                                    <div className='flex flex-row justify-between'>
+                                       <h5 className='font-medium'>{feedPosts.product_name}</h5>
+                                       <button 
+                                            className='text-sky text-sm'
+                                            onClick={() => {
+                                                const url = feedPosts.product_link.startsWith('http') ? feedPosts.product_link : `http://${feedPosts.product_link}`;
+                                                    window.open(url, '_blank');
+                                                }}
+                                        >
+                                            Buy
+                                       </button>
+                                    </div>
                                 </div>
                                 <div className='md:p-5 py-2 px-3 w-full md:flex-1 flex flex-col justify-between gap-9'>
-                                    <div className='flex flex-row w-full justify-between'>
+                                    <div className='md:flex md:flex-row md:w-full justify-between hidden'>
                                         <Link href={`/profile/${feedPosts.profiles.id}`}>
                                             <h1 className='font-medium text-lg'>{feedPosts.profiles.username}</h1>
                                         </Link>
@@ -352,22 +376,41 @@ const MainProductDetail = () => {
                                             </button> */}
                                         </div>
                                     </div>
-                                    <div>
+                                    <div className='md:flex hidden'>
                                         <h2 className='font-semibold text-2xl'>{feedPosts.title}</h2>
                                         <p>{feedPosts.description}</p>
                                         {/* <p>{feedPosts.product_name}</p> */}
                                     </div>
-                                    <div className='flex flex-col gap-3'>
-                                        <h3 className='font-medium'>Lists that include this post ↓</h3>
+                                    <div className='flex md:hidden gap-2 justify-center w-full pt-3'>
+                                        <button className='bg-gray p-3 rounded-3xl'>
+                                            <Plus size={20} color='gray'/>
+                                        </button>
                                         {
-                                            featuredLists.map((list: any, index: number) => {
-                                                return (
-                                                    <div className='gap-3 flex flex-col' key={index}>
+                                            likedPosts.includes(feedPosts.id) ? (
+                                                <button className='bg-gray p-3 rounded-3xl' onClick={(event) => handleUnlike(feedPosts.id)}>
+                                                    <Heart size={20} fill='red' color='red'/>
+                                                </button>
+                                            ) : (
+                                                <button className='bg-gray p-3 rounded-3xl' onClick={(event) => handleLike(feedPosts.id)}>
+                                                    <Heart size={20} color='gray'/>
+                                                </button>
+                                            )
+                                        }
+                                        <button className='bg-gray p-3 rounded-3xl'>
+                                            <Share size={20} color='gray'/>
+                                        </button>
+                                    </div>
+                                    <div className='flex flex-col gap-3 px-1'>
+                                        <h3 className='font-medium text-gray md:text-black'>Lists that include this post ↓</h3>
+                                        <div className='flex flex-row w-full h-full gap-3'>
+                                            {
+                                                featuredLists.map((list: any, index: number) => {
+                                                    return (
                                                         <div
-                                                            className='shadow-sm bg-zinc border border-slate rounded-xl md:w-2/5 w-1/2 h-full flex px-2  flex-col items-center justify-evenly'
+                                                            className='shadow-sm bg-zinc border border-slate rounded-xl md:w-full w-1/2 h-full flex px-2 flex-col items-center justify-evenly'
                                                             key={index}
                                                         >
-                                                            <Link className='flex w-full flex-col items-center gap-4 py-2' href={`/profile/${list.user_id}/lists/${list.id}`}>
+                                                            <Link className='flex w-full flex-col items-center gap-4 py-2' href={`/lists/${list.users_lists.user_id}/${list.list_id}`}>
                                                                 <div className='px-2 text-sm flex flex-row items-center justify-between w-full'>
                                                                     <h4 className='text-black font-medium text-lg'>{list.users_lists.name}</h4>
                                                                     <p>by {list.users_lists.profiles.username}</p>
@@ -375,20 +418,20 @@ const MainProductDetail = () => {
                                                                 <div className='flex flex-row gap-2 items-center justify-center'>
                                                                     <div className='px-2 py-1 flex flex-row items-center gap-1 text-sm text-gray rounded-lg'>
                                                                         <GalleryVerticalEnd size={10} color='gray'/>
-                                                                        <p>+{list.users_lists.posts_added} posts saved</p>
+                                                                        <p>+{list.users_lists.posts_added} other posts</p>
                                                                     </div>
                                                                 </div>
                                                                 <p className='font-medium text-sm hover:font-semibold'>Check out</p>
                                                             </Link>
                                                         </div>
-                                                    </div>
-                                                )
-                                            })
-                                        
-                                        }
+                                                    )
+                                                })
+                                            
+                                            }
+                                        </div>
                                     </div>
                                         <button
-                                            className='text-sm hover:font-semibold'
+                                            className='text-sm hover:font-semibold hidden md:flex md:justify-center'
                                             onClick={() => {
                                             const url = feedPosts.product_link.startsWith('http') ? feedPosts.product_link : `http://${feedPosts.product_link}`;
                                                 window.open(url, '_blank');

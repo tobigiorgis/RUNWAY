@@ -1,10 +1,8 @@
 'use client'
 
-import CreateListButton from '@/components/Buttons/CreateListButton'
 import { GetLists } from '@/components/Lists/GetLists'
 import { Sidebar } from '@/components/Lists/Sidebar'
 import { Topbar } from '@/components/Lists/Topbar'
-import { supabase } from '@/lib/supabase'
 import React, { useEffect, useState } from 'react'
 
 const Lists = () => {

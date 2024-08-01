@@ -16,6 +16,7 @@ import { RenderLikedPosts } from '@/components/OtherUserPosts/RenderLikedPosts'
 import ShareOtherProfileButton from '@/components/Buttons/ShareOtherProfileButton'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Dialog, DialogTrigger } from '../ui/dialog'
+import Link from 'next/link'
 
 const UserProfile = () => {
 
@@ -131,14 +132,16 @@ const UserProfile = () => {
                         <FollowButton userId={userId} followers={followersCount} following={followingCount}/>
                     }
                     <ShareOtherProfileButton />
-                    <button className='w-1/3 bg-black text-white rounded py-1 px-2'>
-                        Lists
+                    <button className='w-auto bg-black text-white rounded py-1 px-2'>
+                        <Link href={`/lists/${userId}`}>
+                            Lists
+                        </Link>
                     </button>
                 </div>
-                <div className='flex items-center gap- w-4/6'>
+                <div className='flex items-center gap-3 w-4/6'>
                     <div className='w-1/2 flex items-center justify-center'>
                         <button 
-                            className={`font-semibold  ${ activeTab === 'myRunways' ? 'border-b-2 border-black' : ''}`}
+                            className={`font-medium  ${ activeTab === 'myRunways' ? 'border-b-2 border-black font-semibold' : ''}`}
                             onClick={() => setActiveTab('myRunways')}
                             >
                             Runways
@@ -146,7 +149,7 @@ const UserProfile = () => {
                     </div>
                     <div className='w-1/2 flex items-center justify-center'>
                         <button 
-                            className={`font-semibold  ${ activeTab === 'liked' ? 'border-b-2 border-black' : ''}`}
+                            className={`font-medium  ${ activeTab === 'liked' ? 'border-b-2 border-black font-semibold' : ''}`}
                             onClick={() => setActiveTab('liked')}
                             >
                             Liked
