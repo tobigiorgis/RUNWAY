@@ -59,7 +59,7 @@ const GetOtherLists = () => {
         {
             dataLists.map((list, index) => {
                 return (
-                    <h3 className='font-semibold'>{list.profiles.username}&apos;s lists</h3>
+                    <h3 key={index} className='font-semibold'>{list.profiles.username}&apos;s lists</h3>
                 )})
         }
     {
