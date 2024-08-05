@@ -10,6 +10,14 @@ module.exports = module.exports = {
           port: '',
           pathname: '/storage/v1/object/public/uploads/posts/**',
         },
+        {
+          protocol: 'https',
+          hostname: '*.supabase.co',
+          port: '',
+          pathname: '/storage/v1/object/public/uploads/landing/**',
+        },
       ],
     },
+    transpilePackages: ["geist"],
   }
+

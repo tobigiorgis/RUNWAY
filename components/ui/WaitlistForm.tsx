@@ -2,9 +2,9 @@ import React from 'react'
 
 const WaitlistForm = () => {
   return (
-    <div className="bg-black px-1 py-1 rounded-3xl opacity-20">
+    <div className="bg-black px-1 py-1 rounded-3xl opacity-50">
         <form
-        className="launchlist-form"
+        className="launchlist-form  opacity-80"
         action="https://getlaunchlist.com/s/Lz49GN"
         method="POST"
         >

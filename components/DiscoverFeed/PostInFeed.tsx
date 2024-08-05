@@ -6,7 +6,7 @@ const PostInFeed = ({posts, key}: any) => {
   return (
     <div
         key={key}
-        className='gap-3 md:w-1/6 w-full rounded hover:opacity-85 flex flex-col'
+        className='gap-3 md:w-1/6 w-full rounded flex flex-col'
     >
         <div className='w-full flex flex-row justify-between md:hidden'>
                                     {/* <div style={{ backgroundImage: `url(${posts.src})`, backgroundSize: 'cover', backgroundPosition: 'center'}}></div> */}

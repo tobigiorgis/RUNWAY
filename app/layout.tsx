@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter, Roboto } from 'next/font/google'
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 import Head from 'next/head'
 import { Analytics } from '@vercel/analytics/react';
 
@@ -10,11 +12,11 @@ import { Toaster } from '@/components/ui/toaster'
 
 const inter = Inter({ subsets: ['latin'] })
 
-const roboto = Roboto({
-  weight: '400',
-  subsets: ['latin'],
-  display: 'swap',
-})
+// const roboto = Roboto({
+//   weight: '400',
+//   subsets: ['latin'],
+//   display: 'swap',
+// })
 
 export const metadata: Metadata = {
   title: 'Runway | Where fashion lovers hang',
@@ -31,12 +33,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.className}`}>
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <script src="https://getlaunchlist.com/js/widget.js" defer></script>
       </Head>
-        <body className={inter.className}>
+        <body>
           {/* <Navbar/> */}
           <NavbarTest/>
           {children}

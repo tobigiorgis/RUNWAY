@@ -27,6 +27,10 @@ module.exports = {
       'sky': '#38bdf8',
     },
     extend: {
+      fontFamily: {
+        sans: ['var(--font-geist-sans)'],
+        mono: ['var(--font-geist-mono)'],
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
