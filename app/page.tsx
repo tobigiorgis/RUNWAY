@@ -19,7 +19,14 @@ export default function Home() {
     <>
     <main className={`flex h-screen w-full flex-col items-center bg-white justify-center pt-20 md:gap-2 gap-10 bg-[url('https://qqdcidmbajmncgqukjhm.supabase.co/storage/v1/object/public/uploads/landing/bg.jpg')]`}>
       <div className='flex flex-col items-center justify-between w-full relative top-100'>
-        <h1 className='md:text-5xl text-2xl'>Where fashion lovers hang</h1>
+        <h1 
+          style={{
+            backgroundImage: 'conic-gradient(from 180deg at 50% 50%, #B9B9B9 0deg, #B4B4B4 10.58deg, #878787 78.75deg, #B7B7B7 168.75deg, #B1B1B1 270deg, #8D8D8D 343.12deg, #B9B9B9 360deg)',
+            WebkitBackgroundClip: 'text',
+            backgroundClip: 'text',
+            color: 'transparent'
+          }}
+          className='md:text-5xl text-2xl font-semibold'>Where fashion lovers hang</h1>
         <p className='text-m mt-1 md:text-lg'>Curate, share and discover outfits.</p>
         <a href="#what-is" className="scroll-smooth">
           <p className="text-xs mt-1 text-gray-300 border-b cursor-crosshair">What is RUNWAY?</p>
@@ -80,7 +87,7 @@ export default function Home() {
           These days inlfuencers are struggling to monetize their content. But we are here to help them. Tag your clothes with affiliate links, create lists and create a community. This is only the beginning.
         </p>
       </div>
-        <Image width={500} height={1000} alt="Discover" src={`https://qqdcidmbajmncgqukjhm.supabase.co/storage/v1/object/public/uploads/landing/discover.png`} />
+        <Image width={500} height={1000} alt="Discover" src={`https://qqdcidmbajmncgqukjhm.supabase.co/storage/v1/object/public/uploads/landing/influencer.png`} />
         <Link href='/signup' className="bg-white opacity-60 px-3 py-2 rounded-3xl">
           <button className="text-black">Start monetizing</button>
         </Link>
@@ -92,7 +99,7 @@ export default function Home() {
           Pinterest? Instagram? Create a Runway and save from pins to ig and runway posts. All your favorites in one place to share them with your friends.
         </p>
       </div>
-        <Image width={500} height={1000} alt="Discover" src={`https://qqdcidmbajmncgqukjhm.supabase.co/storage/v1/object/public/uploads/landing/discover.png`} />
+        <Image width={500} height={1000} alt="Discover" src={`https://qqdcidmbajmncgqukjhm.supabase.co/storage/v1/object/public/uploads/landing/lists.png`} />
         <Link href='/signup' className="bg-white opacity-60 px-3 py-2 rounded-3xl">
           <button className="text-black">Start curating</button>
         </Link>
@@ -104,7 +111,7 @@ export default function Home() {
           Runway exists to give the fashion community a place to share their outfits, get inspired and shop socially. Join with your friends and meet other fashion lovers.
         </p>
       </div>
-        <Image width={500} height={1000} alt="Discover" src={`https://qqdcidmbajmncgqukjhm.supabase.co/storage/v1/object/public/uploads/landing/discover.png`} />
+        <Image width={500} height={1000} alt="Discover" src={`https://qqdcidmbajmncgqukjhm.supabase.co/storage/v1/object/public/uploads/landing/disc.png`} />
         <Link href='/signup'>
           <button className="text-sky">Join now!</button>
         </Link>
