@@ -14,7 +14,7 @@ export async function middleware(req: NextRequest) {
   
     // post/[id] was deleted -> it needs user id
     if (!session && !['/', '/discover', '/about', '/login', '/signup', '/reset', '/reset/email'].includes(path) && !/^\/post\/[^\/]+$/.test(path)) {
-      return NextResponse.rewrite(new URL('/waitlist', req.url));
+      return NextResponse.rewrite(new URL('/signup', req.url));
     }
 
   console.log(session);
