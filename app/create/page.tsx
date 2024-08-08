@@ -147,7 +147,7 @@ export default function Upload() {
             <label className='font-semibold flex items-start w-full' htmlFor="title">
               Title
             </label>
-            <input required id="title" className='mt-2 pl-2 bg-zinc w-full focus:outline-gray rounded h-10' name="title" placeholder="add a cool title" />
+            <input id="title" className='mt-2 pl-2 bg-zinc w-full focus:outline-gray rounded h-10' name="title" placeholder="add a cool title" />
 
             <label htmlFor="description" className='font-semibold flex items-start w-full mt-4'>
               Description
@@ -169,14 +169,14 @@ export default function Upload() {
             </label>
             <input
               id="tags"
-              className='mt-2 pl-2 bg-gray w-full rounded h-10 focus:outline-gray'
+              className='mt-2 pl-2 bg-zinc w-full rounded h-10 focus:outline-gray'
               name="tags"
               placeholder="add tags"
               onKeyDown={handleKeyDown}
             />
             <div className="mt-3">
               {tags.map((tag, index) => (
-                <span key={index} className='bg-gray text-gray font-semibold rounded px-2 py-1 mr-2'>
+                <span key={index} className='bg-zinc text-gray font-semibold rounded px-2 py-1 mr-2'>
                   {tag}
                   <button
                     type="button"

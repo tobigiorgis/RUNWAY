@@ -63,7 +63,7 @@ type Post = {
   tags: string[]
 }
 
-export const publishVideo = async ({ postSrc, description, product, productlink, title, tags } : Post) => {
+export const publishVideo = async ({ postSrc, description, product, productlink, tags } : Post) => {
 
   const { data: { user } } = await supabase.auth.getUser()
 
@@ -72,7 +72,6 @@ export const publishVideo = async ({ postSrc, description, product, productlink,
     .insert([
       {
         user_id: user?.id,
-        title,
         description,
         src: postSrc,
         product_name: product,
