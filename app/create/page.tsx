@@ -144,11 +144,6 @@ export default function Upload() {
           </div>
 
           <div className='md:w-1/2 w-full flex flex-col items-center'>
-            <label className='font-semibold flex items-start w-full' htmlFor="title">
-              Title
-            </label>
-            <input id="title" className='mt-2 pl-2 bg-zinc w-full focus:outline-gray rounded h-10' name="title" placeholder="add a cool title" />
-
             <label htmlFor="description" className='font-semibold flex items-start w-full mt-4'>
               Description
             </label>
