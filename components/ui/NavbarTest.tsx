@@ -9,6 +9,7 @@ import { Search, Sparkle, X } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '../shadcn/dropdown-menu';
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from './dialog';
+import Image from 'next/image';
 
 
 export const NavbarTest = () => {
@@ -117,6 +118,7 @@ export const NavbarTest = () => {
       <div className='flex flex-row items-center md:gap-4'>
         <Link href={'/'}>
           <h1 className='md:text-xl text-m'>RUNWAY</h1>
+          {/* <Image alt='logo' src='/images/runway.jpg' width={100} height={30} /> */}
         </Link>
         <button className={`hidden md:flex md:text-sm md:rounded md:p-1 ${pathname === '/discover' ? 'bg-light font-medium' : ''}`}>
           <Link href={'/discover'}>

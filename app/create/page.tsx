@@ -72,34 +72,32 @@ export default function Upload() {
     evt.preventDefault();
     if (!uploaded) return;
 
-    const wait = () => new Promise((resolve) => setTimeout(resolve, 2000));
+    const wait = () => new Promise((resolve) => setTimeout(resolve, 3000));
 
-    const title = evt.target.title.value;
-    const description = evt.target.description.value;
-    const product = evt.target.product.value;
-    const productlink = evt.target.productlink.value;
+    let title = evt.target.title.value;
+    let description = evt.target.description.value;
+    let product = evt.target.product.value;
+    let productlink = evt.target.productlink.value;
 
-    const [error] = await publishVideo({ postSrc: uploaded, title, description, product, productlink, tags: tags});
+    const [error, data] = await publishVideo({ postSrc: uploaded, title, description, product, productlink, tags: tags});
 
     if (error) {
       return toast({
         title: "Post failed",
         description: `There was an error: ${error.message}`,
     })
-    }
+    } 
     else {
-      console.log("post published!!!");
       setPosted(true);
-      wait().then(() => setPosted(false));
-      
+      wait().then(() => {
+        setPosted(false);
+        // Clean all input values
+        // Note: Cleaning input values here won't have an effect if you're reloading the page immediately after.
+        setTags([]);
+        setUploaded(null);
+        window.location.reload(); // Moved inside the .then() to ensure it happens after wait
+      });
     }
-    // Clean all input values
-    evt.target.title.value = '';
-    evt.target.description.value = '';
-    evt.target.product.value = '';
-    evt.target.productlink.value = '';
-    setTags([]);
-    setUploaded(null);
 };
   
   const handleKeyDown = (event: any) => {

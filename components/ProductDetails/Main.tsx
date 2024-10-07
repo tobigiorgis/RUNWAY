@@ -299,9 +299,6 @@ const MainProductDetail = () => {
     
   return (
     <main className='pt-20 pb-10 w-full md:h-full min-h-screen flex flex-row md:items-start items-center md:justify-evenly justify-center md:px-6 py-0 z-10'>
-        <button className='w-1/12 hidden md:flex md:mt-10' onClick={() => router.back()}>
-            back
-        </button>
         <div className='flex flex-col h-auto w-full md:w-3/4 md:gap-10'>
             <div className=' md:h-[550px] h-auto rounded-lg md:mt-10 md:mb-0'>
                 {
@@ -402,6 +399,11 @@ const MainProductDetail = () => {
                                     </div>
                                     <div className='flex flex-col gap-3 px-1'>
                                         <h3 className='font-medium text-gray md:text-black'>Lists that include this post ↓</h3>
+                                        {
+                                            featuredLists.length === 0 ? 
+                                                <p className='text-gray'>No lists yet</p> 
+                                            : null
+                                        }
                                         <div className='flex flex-row w-full h-full gap-3'>
                                             {
                                                 featuredLists.map((list: any, index: number) => {
@@ -468,9 +470,6 @@ const MainProductDetail = () => {
                 </form>
             </div>
         </div>
-        <button className='w-1/12 hidden md:flex invisible'>
-            
-        </button>
         <Footer/>
     </main>
   )

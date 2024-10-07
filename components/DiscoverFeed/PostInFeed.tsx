@@ -15,7 +15,9 @@ const PostInFeed = ({posts, key}: any) => {
                 <p className='text-sm'>{posts.description}</p>
             </div>
             <button className='flex flex-start text-gray text-md'>
-                Buy
+                <Link className='w-full' href={posts.product_link} target="_blank" rel="noopener noreferrer">
+                    Buy
+                </Link>
             </button>
         </div>
         <Link href={`/post/${posts.id}`} key={key} legacyBehavior>
