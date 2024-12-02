@@ -6,7 +6,6 @@ import Head from 'next/head'
 import { Analytics } from '@vercel/analytics/react';
 
 import './globals.css'
-import { Navbar } from '@/components/ui/Navbar'
 import { NavbarTest } from '@/components/ui/NavbarTest'
 import { Toaster } from '@/components/ui/toaster'
 
