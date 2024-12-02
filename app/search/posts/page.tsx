@@ -1,19 +1,21 @@
 'use client'
 
 import React, { Suspense, useEffect, useState } from 'react'
-import { supabase } from '@/utils/supabase/server';
 import { useSearchParams } from 'next/navigation';
 import { ArrowUpRight, Heart, Share } from 'lucide-react';
 import Link from 'next/link';
 import { Footer } from '@/components/ui/Footer';
 import { likeVideo, unlikeVideo } from '@/lib';
 import { useToast } from '@/components/ui/use-toast';
+import { createClient } from '@/utils/supabase/client';
 
 const SearchPage = () => {
 
     const [searchResults, setSearchResults] = useState<any>([]);
     const [isHovered, setIsHovered] = useState(null);
     const [likedPosts, setLikedPosts] = useState<any[]>([]);
+
+    const supabase = createClient()
 
     const { toast } = useToast()
 

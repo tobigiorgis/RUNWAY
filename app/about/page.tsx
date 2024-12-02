@@ -16,7 +16,7 @@ const About = () => {
       <p className='text-sm mt-1'>
         In RUNWAY you are able to post your outfits or products you like from your profile. A post consists of Photo, Title, Description, Product name, Product Link and tags, if desired. By sharing the link to the product, users would be able to get that product on the internet easily and influencers would be able to monetize their posts with their affiliate links.
       </p>
-      <h4 className='font-semibold mt-4'>Main Features</h4>
+      <h5 className='font-semibold mt-4'>Main Features</h5>
       <p className='text-sm mt-1'>
       <span className='font-medium'>Posts.</span> Share your outfits with fashion lovers.
       </p>
