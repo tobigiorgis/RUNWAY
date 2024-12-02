@@ -60,7 +60,7 @@ const Profile = () => {
 
     useEffect(() => {
         getProfiles()
-    }, [])
+    })
 
 
     const onDrop = async (files: any) => {
