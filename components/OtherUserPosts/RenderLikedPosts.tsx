@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import { ArrowUpRight, Heart, Share } from 'lucide-react';
 
-import { supabase } from '@/utils/supabase/server';
 import { likeVideo, unlikeVideo } from '@/lib';
-import { usePathname } from 'next/navigation';
+import { createClient } from '@/utils/supabase/client';
+
 
 
 export const RenderLikedPosts = () => {
+
+  const supabase = createClient()
 
     const pathname = usePathname()
     const userId = pathname.split('/')[2]

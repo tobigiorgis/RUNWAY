@@ -3,6 +3,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 
 import { CalendarIcon } from 'lucide-react'
 
@@ -15,7 +16,6 @@ import { RenderLikedPosts } from '@/components/OtherUserPosts/RenderLikedPosts'
 import ShareOtherProfileButton from '@/components/Buttons/ShareOtherProfileButton'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Dialog, DialogTrigger } from '../ui/dialog'
-import Link from 'next/link'
 import { createClient } from '@/utils/supabase/client'
 
 

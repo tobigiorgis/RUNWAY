@@ -11,10 +11,12 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
   } from "@/components/ui/alert-dialog"
-import { supabase } from '@/utils/supabase/server'
 import { unfollowUser } from '@/lib'
+import { createClient } from '@/utils/supabase/client';
 
 const UnfollowButton = ({userId, followers, following}: any) => {
+
+    const supabase = createClient()
 
     const removeFollower = async () => {
         // Update the followers_count and following_count

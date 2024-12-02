@@ -8,7 +8,7 @@ import { ArrowUpRight, Heart, Share } from "lucide-react"
 
 import { likeVideo, unlikeVideo } from "@/lib"
 import { toast } from "../ui/use-toast"
-import { createClient } from "@/utils/supabase/server"
+import { createClient } from "@/utils/supabase/client"
 
 
 
@@ -167,7 +167,7 @@ const updateUnlikeCount = async (postId: string) => {
         return (
           <div 
               style={{ backgroundImage: `url(${feedPosts.src})`, backgroundSize: 'cover', backgroundPosition: 'center'}}
-              className='md:w-1/4 w-full h-80 rounded hover:opacity-85' 
+              className='md:w-1/5 w-full h-80 rounded hover:opacity-85' 
               key={key}
               onMouseEnter={() => setIsHovered(feedPosts.id)}
               onMouseLeave={() => setIsHovered(null)}
