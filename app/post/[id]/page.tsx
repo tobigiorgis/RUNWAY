@@ -16,7 +16,7 @@ import { createClient } from '@/utils/supabase/server'
 
 
 
-const Page = async ({
+const Page: React.FC<{ searchParams: { [key: string]: string | string[] | undefined } }> = async ({
   searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined }
