@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
@@ -121,6 +121,7 @@ const Profile = () => {
     }
 
   return (
+    <Suspense fallback={<div>Loading...</div>}>
     <main className={`w-full h-full pt-20 flex items-center flex-col justify-between`}>
         {profileCreated ? (
             <>
@@ -223,6 +224,7 @@ const Profile = () => {
             )}
             <Footer/>
     </main>
+    </Suspense>
   )
 }
 

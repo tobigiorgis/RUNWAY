@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import CreateListButton from '../Buttons/CreateListButton'
 import Link from 'next/link'
@@ -84,6 +84,7 @@ export const Sidebar = () => {
       }
 
   return (
+    <Suspense fallback={<div>Loading...</div>}>
     <div className='hidden md:flex items-center flex-col mt-5 bg-black h-full md:w-1/6 px-2 py-4 rounded-lg '>
         <Link className='w-full flex items-center justify-center' href={`/profile/lists`}> 
             {/* <h3 className='text-gray-400 text-m font-medium'>Lists</h3> */}
@@ -138,5 +139,6 @@ export const Sidebar = () => {
             : ''
         }
   </div>
+  </Suspense>
   )
 }

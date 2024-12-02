@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { Suspense } from 'react'
 import Link from 'next/link';
 
 import { ForYou } from '@/components/DiscoverFeed/ForYou';
@@ -15,6 +15,7 @@ const Discover = () => {
     const tab = searchParams.get('tab') || 'forYou';
 
   return (
+    <Suspense fallback={<div>Loading...</div>}>
     <main
         className={`flex min-h-screen pt-10 md:py-20 flex-col items-center bg-white`}
     >
@@ -41,6 +42,7 @@ const Discover = () => {
         )
     }
     </main>
+    </Suspense>
   )
 }
 

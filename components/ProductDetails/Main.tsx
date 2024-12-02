@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import Image from 'next/image'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
@@ -233,6 +233,7 @@ const MainProductDetail = () => {
 
     
   return (
+    <Suspense fallback={<div>Loading...</div>}>
     <main className='pt-20 pb-10 w-full md:h-full min-h-screen flex flex-row md:items-start items-center md:justify-evenly justify-center md:px-6 py-0 z-10'>
         <div className='flex flex-col h-auto w-full md:w-3/4 md:gap-10'>
             <DetailPost postId={postId}/>
@@ -240,6 +241,7 @@ const MainProductDetail = () => {
         </div>
         <Footer/>
     </main>
+    </Suspense>
   )
 }
 

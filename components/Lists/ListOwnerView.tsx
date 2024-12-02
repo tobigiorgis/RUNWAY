@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
@@ -98,6 +98,7 @@ export const ListOwnerView = ({ list }: { list: any }) => {
   const listArray = Array.isArray(list) ? list : [list]
 
   return (
+    <Suspense fallback={<div>Loading...</div>}>
     <div className='flex w-full h-full md:mt-5 mb-10 flex-col'>
                   <div className='w-full flex justify-between items-center flex-row'>
                       <h3 className='text-m font-semibold text-black uppercase'></h3>
@@ -218,5 +219,6 @@ export const ListOwnerView = ({ list }: { list: any }) => {
                     }
                     </div>
     </div>
+    </Suspense>
   )
 }

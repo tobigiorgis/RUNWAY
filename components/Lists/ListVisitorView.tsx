@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
@@ -118,6 +118,7 @@ export const ListVisitorView = ({ list }: { list: any }) => {
   const listArray = Array.isArray(list) ? list : [list]
 
   return (
+    <Suspense fallback={<div>Loading...</div>}>
     <div className='flex w-full h-full flex-col md:mt-5 mb-20'>
                     <div className='w-full flex justify-between items-center flex-row'>
                         <h3 className='text-m font-semibold text-black uppercase'>{list.name}</h3>
@@ -212,6 +213,7 @@ export const ListVisitorView = ({ list }: { list: any }) => {
                     </div>
                 {/* </div> */}
     </div>
+    </Suspense>
   )
 }
 
