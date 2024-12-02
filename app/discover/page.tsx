@@ -15,7 +15,6 @@ const Discover = () => {
     const tab = searchParams.get('tab') || 'forYou';
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
         <main
             className={`flex min-h-screen pt-10 md:py-20 flex-col items-center bg-white`}
         >
@@ -42,8 +41,13 @@ const Discover = () => {
             )
         }
         </main>
-    </Suspense>
   )
 }
 
-export default Discover
+export function DiscoverPage() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <Discover />
+        </Suspense>
+    )
+}
