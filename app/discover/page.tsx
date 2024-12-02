@@ -4,9 +4,12 @@ import Link from 'next/link';
 import { ForYou } from '@/components/DiscoverFeed/ForYou';
 import { Following } from '@/components/DiscoverFeed/Following';
 
+interface DiscoverProps {
+    searchParams: { [key: string]: string | string[] | undefined }
+  }
 
 
-const Discover = ({ searchParams, } : { searchParams: { [key: string]: string | string[] | undefined }}) => {
+const Discover = ({ searchParams }: DiscoverProps) => {
 
     const tab = searchParams.tab || 'forYou';
 
