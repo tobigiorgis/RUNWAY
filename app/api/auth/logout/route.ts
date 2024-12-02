@@ -5,8 +5,10 @@ export async function POST() {
   const cookieStore = cookies()
   
   // Clear auth cookies
-  cookieStore.delete('profile')
-  cookieStore.delete('user')
+  ;(await
+    // Clear auth cookies
+    cookieStore).delete('profile')
+  ;(await cookieStore).delete('user')
   
   return NextResponse.json({ success: true })
 }
