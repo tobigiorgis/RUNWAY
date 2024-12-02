@@ -1,7 +1,7 @@
-
+'use client'
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 
 import { GalleryVerticalEnd, Heart, Plus, Share } from 'lucide-react'
@@ -16,7 +16,9 @@ import GetComments from '../DetailPost/getComments'
 
 
 
-const MainProductDetail = ({postId} : {postId: string}) => {
+const MainProductDetail = () => {
+  const searchParams = useSearchParams()
+  const postId = searchParams.get('id') || '';
     
     // const [feedPosts, setFeedPosts] = useState<any[]>([])
     // const [likedPosts, setLikedPosts] = useState<any[]>([]);

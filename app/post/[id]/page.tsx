@@ -1,4 +1,3 @@
-
 // import React, { useEffect, useState } from 'react'
 // import Image from 'next/image'
 // import { supabase } from '@/lib/supabase'
@@ -16,19 +15,14 @@ import { createClient } from '@/utils/supabase/server'
 
 
 
-const Page: React.FC<{ searchParams: { [key: string]: string | string[] | undefined } }> = async ({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined }
-}) => {
+const Page = () => {
   
-  const postId = await searchParams.id as string
+  // const postId = await searchParams.id as string
 
-  console.log(postId);
 
     
   return (
-    <MainProductDetail postId={postId} />
+    <MainProductDetail />
   )
 }
 

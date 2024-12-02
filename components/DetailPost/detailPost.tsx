@@ -7,7 +7,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { Heart, Plus, Share } from 'lucide-react';
 import Link from 'next/link';
 import { toast } from '../ui/use-toast';
-import { createClient } from '@/utils/supabase/server';
+import { createClient } from '@/utils/supabase/client';
 
  const DetailPost = async ({postId} : {postId: string}) => {
 

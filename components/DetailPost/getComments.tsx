@@ -3,7 +3,7 @@ import React from 'react'
 
 import Link from 'next/link';
 
-import { createClient } from '@/utils/supabase/server';
+import { createClient } from '@/utils/supabase/client';
 import FormComment from './formComment';
 
  const GetComments = async ({postId} : {postId: string}) => {
