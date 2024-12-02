@@ -5,7 +5,7 @@ import { ArrowUpRight, Heart, Share } from 'lucide-react';
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 
 import { likeVideo, unlikeVideo } from '@/lib';
-import { createClient } from '@/utils/supabase/server';
+import { createClient } from '@/utils/supabase/client';
 import { useToast } from '../ui/use-toast';
 import { redirect, useRouter } from 'next/navigation'
 import { Dialog } from '../ui/dialog';
@@ -177,7 +177,7 @@ export const ForYou = async () => {
       
     
   return (
-    <section className='h-fit w-full md:mt-15 mt-8 flex flex-row justify-evenly gap-5 md:px-20 px-8 flex-wrap'>
+    <section key='forYou' className='h-fit w-full md:mt-15 mt-8 flex flex-row justify-evenly gap-5 md:px-20 px-8 flex-wrap'>
             {posts && posts.map((posts: any, index: number) => {
                     return (
                         <>

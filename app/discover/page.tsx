@@ -1,17 +1,18 @@
+'use client'
 import React from 'react'
 import Link from 'next/link';
 
 import { ForYou } from '@/components/DiscoverFeed/ForYou';
 import { Following } from '@/components/DiscoverFeed/Following';
-
-interface DiscoverProps {
-    searchParams: { [key: string]: string | string[] | undefined }
-  }
+import { useSearchParams } from 'next/navigation';
 
 
-const Discover = ({ searchParams }: DiscoverProps) => {
 
-    const tab = searchParams.tab || 'forYou';
+
+const Discover = () => {
+
+    const searchParams = useSearchParams()
+    const tab = searchParams.get('tab') || 'forYou';
 
   return (
     <main
@@ -34,9 +35,9 @@ const Discover = ({ searchParams }: DiscoverProps) => {
         </div>
     {
         tab === 'forYou' ? (
-            <ForYou key={'forYou'}/>
+            <ForYou />
         ) : (
-            <Following key={'following'}/>
+            <Following />
         )
     }
     </main>

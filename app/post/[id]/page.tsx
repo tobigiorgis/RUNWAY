@@ -16,13 +16,13 @@ import { createClient } from '@/utils/supabase/server'
 
 
 
-const Page = ({
+const Page = async ({
   searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined }
 }) => {
   
-  const postId = searchParams.id as string
+  const postId = await searchParams.id as string
 
   console.log(postId);
 

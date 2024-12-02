@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { Share, ArrowUpRight, Heart } from 'lucide-react'
 
 import { likeVideo, unlikeVideo } from '@/lib'
-import { createClient } from '@/utils/supabase/server'
+import { createClient } from '@/utils/supabase/client'
 
 export const Following = () => {
 
@@ -172,7 +172,7 @@ export const Following = () => {
 
 
   return (
-    <section className='h-fit w-full md:mt-20 mt-8 flex flex-row gap-7 justify-evenly md:px-20 px-8 flex-wrap'>
+    <section key='following' className='h-fit w-full md:mt-20 mt-8 flex flex-row gap-7 justify-evenly md:px-20 px-8 flex-wrap'>
             {/* {
                 followingPosts.map((posts: any, key: number) => {
                     return (
