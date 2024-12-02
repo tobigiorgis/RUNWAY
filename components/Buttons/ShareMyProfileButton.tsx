@@ -18,13 +18,15 @@ import { Label } from "@/components/ui/label"
 import { Copy } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { useToast } from '../ui/use-toast'
-import { supabase } from '@/lib/supabase'
+import { createClient } from '@/utils/supabase/client'
+
 
 const ShareMyProfileButton = () => {
 
   const pathname = usePathname()
   const { toast } = useToast()
   const [url, setUrl] = useState<string>('')
+  const supabase = createClient()
   
   const createUrl = async () => {
     const { data: { user } } = await supabase.auth.getUser()

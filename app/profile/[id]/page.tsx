@@ -1,9 +1,8 @@
 
-
 import React from 'react'
 import UserProfile from '@/components/Profile/UserProfile'
 import { Metadata, ResolvingMetadata } from 'next'
-import { supabase } from '@/lib/supabase'
+import { createClient } from '@/utils/supabase/client'
 
 
 
@@ -30,6 +29,7 @@ export async function generateMetadata(
   ): Promise<Metadata> {
     
     const userId = params.id
+    const supabase = createClient();
    
     // fetch data
 

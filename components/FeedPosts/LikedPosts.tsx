@@ -3,8 +3,8 @@ import Link from 'next/link';
 
 import { ArrowUpRight, Heart, Share } from 'lucide-react';
 
-import { supabase } from '@/lib/supabase';
 import { likeVideo, unlikeVideo } from '@/lib';
+import { createClient } from '@/utils/supabase/client';
 
 
 export const LikedPosts = () => {
@@ -12,6 +12,7 @@ export const LikedPosts = () => {
     const [feedPosts, setFeedPosts] = useState<any[]>([])
     const [isHovered, setIsHovered] = useState(null);
     const [likedPosts, setLikedPosts] = useState<any[]>([]);
+    const supabase = createClient()
 
     const getPosts = async () => {
       const { data: { user } } = await supabase.auth.getUser()

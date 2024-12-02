@@ -1,6 +1,6 @@
 'use client';
 
-import { supabase } from "@/lib/supabase";
+import { supabase } from "@/utils/supabase/server";
 import { Eye, EyeOff } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

@@ -1,17 +1,20 @@
-import { likeVideo, unlikeVideo } from '@/lib'
-import { supabase } from '@/lib/supabase'
-import { Share, ArrowUpRight, Heart } from 'lucide-react'
-import { useRouter } from 'next/navigation'
-import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+
+import { Share, ArrowUpRight, Heart } from 'lucide-react'
+
+import { likeVideo, unlikeVideo } from '@/lib'
+import { createClient } from '@/utils/supabase/server'
 
 export const Following = () => {
 
-    const [followingPosts, setFollowingPosts] = useState<any[]>([])
-    const [isHovered, setIsHovered] = useState(null);
-    const [likedPosts, setLikedPosts] = useState<any[]>([]);
-    const router = useRouter()
+    // const [followingPosts, setFollowingPosts] = useState<any[]>([])
+    // const [isHovered, setIsHovered] = useState(null);
+    // const [likedPosts, setLikedPosts] = useState<any[]>([]);
+    // const router = useRouter()
     
+    const supabase = createClient()
 
         const getFollowingPosts = async () => {
 
@@ -33,48 +36,48 @@ export const Following = () => {
                 console.log(errorFollowing)
                 return
               }
-              
+            }
             
-              // Get the user_ids of the users that the logged-in user is following
-              const followingUserIds = following?.map(follow => follow.follower_id)
+          //     // Get the user_ids of the users that the logged-in user is following
+          //     const followingUserIds = following?.map(follow => follow.follower_id)
             
-              // Get the posts from the users that the logged-in user is following
-              let { data: posts, error: errorPosts } = await supabase
-                .from('posts')
-                .select(`*, profiles(username)`)
-                .in('user_id', followingUserIds || [])
+          //     // Get the posts from the users that the logged-in user is following
+          //     let { data: posts, error: errorPosts } = await supabase
+          //       .from('posts')
+          //       .select(`*, profiles(username)`)
+          //       .in('user_id', followingUserIds || [])
             
-              if (errorPosts) {
-                console.log(errorPosts)
-                return
-              }
+          //     if (errorPosts) {
+          //       console.log(errorPosts)
+          //       return
+          //     }
           
-              setFollowingPosts(posts || [])
-              console.log(followingPosts);
-            }
-          }
+          //     setFollowingPosts(posts || [])
+          //     console.log(followingPosts);
+          //   }
+          // }
 
-          const fetchLikedPosts = async () => {
-            const { data: { user } } = await supabase.auth.getUser()
-            if (user) {
-              const { data: likedPosts, error } = await supabase
-                .from('users_posts_likes')
-                .select('post_id')
-                .eq('user_id', user?.id)
+        //   const fetchLikedPosts = async () => {
+        //     const { data: { user } } = await supabase.auth.getUser()
+        //     if (user) {
+        //       const { data: likedPosts, error } = await supabase
+        //         .from('users_posts_likes')
+        //         .select('post_id')
+        //         .eq('user_id', user?.id)
             
-              if (error) {
-                console.log(error)
-                return
-              }
+        //       if (error) {
+        //         console.log(error)
+        //         return
+        //       }
             
-              setLikedPosts(likedPosts.map(like => like.post_id))
-            }
+        //       setLikedPosts(likedPosts.map(like => like.post_id))
+        //     }
           }
     
-        useEffect(() => {
-            getFollowingPosts()
-            fetchLikedPosts()
-        }, [])
+        // useEffect(() => {
+        //     getFollowingPosts()
+        //     fetchLikedPosts()
+        // }, [])
 
         const updateLikeCount = async (postId: string) => {
 
@@ -129,48 +132,48 @@ export const Following = () => {
           return [error, like]
       }
 
-        const handleLike = async (postId: string) => {
+        // const handleLike = async (postId: string) => {
 
           
-          const { data: { user } } = await supabase.auth.getUser()
-          if (user) {
-            // Optimistically update the UI
-            setLikedPosts(prevLikedPosts => [...prevLikedPosts, postId]);
+        //   const { data: { user } } = await supabase.auth.getUser()
+        //   if (user) {
+        //     // Optimistically update the UI
+        //     setLikedPosts(prevLikedPosts => [...prevLikedPosts, postId]);
 
-            const [error, data] = await likeVideo({ user_id: user!.id, post_id: postId });
-            if (error) {
-              console.error('Error liking post', error);
-            } else {
-              console.log('Post liked', data);
-              updateLikeCount(postId)
-            }
-          } else {
-            router.push('/login')
-          }
-        };
+        //     const [error, data] = await likeVideo({ user_id: user!.id, post_id: postId });
+        //     if (error) {
+        //       console.error('Error liking post', error);
+        //     } else {
+        //       console.log('Post liked', data);
+        //       updateLikeCount(postId)
+        //     }
+        //   } else {
+        //     router.push('/login')
+        //   }
+        // };
 
-                // unlike a post with unlikeVideo from lib/index.ts
-        const handleUnlike = async (postId: string) => {
 
-            // Optimistically update the UI
-            setLikedPosts(prevLikedPosts => [...prevLikedPosts, postId]);
+        // const handleUnlike = async (postId: string) => {
+
+        //     // Optimistically update the UI
+        //     setLikedPosts(prevLikedPosts => [...prevLikedPosts, postId]);
     
-            const { data: { user } } = await supabase.auth.getUser()
-            const [error, data] = await unlikeVideo({ user_id: user!.id, post_id: postId });
+        //     const { data: { user } } = await supabase.auth.getUser()
+        //     const [error, data] = await unlikeVideo({ user_id: user!.id, post_id: postId });
     
-            if (error) {
-            console.error('Error liking post', error);
-            } else {
-            console.log('Post liked', data);
-            updateUnlikeCount(postId)
-            }
-        };
+        //     if (error) {
+        //     console.error('Error liking post', error);
+        //     } else {
+        //     console.log('Post liked', data);
+        //     updateUnlikeCount(postId)
+        //     }
+        // };
 
 
 
   return (
     <section className='h-fit w-full md:mt-20 mt-8 flex flex-row gap-7 justify-evenly md:px-20 px-8 flex-wrap'>
-            {
+            {/* {
                 followingPosts.map((posts: any, key: number) => {
                     return (
                         <div
@@ -223,7 +226,7 @@ export const Following = () => {
                         </div>
                     )
                 })
-            }
+            } */}
     </section>
   )
 }

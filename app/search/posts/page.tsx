@@ -1,7 +1,7 @@
 'use client'
 
 import React, { Suspense, useEffect, useState } from 'react'
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/utils/supabase/server';
 import { useSearchParams } from 'next/navigation';
 import { ArrowUpRight, Heart, Share } from 'lucide-react';
 import Link from 'next/link';

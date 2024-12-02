@@ -1,11 +1,14 @@
-import { supabase } from '@/lib/supabase'
+'use client'
+
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import MobileCreateListButton from '../Buttons/MobileCreateListButton'
+import { createClient } from '@/utils/supabase/client';
 
 export const Topbar = () => {
 
     const [dataLists, setDataLists] = useState<any[]>([])
+    const supabase = createClient()
 
     const renderLists = async () => {
   

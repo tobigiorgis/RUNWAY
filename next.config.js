@@ -14,6 +14,12 @@ module.exports = module.exports = {
           protocol: 'https',
           hostname: '*.supabase.co',
           port: '',
+          pathname: '/storage/v1/object/public/uploads/profilesPics/**',
+        },
+        {
+          protocol: 'https',
+          hostname: '*.supabase.co',
+          port: '',
           pathname: '/storage/v1/object/public/uploads/landing/**',
         },
       ],

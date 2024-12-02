@@ -1,27 +1,29 @@
-import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
 import { NextRequest, NextResponse } from "next/server";
+import { createClient } from "./utils/supabase/middleware";
 
+// middleware.ts
 export async function middleware(req: NextRequest) {
-  const res = NextResponse.next();
-  const supabase = createMiddlewareClient({ req, res });
   const path = req.nextUrl.pathname;
 
-  const { data: {
-    session
-  }, error } = await supabase
-    .auth
-    .getSession()
-  
-    // post/[id] was deleted -> it needs user id
-    if (!session && !['/', '/discover', '/about', '/login', '/signup', '/reset', '/reset/email'].includes(path) && !/^\/post\/[^\/]+$/.test(path)) {
-      return NextResponse.rewrite(new URL('/signup', req.url));
-    }
+    // Type-safe path checking
+    const publicPaths = ['/', '/discover', '/about', '/sign-in', '/signup', '/reset', '/reset/email'];
+    const isPublicPath = publicPaths.includes(path);
+    const isPostPath = /^\/post\/[^\/]+$/.test(path);
 
-  console.log(session);
-  
-  
-  return res;
+  const { supabase, response } = createClient(req);
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user && !isPublicPath && !isPostPath) {
+    return NextResponse.redirect(new URL('/sign-in', req.url));
+  }
+  return response;
 }
+  
+
+
+
 
 export const config = {
   matcher: [

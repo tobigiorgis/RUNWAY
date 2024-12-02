@@ -1,131 +1,108 @@
-'use client'
-import React, { useEffect, useState } from 'react'
+
+import React from 'react'
 import Link from 'next/link'
 import { redirect, usePathname } from 'next/navigation';
 import { useRouter } from 'next/navigation';
+import { cookies } from 'next/headers'
 
 import { Search, Sparkle, X } from 'lucide-react';
 
-import { supabase } from '@/lib/supabase';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '../shadcn/dropdown-menu';
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from './dialog';
-import Image from 'next/image';
+import { createClient } from '@/utils/supabase/server';
+import { signOutAction } from '@/app/actions';
 
 
-export const NavbarTest = () => {
+
+export const NavbarTest = async () => {
   
-    const router = useRouter();
+  const supabase = createClient();
 
-    const logout = async () => {
-        setSessionActive(false)
-        await supabase
-          .auth
-          .signOut()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();  
+
+
+  // const pathname = usePathname();
+  // const [sessionActive, setSessionActive] = useState(false)
+  // const [searchInput, setSearchInput] = useState('');
+  // const [username, setUsername] = useState<string | null>('');
+  // const [userId, setUserId] = useState<string | null>('');
+  // const [searchResults, setSearchResults] = useState<any[]>([]);
+
+
+
+    // const getUsername = async () => {
+    //   const { data: { user } } = await supabase.auth.getUser()
+    //   if (user) {
+    //     const { data, error } = await supabase
+    //     .from('profiles')
+    //     .select('username')
+    //     .eq('id', user?.id)
+
+    //     if (error) {
+    //       console.log(error);
+    //     } 
+
+    //     if (data) {
+    //       const userIs = data[0].username
+    //       setUsername(userIs)
+    //       console.log(username); 
+    //       setUserId(user?.id || null);
+    //     }
+    //   }
+    // }
+
+
+    // const handleSearch = async () => {
+    //   // Search the profiles table
+    //   const { data: profileData, error: profileError } = await supabase
+    //     .from('profiles')
+    //     .select('*')
+    //     .ilike('username', `%${searchInput}%`);
     
-        router.refresh();
-      }
-
-  const pathname = usePathname();
-  const [sessionActive, setSessionActive] = useState(false)
-  const [searchInput, setSearchInput] = useState('');
-  const [username, setUsername] = useState<string | null>('');
-  const [userId, setUserId] = useState<string | null>('');
-  const [searchResults, setSearchResults] = useState<any[]>([]);
-
-
-
-  const sessionCheck = async () => {
-
-      const {
-          data: {
-              session
-            }
-        } = await supabase.auth.getSession();
-
-        if (session) {
-            setSessionActive(true)
-        } else {
-            setSessionActive(false)
-        }
-    }
-
-    const getUsername = async () => {
-      const { data: { user } } = await supabase.auth.getUser()
-      if (user) {
-        const { data, error } = await supabase
-        .from('profiles')
-        .select('username')
-        .eq('id', user?.id)
-
-        if (error) {
-          console.log(error);
-        } 
-
-        if (data) {
-          const userIs = data[0].username
-          setUsername(userIs)
-          console.log(username); 
-          setUserId(user?.id || null);
-        }
-      }
-    }
-
-
-    const handleSearch = async () => {
-      // Search the profiles table
-      const { data: profileData, error: profileError } = await supabase
-        .from('profiles')
-        .select('*')
-        .ilike('username', `%${searchInput}%`);
+    //   if (profileError) {
+    //     console.log(profileError);
+    //   } else {
+    //     console.log(profileData); // Replace this with your own logic to display the search results
+    //     setSearchResults(profileData);
+    //   }
     
-      if (profileError) {
-        console.log(profileError);
-      } else {
-        console.log(profileData); // Replace this with your own logic to display the search results
-        setSearchResults(profileData);
-      }
-    
-    }
+    // }
 
-    // Search posts on enter key press
-    const postsSearch = (e: any) => {
+    // // Search posts on enter key press
+    // const postsSearch = (e: any) => {
 
-      e.preventDefault();
+    //   e.preventDefault();
 
-      if (e.key === 'Enter') {
+    //   if (e.key === 'Enter') {
 
-        setSearchInput('')
+    //     setSearchInput('')
 
-        const q = e.currentTarget.value
+    //     const q = e.currentTarget.value
 
 
-        // Navigate to the search page with the search query as a search param
-        router.replace(`/search/posts?query=${q}`);
-      }
+    //     // Navigate to the search page with the search query as a search param
+    //     router.replace(`/search/posts?query=${q}`);
+    //   }
 
-    }
-
-    useEffect(() => {
-      sessionCheck()
-      getUsername()
-    }, [])
-    
-
+    // }
     
   
   return (
-    <div className='flex flex-row justify-between md:items-start items-center w-full md:top-0 fixed md:px-24 md:py-7 py-5 px-4 bg-transparency-20 bg-white z-50'>
+    <div className='flex flex-row justify-between md:items-start items-center w-full md:top-0 fixed md:px-24 md:py-3 py-5 px-4 bg-transparency-20 bg-white z-50'>
       <div className='flex flex-row items-center md:gap-4'>
         <Link href={'/'}>
           <h1 className='md:text-xl text-m'>RUNWAY</h1>
           {/* <Image alt='logo' src='/images/runway.jpg' width={100} height={30} /> */}
         </Link>
-        <button className={`hidden md:flex md:text-sm md:rounded md:p-1 ${pathname === '/discover' ? 'bg-light font-medium' : ''}`}>
+        <button className={`hidden md:flex md:text-sm md:rounded md:p-1 hover:font-medium`}>
           <Link href={'/discover'}>
             Discover
           </Link>
         </button>
-        <button className={`hidden md:flex md:text-sm md:rounded md:p-1 ${pathname === '/create' ? 'bg-light font-medium' : ''}`}>
+        {/* ${pathname === '/create' ? 'bg-light font-medium' : ''} */}
+        <button className={`hidden md:flex md:text-sm md:rounded md:p-1 hover:font-medium`}>
           <Link href={'/create'}>
             Create
           </Link>
@@ -133,14 +110,14 @@ export const NavbarTest = () => {
       </div>
 
           {
-            sessionActive ? (
+            user ? (
               <div className='flex justify-end items-center gap-3'>
                 <button className='hidden md:flex'>
                   <Link href={`/profile`}>
                     Profile
                   </Link>
                 </button>
-                <Dialog>
+                {/* <Dialog>
                   <DialogTrigger>
                     <Search size={20} />
                   </DialogTrigger>
@@ -166,12 +143,12 @@ export const NavbarTest = () => {
                           <X size={16} color='gray'/>
                         </DialogClose>
                       </div>
-                      {/* <div className='w-full flex flex-col flex-start justify-start'>
+                      <div className='w-full flex flex-col flex-start justify-start'>
                         <h4 className='text-sm font-medium flex'>Profiles</h4>
                         <div className='flex'>
                           <h5 className='text-md'>@tobi</h5>
                         </div>
-                      </div> */}
+                      </div>
                       {
                         searchInput === '' ? (
                           <div hidden ></div>
@@ -195,7 +172,7 @@ export const NavbarTest = () => {
                       }
                     </DialogHeader>
                   </DialogContent>
-                </Dialog>
+                </Dialog> */}
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <button className="focus:outline-none">
@@ -203,33 +180,42 @@ export const NavbarTest = () => {
                     </button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
-                    <DropdownMenuLabel>Hey <Link href={'/profile'}>@{username}</Link></DropdownMenuLabel>
+                    <DropdownMenuLabel>Hey <Link href={'/profile'}>@{user.id}</Link></DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem className='md:hidden'> 
-                      <Link href={'/discover'}>
-                        <button className="button block" type="button">
+                      <Link href={'/discover?tab=forYou'}>
+                        <button className="button block cursor-pointer" type="button">
                           Discover
                         </button>
                       </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem className='md:hidden'> 
+                    <DropdownMenuItem className='md:hidden cursor-pointer'> 
                       <Link href={'/create'}>
                         <button className="button block" type="button">
                           Create
                         </button>
                       </Link>
                     </DropdownMenuItem>
-                    <Link href={`/profile/${userId}/lists`} className='pointer'>
+                    <Link href={`/lists/${user.id}`} className='pointer'>
                       <DropdownMenuItem className='pointer'> 
-                          Lists
+                          Runways
                       </DropdownMenuItem>
                     </Link>
-                    <DropdownMenuItem>Saved</DropdownMenuItem>
+                    <Link href={`/profile?q=liked`}>
+                      <DropdownMenuItem>
+                        Liked
+                      </DropdownMenuItem>
+                    </Link>
+                    <form action={signOutAction}>
                     <DropdownMenuItem> 
-                      <button className="button block" type="submit" onClick={logout}>
-                        Log out
+                      <button className="button block flex justify-start w-full">
+                        Sign out
                       </button>
                     </DropdownMenuItem>
+                    </form>
+                      {/* <button className="button block" type="submit" onClick={logout}>
+                        Log out
+                      </button> */}
                   </DropdownMenuContent>
                 </DropdownMenu>
 

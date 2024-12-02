@@ -6,7 +6,6 @@ import { usePathname } from 'next/navigation'
 
 import { CalendarIcon } from 'lucide-react'
 
-import { supabase } from '@/lib/supabase'
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card'
 import { RenderPosts } from '@/components/OtherUserPosts/RenderPosts'
 import { FollowButton } from '@/components/Buttons/FollowButton'
@@ -17,9 +16,12 @@ import ShareOtherProfileButton from '@/components/Buttons/ShareOtherProfileButto
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Dialog, DialogTrigger } from '../ui/dialog'
 import Link from 'next/link'
+import { createClient } from '@/utils/supabase/client'
+
 
 const UserProfile = () => {
 
+    const supabase = createClient()
 
     const [profile, setProfile] = useState<any[]>([])
     const [activeTab, setActiveTab] = useState('myRunways')
@@ -159,7 +161,7 @@ const UserProfile = () => {
             </div>
         )
     })}
-        <div className='w-full h-fit flex md:flex-row flex-col md:px-20 px-10 py-10 gap-7'>
+        {/* <div className='w-full h-fit flex md:flex-row flex-col md:px-20 px-10 py-10 gap-7 flex-wrap justify-between'> */}
         {
             activeTab === 'myRunways' ? (
                 <RenderPosts />
@@ -167,7 +169,7 @@ const UserProfile = () => {
                 <RenderLikedPosts />
                 )
         }
-        </div>
+        {/* </div> */}
     <Footer/>
 </main>
   )

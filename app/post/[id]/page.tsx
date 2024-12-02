@@ -10,19 +10,25 @@
 // import { Footer } from '@/components/ui/Footer'
 // import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/shadcn/dropdown-menu'
 
-import MainProductDetail from "@/components/ProductDetails/Main"
-import { supabase } from '@/lib/supabase'
 import { Metadata, ResolvingMetadata } from "next"
+import MainProductDetail from "@/components/ProductDetails/Main"
+import { createClient } from '@/utils/supabase/server'
 
 
 
-const Page = async () => {
+const Page = ({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined }
+}) => {
+  
+  const postId = searchParams.id as string
 
-
+  console.log(postId);
 
     
   return (
-    <MainProductDetail />
+    <MainProductDetail postId={postId} />
   )
 }
 
@@ -38,9 +44,10 @@ export async function generateMetadata(
     parent: ResolvingMetadata
   ): Promise<Metadata> {
     // read route params
-    const postId = params.id
+    const postId = await searchParams.id as string
     console.log(postId);
     
+    const supabase = createClient();
    
     // fetch data
     const { data, error } = await supabase

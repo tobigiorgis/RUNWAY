@@ -1,9 +1,12 @@
 'use client'
 
 import { followUser } from "@/lib"
-import { supabase } from "@/lib/supabase"
+import { createClient } from "@/utils/supabase/client"
+
 
 export const FollowButton = ({userId, followers, following}: any) => {
+
+    const supabase = createClient()
 
     const addFollower = async () => {
         // Update the followers_count and following_count

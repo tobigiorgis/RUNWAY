@@ -1,44 +1,63 @@
 'use client'
-import { useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import Image from "next/image";
 
-import { useDropzone } from "react-dropzone";
+// import { useDropzone } from "react-dropzone";
 
 import { publishVideo, uploadVideo } from "@/lib";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { toast } from "@/components/ui/use-toast";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { NonCreatorModal } from "@/components/ui/non-creator-modal";
 
 
-export default function Upload() {
-  const [uploading, setUploading] = useState(false);
+export default function Create() {
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+  // const [uploading, setUploading] = useState(false);
   const [uploaded, setUploaded] = useState<any>(null);
+  const [product, setProduct] = useState('')
+  const [productLink, setProductLink] = useState('')
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null)
   const [tags, setTags] = useState<string[]>([]);
   const [posted, setPosted] = useState(false);
+  const [currentTag, setCurrentTag] = useState('')
+  const router = useRouter()
+
+  const searchParams = useSearchParams()
+  const showModal = searchParams.get('showModal') === 'true'
 
   // const [progress, setProgress] = useState(0)
 
-  const onDrop = async (files: any) => {
-    // const prefix = process.env.NEXT_PUBLIC_SUPABASE_STORAGE_URL
-    const [file] = files;
-    setUploading(true);
-    const [error, fileUrl] = await uploadVideo({ postFile: file });
-    if (error) return console.log(error);
-    setUploaded(fileUrl);
-  };
+  // const onDrop = async (files: any) => {
+  //   // const prefix = process.env.NEXT_PUBLIC_SUPABASE_STORAGE_URL
+  //   const [file] = files;
+  //   setUploading(true);
+  //   const [error, fileUrl] = await uploadVideo({ postFile: file });
+  //   if (error) return console.log(error);
+  //   setUploaded(fileUrl);
+  // };
 
   
 
-  const { isDragAccept, isDragReject, getRootProps, getInputProps } =
-    useDropzone({
-      disabled: uploading || uploaded !== null,
-      maxFiles: 1,
-      accept: {'image/*': []} ,
-      onDrop,
-    });
+  // const { isDragAccept, isDragReject, getRootProps, getInputProps } =
+  //   useDropzone({
+  //     disabled: uploading || uploaded !== null,
+  //     maxFiles: 1,
+  //     accept: {'image/*': []} ,
+  //     onDrop,
+  //   });
 
 
-  useEffect(() => {
-    if (isDragReject) navigator.vibrate(100);
-  }, [isDragReject]);
+  // useEffect(() => {
+  //   if (isDragReject) navigator.vibrate(100);
+  // }, [isDragReject]);
 
 //   const dndClassNames = clsx(styles.dnd, {
 //     [styles.uploaded]: uploaded,
@@ -48,38 +67,44 @@ export default function Upload() {
 //   });
 
   const renderDndContent = () => {
-    if (uploaded) {
-      // setProgress(20)
-      return <h4>Photo uploaded!</h4>;
+    if (previewUrl) {
+      return <h4>Photo selected</h4>;
     }
-    if (uploading) {
-      return <h4>Uploading photo...</h4>;
-    }
-    if (isDragReject) return <h4>Archivo no soportado</h4>;
-    if (isDragAccept) return <h4>¡Suelta el archivo para subirlo!</h4>;
-
     return (
       <>
-        <h4 className="mt-3 text-gray">Drag and drop here</h4>
-        <p className="text-gray">or</p>
-        <h4 className="mt-3 text-gray">Select a picture</h4>
+        <h4 className="mt-3 text-gray-500">Drag and drop here</h4>
+        <p className="text-gray-500">or</p>
+        <h4 className="mt-3 text-gray-500">Select a picture</h4>
       </>
     );
   };
 
+  const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        setPreviewUrl(reader.result as string)
+      }
+      reader.readAsDataURL(file)
+      const [error, fileUrl] = await uploadVideo({ postFile: file });
+      if (error) return console.log(error);
+      setUploaded(fileUrl);
+    }
+  }
 
-  const handleSubmit = async (evt: any) => {
+
+  const handleSubmit = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     if (!uploaded) return;
 
     const wait = () => new Promise((resolve) => setTimeout(resolve, 3000));
 
-    let title = evt.target.title.value;
-    let description = evt.target.description.value;
-    let product = evt.target.product.value;
-    let productlink = evt.target.productlink.value;
+    // let description = evt.target.description.value;
+    // let product = evt.target.product.value;
+    // let productlink = evt.target.productlink.value;
 
-    const [error, data] = await publishVideo({ postSrc: uploaded, title, description, product, productlink, tags: tags});
+    const [error, data] = await publishVideo({ postSrc: uploaded, title, description, product, productLink, tags});
 
     if (error) {
       return toast({
@@ -95,106 +120,146 @@ export default function Upload() {
         // Note: Cleaning input values here won't have an effect if you're reloading the page immediately after.
         setTags([]);
         setUploaded(null);
-        window.location.reload(); // Moved inside the .then() to ensure it happens after wait
+        router.push('/discover')
       });
     }
 };
   
-  const handleKeyDown = (event: any) => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      const value = event.target.value.trim();
-      if (value && !tags.includes(value)) {
-        setTags([...tags, value]);
-        event.target.value = '';
+  const handleTagKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && currentTag.trim()) {
+      e.preventDefault()
+      if (!tags.includes(currentTag.trim())) {
+        setTags([...tags, currentTag.trim()])
       }
+      setCurrentTag('')
     }
-  };
-
-  const handleDelete = (index: any) => {
-    setTags(tags.filter((tag, idx) => idx !== index));
-  };
+  }
+  const removeTag = (tagToRemove: string) => {
+    setTags(tags.filter(tag => tag !== tagToRemove))
+  }
   
   
   return (
-    <main className={`flex h-full py-20 flex-col bg-white items-center`}>
-      <div className='w-full md:px-24 px-8 py-5 h-full flex flex-col border-gray border-t'>
-        <h1 className='font-bold text-xl'>Create runway</h1>
-
-        <form className='w-full flex md:flex-row flex-col mt-5 md:h-full h-fit gap-4' onSubmit={handleSubmit}>
-          <div className='md:w-1/2 w-full flex flex-col items-start gap-2' {...getRootProps()}>
-            <label className='font-semibold w-full h-auto items-start' htmlFor="image">Photo</label>
-            <div className='w-full md:h-full h-[40vh] border-2 border-dashed border-black bg-zinc rounded gap-2 p-5 flex-col flex items-center justify-center'>
-              <input type="file" name="image" id="fileInput" {...getInputProps()} />
-              <img
-                src="https://sf16-scmcdn-va.ibytedtos.com/goofy/tiktok/web/node/_next/static/images/cloud_icon-6e07be44878e69ee3f7bff3b78405b76.svg"
-                width="49"
-                id="image"
-                alt="upload icon"
-              />
-              {renderDndContent()}
-              {/* <button type="button" className='w-auto bg-black text-white rounded py-1 px-2' onClick={() => document.getElementById('fileInput')?.click()}>
-                {
-                  uploaded ? "Change picture" : "Select a picture"
-                }
-              </button> */}
+    <div className="container mx-auto mt-20 px-4 py-8">
+      {showModal && <NonCreatorModal />}
+      <Card className="w-full md:w-1/2 mx-auto">
+        <CardHeader>
+          <CardTitle>Create New Post</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className='w-full flex flex-col items-start gap-2'>
+              <Label htmlFor="image" className="font-semibold">Photo</Label>
+              <div className='w-full aspect-video border-2 border-dashed border-gray-300 bg-gray-50 rounded-lg overflow-hidden relative'>
+                <input 
+                  type="file" 
+                  name="image" 
+                  id="image" 
+                  onChange={handleImageChange} 
+                  className="absolute inset-0 w-full h-full opacity-0 z-10 cursor-pointer"
+                  accept="image/*"
+                />
+                {previewUrl ? (
+                  <div className="relative w-full h-full">
+                    <Image
+                      src={previewUrl}
+                      alt="Preview"
+                      layout="fill"
+                      objectFit="cover"
+                      className="rounded-lg"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setPreviewUrl(null)}
+                      className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-2 hover:bg-red-600 transition-colors z-20"
+                      aria-label="Remove image"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                      </svg>
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center justify-center h-full">
+                    <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 48 48" aria-hidden="true">
+                      <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                    {renderDndContent()}
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
-
-          <div className='md:w-1/2 w-full flex flex-col items-center'>
-            <label htmlFor="description" className='font-semibold flex items-start w-full mt-4'>
-              Description
-            </label>
-            <textarea id="description" className='mt-2 pl-2 pt-2 bg-zinc w-full focus:outline-gray rounded h-20' name="description" placeholder="describe it" />
-
-            <label className='font-semibold flex items-start w-full mt-4' htmlFor="product">
-              Product name
-            </label>
-            <input required id="product" className='mt-2 pl-2 bg-zinc w-full focus:outline-gray rounded h-10' name="product" placeholder="what you wearing?" />
-
-            <label className='font-semibold flex items-start w-full mt-4' htmlFor="productlink">
-              Product link
-            </label>
-            <input required id="productlink" className='mt-2 pl-2 bg-zinc focus:outline-gray w-full rounded h-10' name="productlink" placeholder="paste that affiliate link to make some $$$" />
-
-            <label className='font-semibold flex items-start w-full mt-4' htmlFor="tags">
-              Tags
-            </label>
-            <input
-              id="tags"
-              className='mt-2 pl-2 bg-zinc w-full rounded h-10 focus:outline-gray'
-              name="tags"
-              placeholder="add tags"
-              onKeyDown={handleKeyDown}
-            />
-            <div className="mt-3">
-              {tags.map((tag, index) => (
-                <span key={index} className='bg-zinc text-gray font-semibold rounded px-2 py-1 mr-2'>
-                  {tag}
-                  <button
-                    type="button"
-                    className='ml-2 text-gray text-xs'
-                    onClick={() => handleDelete(index)}
-                  >
-                    X
-                  </button>
-                </span>
-              ))}
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="title">Title</Label>
+                <Input
+                  id="title"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  required
+                />
+              </div>
+              <div>
+                <Label htmlFor="description">Description</Label>
+                <Textarea
+                  id="description"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  required
+                />
+              </div>
+              <div>
+                <Label htmlFor="product">Product Name</Label>
+                <Input
+                  id="product"
+                  value={product}
+                  onChange={(e) => setProduct(e.target.value)}
+                  required
+                />
+              </div>
+              <div>
+                <Label htmlFor="productLink">Product Link</Label>
+                <Input
+                  id="productLink"
+                  type="url"
+                  value={productLink}
+                  onChange={(e) => setProductLink(e.target.value)}
+                  required
+                />
+              </div>
+              <div>
+                <Label htmlFor="tags">Tags</Label>
+                <Input
+                  id="tags"
+                  value={currentTag}
+                  onChange={(e) => setCurrentTag(e.target.value)}
+                  onKeyDown={handleTagKeyDown}
+                  placeholder="Add tags and press Enter"
+                />
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {tags.map((tag, index) => (
+                    <Badge key={index} variant="secondary" className="px-2 py-1">
+                      {tag}
+                      <button
+                        type="button"
+                        onClick={() => removeTag(tag)}
+                        className="ml-2 text-xs font-bold"
+                        aria-label={`Remove ${tag} tag`}
+                      >
+                        ×
+                      </button>
+                    </Badge>
+                  ))}
+                </div>
+              </div>
             </div>
-            <Dialog open={posted}>
-                <button type="submit" className='text-sm rounded h-7 w-1/3 mt-5 bg-black text-slate'>Post</button>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Runway Posted!</DialogTitle>
-                <DialogDescription>
-                  Post has been added to your feed. Your friends will love it 🚀
-                </DialogDescription>
-              </DialogHeader>
-            </DialogContent>
-          </Dialog>
-          </div>
-        </form>
-      </div>
-    </main>
+            <CardFooter className="px-0 flex justify-end">
+              <Button type="submit">Create Post</Button>
+            </CardFooter>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
   );
 }

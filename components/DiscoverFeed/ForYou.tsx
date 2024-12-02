@@ -3,10 +3,9 @@ import Link from 'next/link';
 
 import { ArrowUpRight, Heart, Share } from 'lucide-react';
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
-import { motion, useMotionValue } from 'framer-motion';
 
 import { likeVideo, unlikeVideo } from '@/lib';
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/utils/supabase/server';
 import { useToast } from '../ui/use-toast';
 import { redirect, useRouter } from 'next/navigation'
 import { Dialog } from '../ui/dialog';
@@ -14,16 +13,16 @@ import ShareMyProfileButton from '@/components/Buttons/ShareMyProfileButton';
 import PostInFeed from './PostInFeed';
 
 
-export const ForYou = () => {
+export const ForYou = async () => {
 
-    const { toast } = useToast()
+    const supabase = createClient()
 
-    const [isHovered, setIsHovered] = useState(null);
-    const [posts, setPosts] = useState<any[]>([])
-    const [likedPosts, setLikedPosts] = useState<any[]>([]);
-    const router = useRouter()
+    // const { toast } = useToast()
 
-    const getPosts = async () => {
+    // const [isHovered, setIsHovered] = useState(null);
+    // const [likedPosts, setLikedPosts] = useState<any[]>([]);
+    // const router = useRouter()
+
 
         let { data: posts, error } = await supabase
         .from('posts')
@@ -35,156 +34,154 @@ export const ForYou = () => {
             { ascending: false }
         )
 
+        if (!posts) {
+            return <p>No posts found.</p>
+          }
+
         if (error) {
             console.log(error)
         }
-
-        if (posts) {
-            setPosts(posts)
-        }
         
-    }
 
-    const fetchLikedPosts = async () => {
-        const { data: { user } } = await supabase.auth.getUser()
-        if (user) {
-            const { data: likedPosts, error } = await supabase
-              .from('users_posts_likes')
-              .select('post_id')
-              .eq('user_id', user?.id)
+
+    // const fetchLikedPosts = async () => {
+    //     const { data: { user } } = await supabase.auth.getUser()
+    //     if (user) {
+    //         const { data: likedPosts, error } = await supabase
+    //           .from('users_posts_likes')
+    //           .select('post_id')
+    //           .eq('user_id', user?.id)
           
-            if (error) {
-              console.log(error)
-              return
-            }
+    //         if (error) {
+    //           console.log(error)
+    //           return
+    //         }
           
-            setLikedPosts(likedPosts.map(like => like.post_id))
-        }
-      }
+    //         setLikedPosts(likedPosts.map(like => like.post_id))
+    //     }
+    //   }
 
-      const updateLikeCount = async (postId: string) => {
+    //   const updateLikeCount = async (postId: string) => {
 
-        const { data: post, error: fetchError } = await supabase
-        .from('posts')
-        .select('likes')
-        .eq('id', postId);
+    //     const { data: post, error: fetchError } = await supabase
+    //     .from('posts')
+    //     .select('likes')
+    //     .eq('id', postId);
     
-        if (fetchError) {
-            console.log(fetchError);
-            return;
-        }
+    //     if (fetchError) {
+    //         console.log(fetchError);
+    //         return;
+    //     }
     
-        const likes_count = post[0].likes;
+    //     const likes_count = post[0].likes;
 
-        const { data: like, error } = await supabase
-        .from('posts')
-        .update({ likes: likes_count + 1})
-        .eq('id', postId)
+    //     const { data: like, error } = await supabase
+    //     .from('posts')
+    //     .update({ likes: likes_count + 1})
+    //     .eq('id', postId)
 
-        if (error) {
-            console.log(error)
-        }
+    //     if (error) {
+    //         console.log(error)
+    //     }
         
-        return [error, like]
-    }
+    //     return [error, like]
+    // }
 
-    // update like count when unlike
-    const updateUnlikeCount = async (postId: string) => {
+    // // update like count when unlike
+    // const updateUnlikeCount = async (postId: string) => {
 
-        const { data: post, error: fetchError } = await supabase
-        .from('posts')
-        .select('likes')
-        .eq('id', postId);
+    //     const { data: post, error: fetchError } = await supabase
+    //     .from('posts')
+    //     .select('likes')
+    //     .eq('id', postId);
     
-        if (fetchError) {
-            console.log(fetchError);
-            return;
-        }
+    //     if (fetchError) {
+    //         console.log(fetchError);
+    //         return;
+    //     }
     
-        const likes_count = post[0].likes;
+    //     const likes_count = post[0].likes;
 
-        const { data: like, error } = await supabase
-        .from('posts')
-        .update({ likes: likes_count - 1})
-        .eq('id', postId)
+    //     const { data: like, error } = await supabase
+    //     .from('posts')
+    //     .update({ likes: likes_count - 1})
+    //     .eq('id', postId)
 
-        if (error) {
-            console.log(error)
-        }
+    //     if (error) {
+    //         console.log(error)
+    //     }
         
-        return [error, like]
-    }
+    //     return [error, like]
+    // }
 
-    const handleLike = async (postId: string) => {
+    // const handleLike = async (postId: string) => {
 
-        const { data: { user } } = await supabase.auth.getUser()
+    //     const { data: { user } } = await supabase.auth.getUser()
 
-        if (user) {
+    //     if (user) {
 
-            // Optimistically update the UI
-            setLikedPosts(prevLikedPosts => [...prevLikedPosts, postId]);
+    //         // Optimistically update the UI
+    //         setLikedPosts(prevLikedPosts => [...prevLikedPosts, postId]);
 
-            const [error, data] = await likeVideo({ user_id: user!.id, post_id: postId });
+    //         const [error, data] = await likeVideo({ user_id: user!.id, post_id: postId });
 
-            if (error) {
-            console.error('Error liking post', error);
-            } else {
-            console.log('Post liked', data);
-            updateLikeCount(postId)
-            }
+    //         if (error) {
+    //         console.error('Error liking post', error);
+    //         } else {
+    //         console.log('Post liked', data);
+    //         updateLikeCount(postId)
+    //         }
 
-            toast({
-                title: "You liked that one uh?",
-                description: `Post was saved for you!`,
-            })
-        } else {
-            router.push('/login')
-        }
-    };
+    //         toast({
+    //             title: "You liked that one uh?",
+    //             description: `Post was saved for you!`,
+    //         })
+    //     } else {
+    //         router.push('/login')
+    //     }
+    // };
 
-      // unlike a post with unlikeVideo from lib/index.ts
-        const handleUnlike = async (postId: string) => {
+    //   // unlike a post with unlikeVideo from lib/index.ts
+    //     const handleUnlike = async (postId: string) => {
 
-              // Optimistically update the UI
-            setLikedPosts(prevLikedPosts => prevLikedPosts.filter(id => id !== postId));
+    //           // Optimistically update the UI
+    //         setLikedPosts(prevLikedPosts => prevLikedPosts.filter(id => id !== postId));
     
-            const { data: { user } } = await supabase.auth.getUser()
-            const [error, data] = await unlikeVideo({ user_id: user!.id, post_id: postId });
+    //         const { data: { user } } = await supabase.auth.getUser()
+    //         const [error, data] = await unlikeVideo({ user_id: user!.id, post_id: postId });
     
-            if (error) {
-            console.error('Error liking post', error);
-            } else {
-            console.log('Post liked', data);
-            updateUnlikeCount(postId)
-            }
-        };
+    //         if (error) {
+    //         console.error('Error liking post', error);
+    //         } else {
+    //         console.log('Post liked', data);
+    //         updateUnlikeCount(postId)
+    //         }
+    //     };
 
 
 
-        const handleDragEnd = ( info: any, postId: string ) => {
-            console.log(info.offsetX);
+    //     const handleDragEnd = ( info: any, postId: string ) => {
+    //         console.log(info.offsetX);
             
-            if (info && info.offsetX < -50) {
-              handleLike(postId);
-            } else if (info && info.offsetX > 50) {
-              <Dialog/>
-            }
-          };
+    //         if (info && info.offsetX < -50) {
+    //           handleLike(postId);
+    //         } else if (info && info.offsetX > 50) {
+    //           <Dialog/>
+    //         }
+    //       };
 
 
-      useEffect(() => {
-        getPosts()
-        // fetchLikedPosts()
-      }, [])
+    //   useEffect(() => {
+    //     // fetchLikedPosts()
+    //   }, [])
       
     
   return (
-    <section className='h-fit w-full md:mt-20 mt-8 flex flex-row justify-evenly gap-5 md:px-20 px-8 flex-wrap'>
-            {
-                posts.map((posts: any, key: number) => {
+    <section className='h-fit w-full md:mt-15 mt-8 flex flex-row justify-evenly gap-5 md:px-20 px-8 flex-wrap'>
+            {posts && posts.map((posts: any, index: number) => {
                     return (
                         <>
-                        <PostInFeed posts={posts} key={key}/>
+                        <PostInFeed posts={posts} key={posts.id || index}/>
                         {/* <motion.div
                             key={key}
                             className='h-80 md:w-1/6 w-full rounded hover:opacity-85'

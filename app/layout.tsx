@@ -36,7 +36,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.className}`}>
       <Head>
         <link rel="icon" href="/favicon.ico" />
-        <script src="https://getlaunchlist.com/js/widget.js" defer></script>
+        {/* <script src="https://getlaunchlist.com/js/widget.js" defer></script> */}
       </Head>
         <body>
           {/* <Navbar/> */}

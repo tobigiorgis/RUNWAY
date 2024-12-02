@@ -1,36 +1,38 @@
 'use client'
-import React, { Suspense, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 
-import { supabase } from '@/lib/supabase'
+import { ImagePlus } from 'lucide-react'
+import { useDropzone } from 'react-dropzone'
 import { ShowPosts } from '@/components/FeedPosts/ShowPosts'
 import EditProfile from '@/components/FeedPosts/EditProfile'
-import ShareButton from '@/components/Buttons/ShareMyProfileButton'
-import { CardSkeleton } from '@/components/ui/skeletons'
 import { LikedPosts } from '@/components/FeedPosts/LikedPosts'
 import { Footer } from '@/components/ui/Footer'
-import Link from 'next/link'
 import ShareMyProfileButton from '@/components/Buttons/ShareMyProfileButton'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
-import { useDropzone } from 'react-dropzone'
 import { updateProfilePic, uploadProfilePic } from '@/lib'
-import { ImagePlus } from 'lucide-react'
 import { toast } from '@/components/ui/use-toast'
+import { createClient } from '@/utils/supabase/client'
 
 
 
 const Profile = () => {
 
+    // Use serachParams to get the query string in a client component
+
+    const searchParams = useSearchParams()
+    const q = searchParams.get('q') || 'posts'
     // State to know if profile_created from user at supabase is true or false
     const [profileCreated, setProfileCreated] = useState<boolean>(true)
     const [uploading, setUploading] = useState(false);
     const [uploaded, setUploaded] = useState<any>(null);
-
     const [profile, setProfile] = useState<any[]>([])
-    const [activeTab, setActiveTab] = useState('myRunways')
+
+    const supabase = createClient()
 
     const getProfiles = async () => {
         
@@ -60,11 +62,6 @@ const Profile = () => {
         getProfiles()
     }, [])
 
-    const router = useRouter();
-
-    const goToCreateProfile = () => {
-        router.push('/profile/create');
-    }
 
     const onDrop = async (files: any) => {
         // const prefix = process.env.NEXT_PUBLIC_SUPABASE_STORAGE_URL
@@ -176,38 +173,38 @@ const Profile = () => {
                         <div className='flex items-center justify-center gap-2 w-3/4'>
                             <EditProfile username={profile.username} bio={profile.bio} name={profile.full_name} website={profile.website}/>
                             <ShareMyProfileButton />
-                            <Link className='w-1/3 flex items-center justify-center bg-black text-white rounded py-1 px-2' href={`/profile/${profile.id}/lists`}>
+                            <Link className='w-auto flex items-center justify-center bg-black text-white rounded py-1 px-2' href={`/lists/${profile.id}`}>
                                 <button>
-                                    Lists
+                                    Runways
                                 </button>
                             </Link>
                         </div>
                         <div className='flex items-center gap- w-4/6'>
                             <div className='w-1/2 flex items-center justify-center'>
-                                <button 
-                                    className={`font-semibold  ${ activeTab === 'myRunways' ? 'border-b-2 border-black' : ''}`}
-                                    onClick={() => setActiveTab('myRunways')}
+                                <Link 
+                                    className={`font-semibold  ${ q === 'posts' ? 'border-b-2 border-black' : ''}`}
+                                    href={`/profile?q=posts`}
                                     >
-                                    Runways
-                                </button>
+                                    Posts
+                                </Link>
                             </div>
                             <div className='w-1/2 flex items-center justify-center'>
-                                <button 
-                                    className={`font-semibold  ${ activeTab === 'liked' ? 'border-b-2 border-black' : ''}`}
-                                    onClick={() => setActiveTab('liked')}
+                                <Link 
+                                    className={`font-semibold  ${ q === 'liked' ? 'border-b-2 border-black' : ''}`}
+                                    href={`/profile?q=liked`}
                                     >
                                     Liked
-                                </button>
+                                </Link>
                             </div>
                         </div>
                     </div>
                 )
             })}
             
-                    <div className='w-full h-min-screen flex flex-col md:flex-row px-10 md:px-20 py-10 gap-7'>
+                    <div className='w-full h-min-screen flex flex-col md:flex-row px-10 md:px-20 py-5 gap-5 flex-wrap justify-center'>
                         {/* <Suspense fallback={<CardSkeleton/>}> */}
                             {
-                                activeTab === 'myRunways' ? (
+                                q === 'posts' ? (
                                     <ShowPosts />
                                 ) : (
                                     <LikedPosts />
@@ -219,9 +216,9 @@ const Profile = () => {
                 </>
             ) : (
                 <div className='pt-10'>
-                    <button onClick={goToCreateProfile}>
+                    <Link href={'/profile/create'}>
                         Create profile
-                    </button>
+                    </Link>
                 </div>
             )}
             <Footer/>

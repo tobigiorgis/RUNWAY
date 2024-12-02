@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import { ArrowUpRight, Heart, Share } from 'lucide-react';
 
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/utils/supabase/server';
 import { likeVideo, unlikeVideo } from '@/lib';
 import { usePathname } from 'next/navigation';
 

@@ -1,7 +1,8 @@
 
-import { supabase } from "./supabase"
+import { createClient } from "../utils/supabase/client"
 
 
+const supabase = createClient()
 
 export const uploadVideo = async ({ postFile }: { postFile: File }) => {
   const filename = window.crypto.randomUUID()
@@ -59,11 +60,11 @@ type Post = {
   postSrc: string
   description: string
   product: string
-  productlink: string
+  productLink: string
   tags: string[]
 }
 
-export const publishVideo = async ({ postSrc, description, product, productlink, tags } : Post) => {
+export const publishVideo = async ({ postSrc, description, product, productLink, tags } : Post) => {
 
   const { data: { user } } = await supabase.auth.getUser()
 
@@ -75,7 +76,7 @@ export const publishVideo = async ({ postSrc, description, product, productlink,
         description,
         src: postSrc,
         product_name: product,
-        product_link: productlink,
+        product_link: productLink,
         tags
       }
     ])
@@ -171,7 +172,7 @@ export const unlikeVideo = async ({ user_id, post_id }: Like) => {
 
 type Comment = {
   user_id: string
-  post_id: string
+  post_id: any
   comment: string
 }
 

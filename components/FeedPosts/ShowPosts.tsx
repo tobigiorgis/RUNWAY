@@ -5,8 +5,8 @@ import { usePathname } from "next/navigation"
 
 import { ArrowUpRight, Heart, Share } from "lucide-react"
 
-import { supabase } from "@/lib/supabase"
 import { likeVideo, unlikeVideo } from "@/lib"
+import { createClient } from "@/utils/supabase/client"
 
 
 
@@ -19,6 +19,7 @@ export const ShowPosts = () => {
   const [feedPosts, setFeedPosts] = useState<any[]>([])
   const [isHovered, setIsHovered] = useState(null);
   const [likedPosts, setLikedPosts] = useState<any[]>([]);
+  const supabase = createClient()
 
   const getPosts = async () => {
 
@@ -153,7 +154,7 @@ const updateUnlikeCount = async (postId: string) => {
         return (
         <div 
               style={{ backgroundImage: `url(${feedPosts.src})`, backgroundSize: 'cover', backgroundPosition: 'center'}}
-              className='md:w-1/5 w-full h-80 rounded hover:opacity-85' 
+              className='md:w-1/6 w-full h-80 rounded hover:opacity-85' 
               key={key}
               onMouseEnter={() => setIsHovered(feedPosts.id)}
               onMouseLeave={() => setIsHovered(null)}

@@ -11,7 +11,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
   } from "@/components/ui/alert-dialog"
-import { supabase } from '@/lib/supabase'
+import { supabase } from '@/utils/supabase/server'
 import { unfollowUser } from '@/lib'
 
 const UnfollowButton = ({userId, followers, following}: any) => {
