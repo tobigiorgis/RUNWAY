@@ -30,8 +30,8 @@ export default function Create() {
   const [currentTag, setCurrentTag] = useState('')
   const router = useRouter()
 
-  const searchParams = useSearchParams()
-  const showModal = searchParams.get('showModal') === 'true'
+  // const searchParams = useSearchParams()
+  // const showModal = searchParams.get('showModal') === 'true'
 
   // const [progress, setProgress] = useState(0)
 
@@ -141,7 +141,7 @@ export default function Create() {
   
   return (
     <div className="container mx-auto mt-20 px-4 py-8">
-      {showModal && <NonCreatorModal />}
+      {/* {showModal && <NonCreatorModal />} */}
       <Card className="w-full md:w-1/2 mx-auto">
         <CardHeader>
           <CardTitle>Create New Post</CardTitle>
