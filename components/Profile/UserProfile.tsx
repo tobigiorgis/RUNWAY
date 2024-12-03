@@ -2,7 +2,7 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { usePathname } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 
 import { CalendarIcon } from 'lucide-react'
@@ -22,9 +22,11 @@ import { createClient } from '@/utils/supabase/client'
 const UserProfile = () => {
 
     const supabase = createClient()
+    const searchParams = useSearchParams()
+    const q = searchParams.get('q') || 'posts'
 
     const [profile, setProfile] = useState<any[]>([])
-    const [activeTab, setActiveTab] = useState('myRunways')
+
     const [isFollowing, setIsFollowing] = useState<boolean>(false);
 
     const pathname = usePathname()
@@ -140,30 +142,30 @@ const UserProfile = () => {
                         </Link>
                     </button>
                 </div>
-                <div className='flex items-center gap-3 w-4/6'>
-                    <div className='w-1/2 flex items-center justify-center'>
-                        <button 
-                            className={`font-medium  ${ activeTab === 'myRunways' ? 'border-b-2 border-black font-semibold' : ''}`}
-                            onClick={() => setActiveTab('myRunways')}
-                            >
-                            Runways
-                        </button>
+                <div className='flex items-center gap- w-4/6'>
+                        <div className='w-1/2 flex items-center justify-center'>
+                            <Link 
+                                className={`font-semibold  ${ q === 'posts' ? 'border-b-2 border-black' : ''}`}
+                                href={`/profile/${userId}?q=posts`}
+                                >
+                                Posts
+                            </Link>
+                        </div>
+                        <div className='w-1/2 flex items-center justify-center'>
+                            <Link 
+                                className={`font-semibold  ${ q === 'liked' ? 'border-b-2 border-black' : ''}`}
+                                href={`/profile/${userId}?q=liked`}
+                                >
+                                Liked
+                            </Link>
+                        </div>
                     </div>
-                    <div className='w-1/2 flex items-center justify-center'>
-                        <button 
-                            className={`font-medium  ${ activeTab === 'liked' ? 'border-b-2 border-black font-semibold' : ''}`}
-                            onClick={() => setActiveTab('liked')}
-                            >
-                            Liked
-                        </button>
-                    </div>
-                </div>
             </div>
         )
     })}
         {/* <div className='w-full h-fit flex md:flex-row flex-col md:px-20 px-10 py-10 gap-7 flex-wrap justify-between'> */}
         {
-            activeTab === 'myRunways' ? (
+            q === 'posts' ? (
                 <RenderPosts />
             ) : (
                 <RenderLikedPosts />

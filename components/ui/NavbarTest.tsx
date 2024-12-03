@@ -206,6 +206,11 @@ export const NavbarTest = async () => {
                         Liked
                       </DropdownMenuItem>
                     </Link>
+                    <Link href={`https://wa.me/543415863732`} target="_blank" rel="noopener noreferrer">
+                      <DropdownMenuItem>
+                        Contact
+                      </DropdownMenuItem>
+                    </Link>
                     <form action={signOutAction}>
                     <DropdownMenuItem> 
                       <button className="button block flex justify-start w-full">
