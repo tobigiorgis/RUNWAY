@@ -31,6 +31,7 @@ export const HomeProfile = () => {
   const getProfiles = async () => {
       
       const { data: { user } } = await supabase.auth.getUser()
+      
 
       let { data: profiles, error } = await supabase
       .from('profiles')

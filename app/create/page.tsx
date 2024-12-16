@@ -29,9 +29,11 @@ export default function Create() {
   const [posted, setPosted] = useState(false);
   const [currentTag, setCurrentTag] = useState('')
   const router = useRouter()
-
   // const searchParams = useSearchParams()
+
   // const showModal = searchParams.get('showModal') === 'true'
+
+
 
   // const [progress, setProgress] = useState(0)
 

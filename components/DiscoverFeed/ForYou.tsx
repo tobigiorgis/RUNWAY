@@ -13,7 +13,7 @@ import ShareMyProfileButton from '@/components/Buttons/ShareMyProfileButton';
 import PostInFeed from './PostInFeed';
 
 
-export const ForYou = async () => {
+export const ForYou = async ({tab} : {tab: string}) => {
 
     const supabase = createClient()
 
@@ -177,11 +177,11 @@ export const ForYou = async () => {
       
     
   return (
-    <section key='forYou' className='h-fit w-full md:mt-15 mt-8 flex flex-row justify-evenly gap-5 md:px-20 px-8 flex-wrap'>
-            {posts && posts.map((posts: any, index: number) => {
+    <section key={tab} className='h-fit w-full md:mt-15 mt-8 flex flex-row justify-evenly gap-5 md:px-20 px-8 flex-wrap'>
+            {posts && posts.map((posts: any, key: number) => {
                     return (
                         <>
-                        <PostInFeed posts={posts} key={posts.id || index}/>
+                        <PostInFeed posts={posts} key={posts.id || key}/>
                         {/* <motion.div
                             key={key}
                             className='h-80 md:w-1/6 w-full rounded hover:opacity-85'

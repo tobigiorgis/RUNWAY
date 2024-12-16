@@ -7,7 +7,7 @@ import { Share, ArrowUpRight, Heart } from 'lucide-react'
 import { likeVideo, unlikeVideo } from '@/lib'
 import { createClient } from '@/utils/supabase/client'
 
-export const Following = () => {
+export const Following = async ({tab} : {tab: string}) => {
 
     // const [followingPosts, setFollowingPosts] = useState<any[]>([])
     // const [isHovered, setIsHovered] = useState(null);
@@ -16,27 +16,27 @@ export const Following = () => {
     
     const supabase = createClient()
 
-        const getFollowingPosts = async () => {
+    const { data: { user } } = await supabase.auth.getUser()
 
-            const { data: { user } } = await supabase.auth.getUser()
-            if (user) {
-              // Get the list of users that the logged-in user is following
-              let { data: following, error: errorFollowing } = await supabase
+    let { data: following, error } = await supabase
                 .from('users_followers')
-                .select('follower_id')
+                .select('follower_id, profiles(username, id, posts(*))')
                 .eq('user_id', user?.id)
                 .order(
                   'created_at',
                   { ascending: false }
                 )
-                
-              console.log(following);
 
-              if (errorFollowing) {
-                console.log(errorFollowing)
-                return
-              }
-            }
+        if (!following) {
+            return <p>No posts found.</p>
+        }
+        if (error) {
+            console.log(error)
+            return
+        }
+
+        console.log(following);
+        
             
           //     // Get the user_ids of the users that the logged-in user is following
           //     const followingUserIds = following?.map(follow => follow.follower_id)
@@ -72,65 +72,64 @@ export const Following = () => {
             
         //       setLikedPosts(likedPosts.map(like => like.post_id))
         //     }
-          }
     
         // useEffect(() => {
         //     getFollowingPosts()
         //     fetchLikedPosts()
         // }, [])
 
-        const updateLikeCount = async (postId: string) => {
+    //     const updateLikeCount = async (postId: string) => {
 
-          const { data: post, error: fetchError } = await supabase
-          .from('posts')
-          .select('likes')
-          .eq('id', postId);
+    //       const { data: post, error: fetchError } = await supabase
+    //       .from('posts')
+    //       .select('likes')
+    //       .eq('id', postId);
       
-          if (fetchError) {
-              console.log(fetchError);
-              return;
-          }
+    //       if (fetchError) {
+    //           console.log(fetchError);
+    //           return;
+    //       }
       
-          const likes_count = post[0].likes;
+    //       const likes_count = post[0].likes;
   
-          const { data: like, error } = await supabase
-          .from('posts')
-          .update({ likes: likes_count + 1})
-          .eq('id', postId)
+    //       const { data: like, error } = await supabase
+    //       .from('posts')
+    //       .update({ likes: likes_count + 1})
+    //       .eq('id', postId)
   
-          if (error) {
-              console.log(error)
-          }
+    //       if (error) {
+    //           console.log(error)
+    //       }
           
-          return [error, like]
-      }
+    //       return [error, like]
+    //   }
   
       // update like count when unlike
-      const updateUnlikeCount = async (postId: string) => {
+    //   const updateUnlikeCount = async (postId: string) => {
   
-          const { data: post, error: fetchError } = await supabase
-          .from('posts')
-          .select('likes')
-          .eq('id', postId);
+    //       const { data: post, error: fetchError } = await supabase
+    //       .from('posts')
+    //       .select('likes')
+    //       .eq('id', postId);
       
-          if (fetchError) {
-              console.log(fetchError);
-              return;
-          }
+    //       if (fetchError) {
+    //           console.log(fetchError);
+    //           return;
+    //       }
       
-          const likes_count = post[0].likes;
+    //       const likes_count = post[0].likes;
   
-          const { data: like, error } = await supabase
-          .from('posts')
-          .update({ likes: likes_count - 1})
-          .eq('id', postId)
+    //       const { data: like, error } = await supabase
+    //       .from('posts')
+    //       .update({ likes: likes_count - 1})
+    //       .eq('id', postId)
   
-          if (error) {
-              console.log(error)
-          }
+    //       if (error) {
+    //           console.log(error)
+    //       }
           
-          return [error, like]
-      }
+    //       return [error, like]
+    //   }
 
         // const handleLike = async (postId: string) => {
 
@@ -172,21 +171,18 @@ export const Following = () => {
 
 
   return (
-    <section key='following' className='h-fit w-full md:mt-20 mt-8 flex flex-row gap-7 justify-evenly md:px-20 px-8 flex-wrap'>
-            {/* {
-                followingPosts.map((posts: any, key: number) => {
+    <section key={tab} className='h-fit w-full md:mt-20 mt-8 flex flex-row gap-7 justify-evenly md:px-20 px-8 flex-wrap'>
+            {
+                following && following.map((posts: any, key: number) => {
                     return (
                         <div
                             key={key}
                             className='h-80 md:w-1/6 w-full rounded hover:opacity-85'
-                            style={{ backgroundImage: `url(${posts.src})`, backgroundSize: 'cover', backgroundPosition: 'center'}}
-                            onMouseEnter={() => setIsHovered(posts.id)}
-                            onMouseLeave={() => setIsHovered(null)}
+                            style={{ backgroundImage: `url(${posts.profiles.posts.src})`, backgroundSize: 'cover', backgroundPosition: 'center'}}
                         >
-                                {isHovered === posts.id && (
                                     <div key={key} className='w-full h-full flex flex-col justify-between'>
                                             <div className="w-full px-3 py-3 flex flex-row items-center justify-between">
-                                                <Link href={`/profile/${posts.user_id}`}>
+                                                <Link href={`/profile/${posts.profiles.user_id}`}>
                                                     <h4>{posts.profiles.username}</h4>
                                                 </Link>
                                                 <Share size={20}/>
@@ -202,14 +198,14 @@ export const Following = () => {
                                                 <button 
                                                 className='bg-white text-black flex flex-row w-auto max-w-[40vw] md:w-auto md:max-w-[8vw] rounded-lg py-1  px-2 items-center gap-2 justify-center'
                                                 onClick={() => {
-                                                    const url = posts.product_link.startsWith('http') ? posts.product_link : `http://${posts.product_link}`;
+                                                    const url = posts.product_link.startsWith('http') ? posts.profiles.posts.product_link : `http://${posts.profiles.postsproduct_link}`;
                                                     window.open(url, '_blank');
                                                 }}>
                                                     <ArrowUpRight size={18} />
-                                                    {posts.product_name}
+                                                    {posts.profiles.posts.description}
                                                 </button>
 
-                                                {
+                                                {/* {
                                                     likedPosts.includes(posts.id) ? (
                                                         <button onClick={(event) => handleUnlike(posts.id)}>
                                                             <Heart size={20} fill='red' color='red'/>
@@ -219,14 +215,13 @@ export const Following = () => {
                                                             <Heart size={20}/>
                                                         </button>
                                                     )
-                                                }
+                                                } */}
                                             </div>
                                     </div>
-                                )}
                         </div>
                     )
                 })
-            } */}
+            }
     </section>
   )
 }

@@ -17,8 +17,8 @@ module.exports = {
       },
     },
     colors: {
-      'gray': '#d9d9d9',
-      'white': '#fbfbfb',
+      'gray': '#f7f7f7',
+      'white': '#ffffff',
       'black': '#000000',
       'slate': '#f8fafc',
       'zinc': '#f3f4f6',

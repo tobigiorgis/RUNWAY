@@ -11,18 +11,23 @@
 
 import { Metadata, ResolvingMetadata } from "next"
 import MainProductDetail from "@/components/ProductDetails/Main"
-import { createClient } from '@/utils/supabase/server'
 
 
 
-const Page = () => {
+const Page = async ({
+  params,
+  searchParams,
+}: {
+  params: { slug: string };
+  searchParams?: { [key: string]: string | undefined };
+}) => {
   
   // const postId = await searchParams.id as string
-
+  const postId = await searchParams?.id || '';
 
     
   return (
-    <MainProductDetail />
+    <MainProductDetail postId={postId} />
   )
 }
 

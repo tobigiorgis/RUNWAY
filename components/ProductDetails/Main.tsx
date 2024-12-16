@@ -1,4 +1,4 @@
-'use client'
+// 'use client'
 import React, { Suspense, useEffect, useState } from 'react'
 import Image from 'next/image'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
@@ -14,11 +14,13 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import DetailPost from '../DetailPost/detailPost'
 import GetComments from '../DetailPost/getComments'
 
+type MainProductDetailProps = {
+  postId: string
+}
 
-
-const MainProductDetail = () => {
-  const searchParams = useSearchParams()
-  const postId = searchParams.get('id') || '';
+const MainProductDetail = ({ postId }: MainProductDetailProps) => {
+  // const searchParams = useSearchParams()
+  // const postId = searchParams.get(id) || '';
     
     // const [feedPosts, setFeedPosts] = useState<any[]>([])
     // const [likedPosts, setLikedPosts] = useState<any[]>([]);
@@ -234,13 +236,13 @@ const MainProductDetail = () => {
     
   return (
     <Suspense fallback={<div>Loading...</div>}>
-    <main className='pt-20 pb-10 w-full md:h-full min-h-screen flex flex-row md:items-start items-center md:justify-evenly justify-center md:px-6 py-0 z-10'>
-        <div className='flex flex-col h-auto w-full md:w-3/4 md:gap-10'>
+      <main className='pt-10 pb-10 w-full md:h-auto min-h-screen flex flex-row md:items-start items-center md:justify-evenly justify-center md:px-0 py-0 z-10 bg-gray'>
+          <div className='flex flex-col h-auto w-full md:gap-10'>
             <DetailPost postId={postId}/>
-            <GetComments postId={postId}/>
-        </div>
-        <Footer/>
-    </main>
+            {/* <GetComments postId={postId}/> */}
+          </div>
+          <Footer/>
+      </main>
     </Suspense>
   )
 }

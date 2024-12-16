@@ -1,50 +1,27 @@
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from "@/components/ui/dialog"
+'use client'
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
+import { useRouter, useSearchParams } from "next/navigation"
 
 export function NonCreatorModal() {
-  const [isOpen, setIsOpen] = useState(false)
   const router = useRouter()
-
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search)
-    setIsOpen(urlParams.get('showModal') === 'true')
-  }, [])
-
-  const handleClose = () => {
-    setIsOpen(false)
-    router.push('/discover')
-  }
-
-  const handleApply = () => {
-    window.location.href = 'mailto:tobi@userunway.com?subject=Creator Application'
-  }
+  const searchParams = useSearchParams()
+  const showModal = searchParams.get('showModal') === 'true'
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog open={showModal} onOpenChange={() => router.push('/discover')}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Creator Access Required</DialogTitle>
-          <DialogDescription>
-            You need creator privileges to access this page.
-          </DialogDescription>
         </DialogHeader>
-        <DialogFooter>
-          <Button variant="outline" onClick={handleClose}>
-            Go to Discover Page
+        <div className="py-4">
+          <p>You need creator privileges to access this page. Please contact support to become a creator.</p>
+        </div>
+        <div className="flex justify-end">
+          <Button onClick={() => router.push('/discover')}>
+            Return to Discover
           </Button>
-          <Button onClick={handleApply}>
-            Apply to be a Creator
-          </Button>
-        </DialogFooter>
+        </div>
       </DialogContent>
     </Dialog>
   )

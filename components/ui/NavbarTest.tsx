@@ -22,6 +22,12 @@ export const NavbarTest = async () => {
     data: { user },
   } = await supabase.auth.getUser();  
 
+  const { data: profile, error } = await supabase
+  .from('profiles')
+  .select('role')
+  .eq('id', user?.id)
+
+
 
   // const pathname = usePathname();
   // const [sessionActive, setSessionActive] = useState(false)
@@ -90,10 +96,10 @@ export const NavbarTest = async () => {
     
   
   return (
-    <div className='flex flex-row justify-between md:items-start items-center w-full md:top-0 fixed md:px-24 md:py-3 py-5 px-4 bg-transparency-20 bg-white z-50'>
+    <div className='flex flex-row justify-between md:items-start items-center w-full md:top-0 fixed md:py-3 py-5 px-4 md:px-6 bg-transparency-20 bg-gray z-50 border-b border-light'>
       <div className='flex flex-row items-center md:gap-4'>
         <Link href={'/'}>
-          <h1 className='md:text-xl text-m'>RUNWAY</h1>
+          <h1 className='md:text-sm text-m'>Runway</h1>
           {/* <Image alt='logo' src='/images/runway.jpg' width={100} height={30} /> */}
         </Link>
         <button className={`hidden md:flex md:text-sm md:rounded md:p-1 hover:font-medium`}>
@@ -102,11 +108,17 @@ export const NavbarTest = async () => {
           </Link>
         </button>
         {/* ${pathname === '/create' ? 'bg-light font-medium' : ''} */}
-        <button className={`hidden md:flex md:text-sm md:rounded md:p-1 hover:font-medium`}>
-          <Link href={'/create'}>
-            Create
-          </Link>
-        </button>
+        {
+          profile?.[0]?.role != 'user' ? (
+          <button className={`hidden md:flex md:text-sm md:rounded md:p-1 hover:font-medium`}>
+            <Link href={'/create'}>
+              Create
+            </Link>
+          </button>
+          ) :
+          <> 
+          </>
+        }
       </div>
 
           {

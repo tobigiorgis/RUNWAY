@@ -37,7 +37,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
         {/* <script src="https://getlaunchlist.com/js/widget.js" defer></script> */}
       </Head>
-        <body>
+        <body className='bg-gray'>
           {/* <Navbar/> */}
           <NavbarTest/>
           {children}

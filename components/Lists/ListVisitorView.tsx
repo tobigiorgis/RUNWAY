@@ -143,7 +143,7 @@ export const ListVisitorView = ({ list }: { list: any }) => {
                         )}
                     </div>
                 {/* <div className='w-full flex gap-1 md:gap-3 flex-col'> */}
-                    <div className='w-full flex flex-row gap-5 mt-5 flex-wrap'>
+                    <div className='w-full flex flex-row gap-10 mt-5 flex-wrap'>
                         {/* <p className='text-xs font-medium text-gray md:hidden'>{list.private === true ? 'Private' : 'Public'}</p> */}
                     {
                         type == 'Runways' ? listArray.map((post: any, key: number) => (
@@ -160,7 +160,7 @@ export const ListVisitorView = ({ list }: { list: any }) => {
                               width={212}
                               height={320}
                               alt={`Image ${key + 1}`}
-                              className='rounded-md hover:opacity-85'
+                              className='rounded-md hover:opacity-85 w-full h-full'
                             />
                                 <div className='w-full flex flex-row justify-between pt-2'>
                                   <Link href={`/profile/${post.user_id}`}>

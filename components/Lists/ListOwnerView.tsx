@@ -151,7 +151,7 @@ export const ListOwnerView = ({ list }: { list: any }) => {
                         </DialogContent>
                       </Dialog>
                   </div>
-                    <div className='w-full flex flex-row gap-5 mt-5 flex-wrap'>
+                    <div className='w-full flex flex-row gap-10 mt-5 flex-wrap'>
                     {
                         type == 'Runways' ? listArray.map((post: any, key: number) => (
                           <div className='md:w-1/5 w-full h-80 rounded hover:opacity-85' key={key}>
@@ -167,7 +167,7 @@ export const ListOwnerView = ({ list }: { list: any }) => {
                               width={212}
                               height={320}
                               alt={`Image ${key + 1}`}
-                              className='rounded-md'
+                              className='rounded-md w-full h-full'
                             />
                                 <div className='w-full flex flex-row justify-between pt-2'>
                                   <Link href={`/profile/${post.user_id}`}>
