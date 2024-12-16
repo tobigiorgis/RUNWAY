@@ -6,7 +6,7 @@ export async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
 
     // Type-safe path checking
-    const publicPaths = ['/', '/discover', '/about', '/sign-in', '/sign-up', '/reset', '/reset/email'];
+    const publicPaths = ['/', '/discover', '/about', '/sign-in', '/sign-up', '/forgot-password', '/reset/email'];
     const isPublicPath = publicPaths.includes(path);
     const isPostPath = /^\/post\/[^\/]+$/.test(path);
 
