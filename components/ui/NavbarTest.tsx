@@ -103,7 +103,7 @@ export const NavbarTest = async () => {
           {/* <Image alt='logo' src='/images/runway.jpg' width={100} height={30} /> */}
         </Link>
         <button className={`hidden md:flex md:text-sm md:rounded md:p-1 hover:font-medium`}>
-          <Link href={'/discover'}>
+          <Link href={'/discover?tab=forYou'}>
             Discover
           </Link>
         </button>

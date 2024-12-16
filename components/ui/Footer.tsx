@@ -26,7 +26,7 @@ export const Footer = () => {
   return (
     <div className={`flex md:hidden w-2/5 items-center justify-between bg-dark px-4 py-2 rounded-2xl opacity-40 bottom-10 fixed ${isScrolled ? 'hidden' : ''}`}>
         <div>
-            <Link href={`/discover`}>
+            <Link href={`/discover?tab=forYou`}>
                 <Sparkles size={30} color='black'/>
             </Link>
         </div>

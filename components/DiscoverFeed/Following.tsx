@@ -26,16 +26,17 @@ export const Following = async () => {
                   'created_at',
                   { ascending: false }
                 )
+    
+    console.log(following);
 
-        if (!following) {
-            return <p>No posts found.</p>
-        }
-        if (error) {
-            console.log(error)
-            return
-        }
+    if (!following) {
+        return <p>No posts found.</p>
+    }
+    if (error) {
+        console.log(error)
+        return
+    }
 
-        console.log(following);
         
             
           //     // Get the user_ids of the users that the logged-in user is following

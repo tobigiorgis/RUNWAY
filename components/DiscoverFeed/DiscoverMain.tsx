@@ -1,18 +1,14 @@
-'use client'
+
 import React, { Suspense } from 'react'
 import Link from 'next/link';
 
 import { ForYou } from '@/components/DiscoverFeed/ForYou';
 import { Following } from '@/components/DiscoverFeed/Following';
-import { useSearchParams } from 'next/navigation';
 
 
 
+const DiscoverMain = async ({tab} : {tab: any}) => {
 
-const DiscoverMain = () => {
-
-    const searchParams = useSearchParams()
-    const tab = searchParams.get('tab') || 'forYou';
 
   return (
         <main
