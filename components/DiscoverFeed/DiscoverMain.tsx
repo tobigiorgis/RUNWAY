@@ -35,9 +35,9 @@ const DiscoverMain = () => {
             </div>
         {
             tab === 'forYou' ? (
-                <ForYou tab={tab}/>
+                <ForYou />
             ) : (
-                <Following tab={tab}/>
+                <Following />
             )
         }
         </main>

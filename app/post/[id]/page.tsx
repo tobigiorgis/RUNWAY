@@ -1,14 +1,13 @@
 import { Metadata, ResolvingMetadata } from "next"
 import MainProductDetail from "@/components/ProductDetails/Main"
 
-type Props = {
-  params: { id: string }
-}
 
-const Page = ({params} : Props) => {
+const Page = async ({ params,
+}: {
+  params: Promise<{ id: string }>}) => {
   
   // const postId = searchParams?.id || '';
-  const postId = params.id;
+  const postId = (await params).id;
 
   return (
     <MainProductDetail postId={postId} />
