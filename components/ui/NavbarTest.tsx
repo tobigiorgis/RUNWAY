@@ -21,6 +21,7 @@ export const NavbarTest = async () => {
   const {
     data: { user },
   } = await supabase.auth.getUser();  
+  
 
   const { data: profile, error } = await supabase
   .from('profiles')
@@ -241,7 +242,7 @@ export const NavbarTest = async () => {
             : (
               <div className='flex justify-evenly items-center'>
                 <button>
-                    <Link href={'/login'}>LOGIN</Link>
+                    <Link href={'/login'}>Login</Link>
                     {/* <Link href={'/waitlist'}>Join Waitlist</Link> */}
                 </button>
               </div>

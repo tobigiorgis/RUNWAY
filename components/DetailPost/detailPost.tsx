@@ -13,6 +13,7 @@ import { BuyButtonMD } from './BuyButtonMD';
 import { FeaturedLists } from './FeaturedLists';
 import { AddToListButton } from './AddToListButton';
 import { MobileButtons } from './MobileButtons';
+import GetComments from './getComments';
 
 
 
@@ -132,6 +133,7 @@ import { MobileButtons } from './MobileButtons';
                                     <MobileButtons postId={postId}/>
                                     <BuyButtonMD productLink={detailPost.product_link}/>
                                     <FeaturedLists postId={postId}/>
+                                    <GetComments postId={postId}/>
                                 </div>
                             </div>
                         )

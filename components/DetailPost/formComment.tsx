@@ -1,12 +1,13 @@
 'use client'
 
 import { commentVideo } from '@/lib';
-import React from 'react'
+import React, { useState } from 'react'
 import { createClient } from '@/utils/supabase/client';
 import { toast } from '../ui/use-toast';
 
 const FormComment = ({ postId }: { postId: string }) => {
     const supabase = createClient();
+    const [isTyping, setIsTyping] = useState(false);
 
     const handleComment = async (evt: any) => {
         evt.preventDefault();
@@ -26,14 +27,28 @@ const FormComment = ({ postId }: { postId: string }) => {
         }
 
         evt.target.reset(); 
+        setIsTyping(false);
+    }
+
+    const handleInputChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+        setIsTyping(evt.target.value.length > 0);
     }
     
   return (
-    <form onSubmit={handleComment}>
-        <input type="text" name="comment" placeholder="Add a comment" required />
-        <button type="submit">Comment</button>
-  </form>
+    <form onSubmit={handleComment} className='w-full'>
+        <input 
+            type="text" 
+            name="comment" 
+            placeholder="Add a comment ..." 
+            className='bg-gray text-sm focus:outline-none' 
+            required 
+            onChange={handleInputChange} 
+        />
+        {isTyping && 
+            <button type="submit" className='text-sm w-fit'>Send</button>
+        }
+    </form>
   )
 }
 
-export default FormComment 
+export default FormComment

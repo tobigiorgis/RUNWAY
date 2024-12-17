@@ -23,16 +23,16 @@ import FormComment from './formComment';
 
 
   return (
-    <div className='w-full flex flex-col md:bg-gray text-white opacity-90 gap-2 px-4 py-4 h-auto mb-10 rounded-lg md:mt-0'>
-        <h3 className='text-black font-semibold md:text-white'>Comments</h3>
+    <div className='w-full flex flex-col md:bg-gray text-dark gap-2 px-4 md:px-0 py-4 h-auto mb-10 rounded-lg md:mt-0'>
+        <h3 className='text-black font-medium text-sm md:text-dark'>Comments</h3>
         {
             comments?.map((comment: any, key: number) => {
                 return (
-                    <div key={key} className='flex flex-row gap-4'>
+                    <div key={key} className='flex flex-row gap-4 items-center'>
                         <Link href={`/profile/${comment.profiles.id}`}>
-                            <h3 className='font-semibold text-black md:text-white'>{comment.profiles.username}</h3>
+                            <h3 className='font-medium text-md text-black md:text-dark'>{comment.profiles.username}</h3>
                         </Link>
-                        <p className='text-black md:text-white'>{comment.comment}</p>
+                        <p className='text-black md:text-dark text-sm'>{comment.comment}</p>
                     </div>
                 )
             })
