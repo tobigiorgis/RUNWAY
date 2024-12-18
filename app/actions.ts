@@ -58,7 +58,7 @@ export const signInAction = async (formData: FormData) => {
 
 export const forgotPasswordAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
-  const supabase = await createClient();
+  const supabase = createClient();
   const origin = (await headers()).get("origin");
   const callbackUrl = formData.get("callbackUrl")?.toString();
 
@@ -91,11 +91,12 @@ export const forgotPasswordAction = async (formData: FormData) => {
 };
 
 export async function signInWithGoogle() {
+  const origin = (await headers()).get("origin");
   const supabase = createClient();
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: 'http://userunway.ar/auth/callback',
+      redirectTo: `${origin}/auth/callback`,
       queryParams: {
         access_type: "offline",
         prompt: "consent",
