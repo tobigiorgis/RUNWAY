@@ -1,13 +1,17 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { type NextRequest, NextResponse } from 'next/server';
+// import { updateSession } from '@/utils/supabase/middleware';
 
-export const createClient = async (request: NextRequest) => {
+export const updateSession = (request: NextRequest) => {
   // Create an unmodified response
-  let response = NextResponse.next({
-    request: {
-      headers: request.headers,
-    },
-  });
+  // let response = NextResponse.next({
+  //   request: {
+  //     headers: request.headers,
+  //   },
+  // });
+  let supabaseResponse = NextResponse.next({
+    request,
+  })
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -24,12 +28,12 @@ export const createClient = async (request: NextRequest) => {
             value,
             ...options,
           });
-          response = NextResponse.next({
+          supabaseResponse = NextResponse.next({
             request: {
               headers: request.headers,
             },
           });
-          response.cookies.set({
+          supabaseResponse.cookies.set({
             name,
             value,
             ...options,
@@ -42,12 +46,12 @@ export const createClient = async (request: NextRequest) => {
             value: '',
             ...options,
           });
-          response = NextResponse.next({
+          supabaseResponse = NextResponse.next({
             request: {
               headers: request.headers,
             },
           });
-          response.cookies.set({
+          supabaseResponse.cookies.set({
             name,
             value: '',
             ...options,
@@ -56,8 +60,7 @@ export const createClient = async (request: NextRequest) => {
       },
     }
   );
-  
-  await supabase.auth.getUser()
 
-  return { supabase, response };
+
+  return { supabaseResponse };
 };
