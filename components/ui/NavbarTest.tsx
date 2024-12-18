@@ -242,7 +242,7 @@ export const NavbarTest = async () => {
             : (
               <div className='flex justify-evenly items-center'>
                 <button>
-                    <Link href={'/login'}>Login</Link>
+                    <Link href={'/sign-in'}>Login</Link>
                     {/* <Link href={'/waitlist'}>Join Waitlist</Link> */}
                 </button>
               </div>
