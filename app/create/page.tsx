@@ -28,6 +28,7 @@ export default function Create() {
   const [tags, setTags] = useState<string[]>([]);
   const [posted, setPosted] = useState(false);
   const [currentTag, setCurrentTag] = useState('')
+  const [loading, setLoading] = useState(false);
   const router = useRouter()
   // const searchParams = useSearchParams()
 
@@ -100,33 +101,30 @@ export default function Create() {
     evt.preventDefault();
     if (!uploaded) return;
 
+    setLoading(true);
+
     const wait = () => new Promise((resolve) => setTimeout(resolve, 3000));
 
-    // let description = evt.target.description.value;
-    // let product = evt.target.product.value;
-    // let productlink = evt.target.productlink.value;
-
-    const [error, data] = await publishVideo({ postSrc: uploaded, title, description, product, productLink, tags});
+    const [error, data] = await publishVideo({ postSrc: uploaded, title, description, product, productLink, tags });
 
     if (error) {
+      setLoading(false);
       return toast({
         title: "Post failed",
         description: `There was an error: ${error.message}`,
-    })
-    } 
-    else {
+      });
+    } else {
       setPosted(true);
       wait().then(() => {
         setPosted(false);
-        // Clean all input values
-        // Note: Cleaning input values here won't have an effect if you're reloading the page immediately after.
         setTags([]);
         setUploaded(null);
-        router.push('/discover')
+        setLoading(false);
+        router.push('/discover?forYou');
       });
     }
-};
-  
+  };
+
   const handleTagKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && currentTag.trim()) {
       e.preventDefault()
@@ -142,7 +140,7 @@ export default function Create() {
   
   
   return (
-    <div className="container mx-auto mt-20 px-4 py-8">
+    <div className="container mx-auto pt-20 px-4 py-8">
       {/* {showModal && <NonCreatorModal />} */}
       <Card className="w-full md:w-1/2 mx-auto">
         <CardHeader>
@@ -257,7 +255,9 @@ export default function Create() {
               </div>
             </div>
             <CardFooter className="px-0 flex justify-end">
-              <Button type="submit">Create Post</Button>
+              <Button type="submit" disabled={loading} className="bg-black text-white ">
+                {loading ? 'Creating...' : 'Create Post'}
+              </Button>
             </CardFooter>
           </form>
         </CardContent>

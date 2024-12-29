@@ -93,7 +93,7 @@ export const HomeProfile = () => {
   
       return (
         <div className='w-full h-full flex items-center justify-center' onClick={open}>
-          <h4 className="mt-3 text-gray">Drag and drop a picture</h4>
+          <h4 className="mt-3 text-dark">Drag and drop a picture</h4>
         </div>
       );
     };
@@ -132,12 +132,12 @@ export const HomeProfile = () => {
                         <DialogContent className="sm:max-w-[425px]">
                         <DialogHeader>
                             <DialogTitle>Edit picture</DialogTitle>
-                            <DialogDescription>
+                            <DialogDescription className='text-dark'>
                                 Update your profile picture here. Click save when you&apos;re done.
                             </DialogDescription>
                             <div className='flex items-center flex-col gap-3'>
                                 <form className='flex flex-col w-auto h-auto gap-3' onSubmit={handleSubmit}>
-                                    <div className='w-40 h-40 flex items-center justify-center rounded-full outline-none border border-gray' {...getRootProps()} style={{ backgroundImage: `url(${uploaded ? uploaded : profile.profile_pic})`, backgroundSize: 'inherit', backgroundPosition: 'center'}}>
+                                    <div className='w-40 h-40 flex items-center justify-center rounded-full outline-none border border-gray' {...getRootProps()} style={{ backgroundImage: `url(${uploaded ? uploaded : profile.profile_pic})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
                                         <input type="file" name="image" id="fileInput" {...getInputProps()} />
                                         <ImagePlus className='flex w-full items-center' color='gray' size={24}/>
                                     </div>

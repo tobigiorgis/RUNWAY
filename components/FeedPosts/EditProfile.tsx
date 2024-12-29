@@ -64,7 +64,7 @@ const EditProfile = ({username: initialUsername, bio: initialBio, name: initialN
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Edit profile</DialogTitle>
-          <DialogDescription>
+          <DialogDescription className='text-dark'>
             Make changes to your profile here. Click save when you&apos;re done.
           </DialogDescription>
         </DialogHeader>
