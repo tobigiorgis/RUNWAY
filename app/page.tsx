@@ -62,7 +62,7 @@ export default function Home() {
 
       <div className="pt-20 flex flex-col gap-1">
         <Link
-            href='mailto:userunway@gmail.com'  
+            href='mailto:tobi@userunway.com'  
         >
           <p className="text-gray text-xs">Any feedback? Contact us!</p>
         </Link>

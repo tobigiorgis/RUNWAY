@@ -7,7 +7,7 @@ import Image from "next/image";
 import { publishVideo, uploadVideo } from "@/lib";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { toast } from "@/components/ui/use-toast";
-import { useRouter, useSearchParams } from "next/navigation";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -15,6 +15,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { NonCreatorModal } from "@/components/ui/non-creator-modal";
+import { createClient } from "@/utils/supabase/client";
 
 
 export default function Create() {
@@ -28,46 +29,34 @@ export default function Create() {
   const [tags, setTags] = useState<string[]>([]);
   const [posted, setPosted] = useState(false);
   const [currentTag, setCurrentTag] = useState('')
-  const [loading, setLoading] = useState(false);
   const router = useRouter()
+
+  const supabase = createClient()
   // const searchParams = useSearchParams()
 
   // const showModal = searchParams.get('showModal') === 'true'
 
 
+  // const getUserRole = async () => {
+  //   const { data: { user } } = await supabase.auth.getUser()
+  //   const { data: profiles, error } = await supabase
+  //     .from('profiles')
+  //     .select('role')
+  //     .eq('id', user?.id)
+  //   if (error) {
+  //     console.error('Error fetching user role:', error);
+  //   } else {
+  //     console.log('Fetched user role:', profiles);
+  //   }
 
-  // const [progress, setProgress] = useState(0)
-
-  // const onDrop = async (files: any) => {
-  //   // const prefix = process.env.NEXT_PUBLIC_SUPABASE_STORAGE_URL
-  //   const [file] = files;
-  //   setUploading(true);
-  //   const [error, fileUrl] = await uploadVideo({ postFile: file });
-  //   if (error) return console.log(error);
-  //   setUploaded(fileUrl);
-  // };
-
-  
-
-  // const { isDragAccept, isDragReject, getRootProps, getInputProps } =
-  //   useDropzone({
-  //     disabled: uploading || uploaded !== null,
-  //     maxFiles: 1,
-  //     accept: {'image/*': []} ,
-  //     onDrop,
-  //   });
-
+  //   if (profiles?.[0]?.role === 'user') {
+  //     redirect('/discover?forYou')
+  //   }
+  // }
 
   // useEffect(() => {
-  //   if (isDragReject) navigator.vibrate(100);
-  // }, [isDragReject]);
-
-//   const dndClassNames = clsx(styles.dnd, {
-//     [styles.uploaded]: uploaded,
-//     [styles.uploading && !styles.uploaded]: uploading,
-//     [styles.dndReject]: isDragReject,
-//     [styles.dndAccept]: isDragAccept,
-//   });
+  //   getUserRole()
+  // }, [])
 
   const renderDndContent = () => {
     if (previewUrl) {
@@ -101,30 +90,33 @@ export default function Create() {
     evt.preventDefault();
     if (!uploaded) return;
 
-    setLoading(true);
-
     const wait = () => new Promise((resolve) => setTimeout(resolve, 3000));
 
-    const [error, data] = await publishVideo({ postSrc: uploaded, title, description, product, productLink, tags });
+    // let description = evt.target.description.value;
+    // let product = evt.target.product.value;
+    // let productlink = evt.target.productlink.value;
+
+    const [error, data] = await publishVideo({ postSrc: uploaded, title, description, product, productLink, tags});
 
     if (error) {
-      setLoading(false);
       return toast({
         title: "Post failed",
         description: `There was an error: ${error.message}`,
-      });
-    } else {
+    })
+    } 
+    else {
       setPosted(true);
       wait().then(() => {
         setPosted(false);
+        // Clean all input values
+        // Note: Cleaning input values here won't have an effect if you're reloading the page immediately after.
         setTags([]);
         setUploaded(null);
-        setLoading(false);
-        router.push('/discover?forYou');
+        router.push('/discover')
       });
     }
-  };
-
+};
+  
   const handleTagKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && currentTag.trim()) {
       e.preventDefault()
@@ -140,7 +132,7 @@ export default function Create() {
   
   
   return (
-    <div className="container mx-auto pt-20 px-4 py-8">
+    <div className="container mx-auto mt-20 px-4 py-8">
       {/* {showModal && <NonCreatorModal />} */}
       <Card className="w-full md:w-1/2 mx-auto">
         <CardHeader>
@@ -255,9 +247,7 @@ export default function Create() {
               </div>
             </div>
             <CardFooter className="px-0 flex justify-end">
-              <Button type="submit" disabled={loading} className="bg-black text-white ">
-                {loading ? 'Creating...' : 'Create Post'}
-              </Button>
+              <Button type="submit">Create Post</Button>
             </CardFooter>
           </form>
         </CardContent>
