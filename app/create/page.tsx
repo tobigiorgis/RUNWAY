@@ -19,7 +19,6 @@ import { createClient } from "@/utils/supabase/client";
 
 
 export default function Create() {
-  const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   // const [uploading, setUploading] = useState(false);
   const [uploaded, setUploaded] = useState<any>(null);
@@ -96,7 +95,7 @@ export default function Create() {
     // let product = evt.target.product.value;
     // let productlink = evt.target.productlink.value;
 
-    const [error, data] = await publishVideo({ postSrc: uploaded, title, description, product, productLink, tags});
+    const [error, data] = await publishVideo({ postSrc: uploaded, description, product, productLink, tags});
 
     if (error) {
       return toast({
@@ -183,15 +182,6 @@ export default function Create() {
               </div>
             </div>
             <div className="space-y-4">
-              <div>
-                <Label htmlFor="title">Title</Label>
-                <Input
-                  id="title"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  required
-                />
-              </div>
               <div>
                 <Label htmlFor="description">Description</Label>
                 <Textarea

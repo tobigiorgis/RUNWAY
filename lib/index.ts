@@ -56,7 +56,6 @@ export const updateProfilePic = async ({ profilePic }: { profilePic: string }) =
 }
 
 type Post = {
-  title: string
   postSrc: string
   description: string
   product: string

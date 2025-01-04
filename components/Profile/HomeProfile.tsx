@@ -209,10 +209,12 @@ export const HomeProfile = () => {
 
             </>
         ) : (
-            <div className='pt-10'>
-                <Link href={'/profile/create'}>
-                    Create profile
-                </Link>
+            <div className='pt-20'>
+                <button className='py-1 px-2 bg-black text-white'>
+                    <Link href={'/profile/create'}>
+                        Create profile
+                    </Link>
+                </button>
             </div>
         )}
         <Footer/>
