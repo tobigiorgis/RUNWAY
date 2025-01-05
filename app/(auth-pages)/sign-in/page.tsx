@@ -24,7 +24,7 @@ export default async function Login(props: { searchParams: Promise<Message> }) {
       <p className="text-sm text-foreground flex md:w-1/4 items-start gap-2">
         First time here?{" "}
         <Link className="text-foreground font-medium underline" href="/sign-up">
-          Sign up
+          Join Runway
         </Link>
       </p>
       <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8 md:w-1/4">

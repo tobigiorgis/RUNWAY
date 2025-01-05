@@ -55,6 +55,8 @@ export const HomeProfile = () => {
 
   useEffect(() => {
       getProfiles()
+      console.log(profileCreated);
+      
   })
 
 
@@ -209,8 +211,9 @@ export const HomeProfile = () => {
 
             </>
         ) : (
-            <div className='pt-20'>
-                <button className='py-1 px-2 bg-black text-white'>
+            <div className='pt-20 flex items-center justify-center flex-col gap-4'>
+                <p className='text-dark font-medium'>Start by creating your fashion profile!</p>
+                <button className='bg-black px-1 py-1 rounded-3xl opacity-20 text-white hover:bg-dark rounded-3xl px-4 py-2'>
                     <Link href={'/profile/create'}>
                         Create profile
                     </Link>

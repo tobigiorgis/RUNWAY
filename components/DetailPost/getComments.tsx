@@ -23,7 +23,7 @@ import FormComment from './formComment';
 
 
   return (
-    <div className='w-full flex flex-col md:bg-gray text-dark gap-2 px-4 md:px-0 py-4 h-auto mb-10 rounded-lg md:mt-0'>
+    <div className='w-full flex flex-col md:bg-gray text-dark gap-2 py-4 h-auto mb-10 rounded-lg md:mt-0'>
         <h3 className='text-black font-medium text-sm md:text-dark'>Comments</h3>
         {
             comments?.map((comment: any, key: number) => {

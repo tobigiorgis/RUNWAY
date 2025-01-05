@@ -14,6 +14,7 @@ import { FeaturedLists } from './FeaturedLists';
 import { AddToListButton } from './AddToListButton';
 import { MobileButtons } from './MobileButtons';
 import GetComments from './getComments';
+import { FollowButtonDetail } from './FollowButtonDetail';
 
 
 
@@ -25,7 +26,8 @@ import GetComments from './getComments';
     .from('posts')
     .select(`*, profiles(
         username,
-        id
+        id,
+        followers_count
         )`
     )
     .eq('id', postId)
@@ -54,9 +56,7 @@ import GetComments from './getComments';
                                         <h3 className='font-medium text-lg'>{detailPost.profiles.username}</h3>
                                         <p>{detailPost.description}</p>
                                     </div>
-                                    <button className='text-dark'>
-                                        Follow +
-                                    </button>
+                                    <FollowButtonDetail userId={detailPost.profiles.id} followers={detailPost.profiles.followers_count}/>
                                 </div>
                                 <div className='rounded-l-lg md:h-[650px] md:w-4/6 flex relative px-4 md:mx-9 py-2 flex justify-center md:pt-20'>
                                     <Image priority className='md:rounded-t-lg md:rounded-l-lg rounded-lg h-[55vh] md:h-full md:w-4/5' src={detailPost.src} alt='Image' width={500} height={200}/>

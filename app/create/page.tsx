@@ -49,7 +49,7 @@ export default function Create() {
   //   }
 
   //   if (profiles?.[0]?.role === 'user') {
-  //     redirect('/discover?forYou')
+  //     redirect('/apply')
   //   }
   // }
 
@@ -131,7 +131,7 @@ export default function Create() {
   
   
   return (
-    <div className="container mx-auto mt-20 px-4 py-8">
+    <div className="container mx-auto pt-20 px-4 py-8">
       {/* {showModal && <NonCreatorModal />} */}
       <Card className="w-full md:w-1/2 mx-auto">
         <CardHeader>
