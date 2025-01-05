@@ -111,7 +111,7 @@ export default function Create() {
         // Note: Cleaning input values here won't have an effect if you're reloading the page immediately after.
         setTags([]);
         setUploaded(null);
-        router.push('/discover')
+        router.push('/discover?tab=forYou')
       });
     }
 };
