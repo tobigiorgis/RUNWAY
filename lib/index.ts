@@ -55,41 +55,57 @@ export const updateProfilePic = async ({ profilePic }: { profilePic: string }) =
 
 }
 
+type Product = {
+  name: string
+  link: string
+}
+
 type Post = {
   postSrc: string
   description: string
-  product: string
-  productLink: string
+  products: Product[]
   tags: string[]
 }
 
-export const publishVideo = async ({ postSrc, description, product, productLink, tags } : Post) => {
+export const publishVideo = async ({ postSrc, description, products, tags } : Post) => {
 
   const { data: { user } } = await supabase.auth.getUser()
 
-  const { data, error } = await supabase
+  const { data: postData, error: postError } = await supabase
     .from('posts')
     .insert([
       {
         user_id: user?.id,
         description,
         src: postSrc,
-        product_name: product,
-        product_link: productLink,
         tags
       }
     ])
+    .select()
 
-  return [error, data]
+    if (postError) {
+      return [postError, null]
+    }
 
+  const postId = postData?.[0]?.id
+
+  const productInserts = products.map(product => ({
+    post_id: postId,
+    product_name: product.name,
+    product_link: product.link
+  }))
+
+  const { data: productData, error: productError } = await supabase
+    .from('products')
+    .insert(productInserts)
+
+    return [productError, postData]
 }
-
 
 type List = {
   name: string
   privacy: boolean
 }
-
 
 export const createList = async ({ name, privacy}: List) => {
   

@@ -108,7 +108,6 @@ export const NavbarTest = async () => {
             Discover
           </Link>
         </button>
-        {/* ${pathname === '/create' ? 'bg-light font-medium' : ''} */}
         {
           profile?.[0]?.role != 'user' ? (
           <button className={`hidden md:flex md:text-sm md:rounded md:p-1 hover:font-medium`}>

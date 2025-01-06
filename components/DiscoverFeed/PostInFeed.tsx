@@ -15,7 +15,7 @@ const PostInFeed = ({posts, id}: any) => {
                 <p className='text-sm'>{posts.description}</p>
             </div>
             <button className='flex items-center text-dark text-md'>
-                <Link className='w-full' href={posts.product_link} target="_blank" rel="noopener noreferrer">
+                <Link className='w-full' href={`${posts.product_link}`} target="_blank" rel="noopener noreferrer">
                     Buy
                 </Link>
             </button>

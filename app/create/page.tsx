@@ -20,10 +20,10 @@ import { createClient } from "@/utils/supabase/client";
 
 export default function Create() {
   const [description, setDescription] = useState('')
-  // const [uploading, setUploading] = useState(false);
   const [uploaded, setUploaded] = useState<any>(null);
-  const [product, setProduct] = useState('')
+  const [productName, setProductName] = useState('')
   const [productLink, setProductLink] = useState('')
+  const [products, setProducts] = useState<{ name: string, link: string }[]>([]);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
   const [tags, setTags] = useState<string[]>([]);
   const [posted, setPosted] = useState(false);
@@ -31,31 +31,6 @@ export default function Create() {
   const router = useRouter()
 
   const supabase = createClient()
-  // const searchParams = useSearchParams()
-
-  // const showModal = searchParams.get('showModal') === 'true'
-
-
-  // const getUserRole = async () => {
-  //   const { data: { user } } = await supabase.auth.getUser()
-  //   const { data: profiles, error } = await supabase
-  //     .from('profiles')
-  //     .select('role')
-  //     .eq('id', user?.id)
-  //   if (error) {
-  //     console.error('Error fetching user role:', error);
-  //   } else {
-  //     console.log('Fetched user role:', profiles);
-  //   }
-
-  //   if (profiles?.[0]?.role === 'user') {
-  //     redirect('/apply')
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   getUserRole()
-  // }, [])
 
   const renderDndContent = () => {
     if (previewUrl) {
@@ -84,6 +59,13 @@ export default function Create() {
     }
   }
 
+  const handleAddProduct = () => {
+    if (productName.trim() && productLink.trim()) {
+      setProducts([...products, { name: productName, link: productLink }]);
+      setProductName('');
+      setProductLink('');
+    }
+  }
 
   const handleSubmit = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -91,16 +73,12 @@ export default function Create() {
 
     const wait = () => new Promise((resolve) => setTimeout(resolve, 3000));
 
-    // let description = evt.target.description.value;
-    // let product = evt.target.product.value;
-    // let productlink = evt.target.productlink.value;
-
-    const [error, data] = await publishVideo({ postSrc: uploaded, description, product, productLink, tags});
+    const [error, data] = await publishVideo({ postSrc: uploaded, description, products, tags});
 
     if (error) {
       return toast({
         title: "Post failed",
-        description: `There was an error: ${error.message}`,
+        description: `There was an error: ${Array.isArray(error) ? 'Unknown error' : error.message}`,
     })
     } 
     else {
@@ -128,6 +106,10 @@ export default function Create() {
   const removeTag = (tagToRemove: string) => {
     setTags(tags.filter(tag => tag !== tagToRemove))
   }
+
+  const handleRemoveProduct = (index: number) => {
+    setProducts(products.filter((_, i) => i !== index));
+  }
   
   
   return (
@@ -140,7 +122,7 @@ export default function Create() {
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className='w-full flex flex-col items-start gap-2'>
-              <Label htmlFor="image" className="font-semibold">Photo</Label>
+              <Label htmlFor="image" className="font-semibold">Photo <span className="text-dark text-xs pl-1 font-normal">Required</span></Label>
               <div className='w-full aspect-video border-2 border-dashed border-gray-300 bg-gray-50 rounded-lg overflow-hidden relative'>
                 <input 
                   type="file" 
@@ -181,9 +163,9 @@ export default function Create() {
                 )}
               </div>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-3">
               <div>
-                <Label htmlFor="description">Description</Label>
+                <Label htmlFor="description">Description <span className="text-dark text-xs pl-1 font-normal">Required</span></Label>
                 <Textarea
                   id="description"
                   value={description}
@@ -191,24 +173,48 @@ export default function Create() {
                   required
                 />
               </div>
-              <div>
-                <Label htmlFor="product">Product Name</Label>
+              <p className="text-xs text-dark">Provide the links to the products you are featuring below.</p>
+              <div className="flex flex-col">
+                <label className="text-sm font-medium" htmlFor="productName">Product Name <span className="text-dark text-xs pl-1 font-normal">Required</span></label>
                 <Input
-                  id="product"
-                  value={product}
-                  onChange={(e) => setProduct(e.target.value)}
-                  required
+                  type="text"
+                  name="productName"
+                  value={productName}
+                  onChange={(e) => setProductName(e.target.value)}
+                  className="focus:outline-none"
+                  placeholder="Product name"
                 />
               </div>
-              <div>
-                <Label htmlFor="productLink">Product Link</Label>
+              <div className="flex flex-col">
+                <label className="text-sm font-medium" htmlFor="productLink">Product Link <span className="text-dark text-xs pl-1 font-normal">Required</span></label>
                 <Input
-                  id="productLink"
-                  type="url"
+                  type="text"
+                  name="productLink"
                   value={productLink}
                   onChange={(e) => setProductLink(e.target.value)}
-                  required
+                  className="focus:outline-none"
+                  placeholder="Product link"
                 />
+              </div>
+              <button className="text-dark text-sm font-medium" onClick={handleAddProduct}>
+                Add product +
+              </button> 
+              <div className="flex flex-row flex-wrap gap-4">
+                {products.map((product, index) => (
+                  <div key={index} className="flex flex-col w-1/3 justify-between items-start bg-zinc py-2 px-4 rounded-md mb-2">
+                    <div className="flex justify-between w-full">
+                      <p className="text-sm text-dark">Product</p>
+                      <button
+                        type="button"
+                        className="ml-2 text-sm font-bold text-dark"
+                        onClick={() => handleRemoveProduct(index)}
+                      >
+                        ×
+                      </button>
+                    </div>
+                    <p className="text-md font-medium">{product.name}</p>
+                  </div>
+                ))}
               </div>
               <div>
                 <Label htmlFor="tags">Tags</Label>
