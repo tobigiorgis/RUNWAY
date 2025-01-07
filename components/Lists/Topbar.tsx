@@ -35,13 +35,14 @@ export const Topbar = () => {
     const widthcalc = dataLists.length * 50
 
   return (
-    <div className='w-full md:hidden flex flex-row bg-light py-3 px-3 items-center rounded relative'>
-        <div className='w-full flex flex-row items-center gap-3 h-full scrollable overflow-x-auto whitespace-nowrap'>
+    <div className='w-full md:hidden flex flex-row gap-2 items-center rounded relative hide-scrollbar'>
+        <MobileCreateListButton />
+        <div className='w-full flex flex-row items-center gap-3 h-full scrollable overflow-x-auto whitespace-nowrap hide-scrollbar'>
             <div className='flex flex-row gap-3' style={{ minWidth: `${widthcalc}%` }}>
             {
                 dataLists.map((list, index) => (
                     <Link key={index} href={`/profile/${list.user_id}/lists/${list.id}`}>
-                        <li key={index} className='text-clip text-nowrap uppercase bg-zinc backdrop-blur-sm w-fit flex items-center justify-center p-2 rounded text-black text-sm'>
+                        <li key={index} className='text-clip text-nowrap bg-light backdrop-blur-sm w-fit flex items-center justify-center py-2 px-3 capitalize rounded-2xl text-dark font-medium text-sm'>
                             {list.name}
                         </li>
                 </Link>
@@ -52,7 +53,7 @@ export const Topbar = () => {
         {/* <button className='bg-white px-2 py-1 rounded z-10 resize-none text-nowrap absolute right-0 mr-3 backdrop-blur-lg'>
             + New List
         </button> */}
-        <MobileCreateListButton />
+
     </div>
   )
 }

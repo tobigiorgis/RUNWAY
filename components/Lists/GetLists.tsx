@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 
 import { createClient } from '@/utils/supabase/client'
 
@@ -15,6 +15,8 @@ export const GetLists = () => {
     const [followingLists, setFollowingLists] = useState<any[]>([])
     const supabase = createClient()
     const pathname = usePathname()
+    const searchParams = useSearchParams()
+    const q = searchParams.get('q') || 'Runways'
 
     const userId = pathname.split('/')[2]
     
@@ -41,10 +43,34 @@ export const GetLists = () => {
           setDataLists(data)
         }
       }
+
+      const renderFollowingLists = async () => {
+        
+        const { data: { user } } = await supabase.auth.getUser()
+
+        const { data, error } = await supabase
+            .from('users_following_lists')
+            .select('*, users_lists(*)')
+            .eq('user_id', user?.id)
+
+        
+            if (error) {
+                console.log(error)
+            }
+      
+            if (data) {
+                setFollowingLists(data)
+                console.log(data)
+            }
+    }
     
       useEffect(() => {
-        renderLists()
-      }, [])
+        if (q === 'Runways') {
+            renderLists();
+        } else if (q === 'Following') {
+            renderFollowingLists();
+        }
+    }, [q]);
     
     
 

@@ -201,7 +201,7 @@ export default function Create() {
               </button> 
               <div className="flex flex-row flex-wrap gap-4">
                 {products.map((product, index) => (
-                  <div key={index} className="flex flex-col w-1/3 justify-between items-start bg-zinc py-2 px-4 rounded-md mb-2">
+                  <div key={index} className="flex flex-col md:w-1/3 w-1/2 justify-between items-start bg-zinc py-2 px-4 rounded-md mb-2">
                     <div className="flex justify-between w-full">
                       <p className="text-sm text-dark">Product</p>
                       <button

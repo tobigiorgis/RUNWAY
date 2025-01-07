@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label"
 import { Button } from "../ui/button";
 import { DialogHeader, DialogFooter, Dialog, DialogTrigger, DialogContent, DialogDescription, DialogTitle } from "../ui/dialog";
 import { Switch } from "../ui/switch";
+import { Plus, PlusCircle } from "lucide-react";
 
 
 
@@ -43,8 +44,8 @@ return (
   <>
     <Dialog>
         <DialogTrigger asChild>
-        <button className='bg-white px-2 py-1 rounded z-10 resize-none text-nowrap absolute right-0 mr-3 backdrop-blur-lg'>
-            + New List
+        <button className='bg-white px-2 py-2 rounded-3xl z-10 resize-none font-medium text-nowrap backdrop-blur-lg'>
+            <Plus color="gray"/>
         </button>
         </DialogTrigger>
         <DialogContent className="w-full">

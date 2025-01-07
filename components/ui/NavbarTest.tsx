@@ -97,7 +97,7 @@ export const NavbarTest = async () => {
     
   
   return (
-    <div className='flex flex-row justify-between md:items-start items-center w-full md:top-0 fixed md:py-3 py-5 px-4 md:px-6 bg-transparency-20 bg-gray z-50 border-b border-light'>
+    <div className='flex flex-row justify-between items-center w-full md:top-0 fixed md:py-3 py-5 px-4 md:px-6 bg-transparency-20 bg-gray z-50 border-b border-light'>
       <div className='flex flex-row items-center md:gap-4'>
         <Link href={'/'}>
           <h1 className='md:text-sm text-m'>Runway</h1>
@@ -124,7 +124,7 @@ export const NavbarTest = async () => {
           {
             user ? (
               <div className='flex justify-end items-center gap-3'>
-                <button className='hidden md:flex'>
+                <button className='hidden md:flex  md:text-sm'>
                   <Link href={`/profile`}>
                     Profile
                   </Link>
@@ -187,8 +187,8 @@ export const NavbarTest = async () => {
                 </Dialog> */}
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <button className="focus:outline-none">
-                      more
+                    <button className="focus:outline-none  md:text-sm">
+                      More
                     </button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>

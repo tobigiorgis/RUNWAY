@@ -1,4 +1,3 @@
-
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link';
@@ -15,6 +14,9 @@ import { AddToListButton } from './AddToListButton';
 import { MobileButtons } from './MobileButtons';
 import GetComments from './getComments';
 import { FollowButtonDetail } from './FollowButtonDetail';
+import { FeaturedProducts } from './FeaturedProducts';
+import { ShareButton } from './ShareButton';
+import { MobileFP } from './MobileFP';
 
 
 
@@ -35,15 +37,6 @@ import { FollowButtonDetail } from './FollowButtonDetail';
     if (error) {
         console.log(error)
     }
-
-    const handleCopy = async () => {
-        await navigator.clipboard.writeText(window.location.href);
-    
-        toast({
-          title: "Copied to clipboard.",
-          description: "You can share it now! ✨",
-        })
-      }
       
   return (
     <div className='mt-10 md:mt-0 md:h-[550px] h-auto rounded-lg md:mb-0'>
@@ -59,16 +52,10 @@ import { FollowButtonDetail } from './FollowButtonDetail';
                                     <FollowButtonDetail userId={detailPost.profiles.id} followers={detailPost.profiles.followers_count}/>
                                 </div>
                                 <div className='rounded-l-lg md:h-[650px] md:w-4/6 flex relative px-4 md:mx-9 py-2 flex justify-center md:pt-20'>
-                                    <Image priority className='md:rounded-t-lg md:rounded-l-lg rounded-lg h-[55vh] md:h-full md:w-4/5' src={detailPost.src} alt='Image' width={500} height={200}/>
+                                    <Image priority className='md:rounded-t-lg md:object-fill md:rounded-l-lg rounded-lg h-[55vh] md:h-auto md:w-auto' src={detailPost.src} alt='Image' width={500} height={200}/>
                                 </div>
-                                <div className='flex md:hidden flex-col px-4'>
-                                    <p className='text-dark'>Product</p>
-                                    <div className='flex flex-row justify-between'>
-                                       <h5 className='font-medium'>{detailPost.product_name}</h5>
-                                       <BuyButton productLink={detailPost.product_link}/>
-                                    </div>
-                                </div>
-                                <div className='md:py-10 md:px-10 py-2 px-3 w-full md:flex-1 md:w-2/6 flex flex-col justify-start gap-9 md:gap-5 md:border-l md:border-light'>
+                                <MobileFP postId={postId}/>
+                                <div className='md:py-10 md:px-10 py-2 px-3 w-full md:flex-1 md:w-2/6 flex flex-col justify-start gap-5 md:gap-5 md:border-l md:border-light'>
                                     <div className='md:flex md:flex-col md:w-full justify-between hidden gap-5'>
                                         <Link href={`/profile/${detailPost.profiles.id}`}>
                                             <h1 className='text-md'>{detailPost.profiles.username}</h1>
@@ -92,20 +79,6 @@ import { FollowButtonDetail } from './FollowButtonDetail';
                                                 </button>
                                             )
                                         } */}
-                                            {/* <DropdownMenu>
-                                                <DropdownMenuTrigger className="focus:outline-none">ADD TO LIST</DropdownMenuTrigger>
-                                                <DropdownMenuContent>
-                                                    <DropdownMenuLabel>Lists</DropdownMenuLabel>
-                                                    <DropdownMenuSeparator />
-                                                    {
-                                                        lists.map((list, index) => (
-                                                            <DropdownMenuItem key={index} onClick={() => addPostToList(list.id)}>
-                                                                {list.name}
-                                                            </DropdownMenuItem>
-                                                        ))
-                                                    }
-                                                </DropdownMenuContent>
-                                            </DropdownMenu> */}
                                             {/* <button 
                                                 className='px-5 py-1 rounded-2xl bg-light flex gap-2 text-sm text-dark'
                                             >
@@ -113,25 +86,17 @@ import { FollowButtonDetail } from './FollowButtonDetail';
                                                 Save
                                             </button> */}
                                             <AddToListButton postId={postId}/>
-                                            <button 
-                                                className='px-5 py-1 rounded-2xl bg-light flex gap-2 text-sm text-dark'
-                                                // onClick={handleCopy}
-                                            >
-                                                <Forward size={20} color='gray'/>
-                                                Share
-                                            </button>
+                                            <ShareButton/>
+
 
                                             {/* <button>
                                                 FOLLOW
                                             </button> */}
                                         </div>
                                     </div>
-                                    {/* <div className='md:flex hidden'>
-                                        <h2 className='font-semibold text-2xl'>{detailPost.title}</h2>
-                                        <p>{detailPost.description}</p>
-                                    </div> */}
+
                                     <MobileButtons postId={postId}/>
-                                    <BuyButtonMD productLink={detailPost.product_link}/>
+                                    <FeaturedProducts postId={postId}/>
                                     <FeaturedLists postId={postId}/>
                                     <GetComments postId={postId}/>
                                 </div>

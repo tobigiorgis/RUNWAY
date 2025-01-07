@@ -239,7 +239,6 @@ const MainProductDetail = ({ postId }: MainProductDetailProps) => {
       <main className='pt-10 pb-10 w-full md:h-auto min-h-screen flex flex-row md:items-start items-center md:justify-evenly justify-center md:px-0 py-0 z-10 bg-gray'>
           <div className='flex flex-col h-auto w-full md:gap-10'>
             <DetailPost postId={postId}/>
-            {/* <GetComments postId={postId}/> */}
           </div>
           <Footer/>
       </main>
