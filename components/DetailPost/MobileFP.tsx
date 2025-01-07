@@ -16,7 +16,7 @@ export const MobileFP = async ({postId} : {postId: string}) => {
               <p className='text-dark'>{product && product.length > 1 ? 'Products' : 'Product'}</p>
         {
             product && product.map((product: any) => (
-                <div className='flex flex-row justify-between'>
+                <div className='flex flex-row justify-between' key={product.id}>
                     <h5 className='font-medium'>{product.product_name}</h5>
                     <BuyButton productLink={product.product_link}/>
                 </div>
