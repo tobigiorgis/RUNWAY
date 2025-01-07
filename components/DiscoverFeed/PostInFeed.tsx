@@ -1,11 +1,32 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import { createClient } from '@/utils/supabase/server'
 
-const PostInFeed = ({posts, id}: any) => {
+const PostInFeed = async ({posts, key, id}: any) => {
+
+    // const supabase = createClient()
+    // console.log(key);
+    
+
+    // const { data: buyPost, error } = await supabase
+    // .from('products')
+    // .select('*')
+    // .eq('post_id', id)
+    // .single()
+
+    // console.log(buyPost);
+    
+
+    // if (error) {
+    //     console.log(error)
+    // }
+
+    // const post = buyPost && buyPost[0].product_link && buyPost[0].product_link.startsWith('http') ? buyPost : `http://${buyPost[0].product_link ? buyPost[0].product_link : ''}`;
+
   return (
     <div
-        key={id}
+        key={key}
         className='gap-3 md:w-1/6 w-full rounded flex flex-col'
     >
         <div className='w-full flex flex-row justify-between md:hidden'>
@@ -14,13 +35,13 @@ const PostInFeed = ({posts, id}: any) => {
                 <h4 className='font-medium text-md'>{posts.profiles.username}</h4>
                 <p className='text-sm'>{posts.description}</p>
             </div>
-            <button className='flex items-center text-dark text-md'>
-                <Link className='w-full' href={`${posts.product_link}`} target="_blank" rel="noopener noreferrer">
+            {/* <button className='flex items-center text-dark text-md' key={key}>
+                <Link className='w-full' href={`${post}`} target="_blank" rel="noopener noreferrer">
                     Buy
                 </Link>
-            </button>
+            </button> */}
         </div>
-        <Link href={`/post/${posts.id}?id=${posts.id}`} key={id} legacyBehavior>
+        <Link href={`/post/${posts.id}?id=${posts.id}`} key={key} legacyBehavior>
             <Image className='rounded-md cursor-pointer' src={posts.src} alt={posts.description} width={390} height={100} />
         </Link>
                                 {/* {isHovered === posts.id && (

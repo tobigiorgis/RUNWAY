@@ -25,10 +25,11 @@ export const NavbarTest = async () => {
 
   const { data: profile, error } = await supabase
   .from('profiles')
-  .select('role')
+  .select('role, username')
   .eq('id', user?.id)
 
 
+  const username = profile ? profile[0]?.username || null : null;
 
   // const pathname = usePathname();
   // const [sessionActive, setSessionActive] = useState(false)
@@ -192,7 +193,7 @@ export const NavbarTest = async () => {
                     </button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
-                    <DropdownMenuLabel>Hey <Link href={'/profile'}>@{user.id}</Link></DropdownMenuLabel>
+                    <DropdownMenuLabel>Hey <Link href={'/profile'}>@{username}</Link></DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem className='md:hidden'> 
                       <Link href={'/discover?tab=forYou'}>

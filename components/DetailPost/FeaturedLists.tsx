@@ -19,11 +19,11 @@ export const FeaturedLists = async ({postId} : {postId: string}) => {
              }
 
   return (
-            <div className='flex flex-col gap-3 px-1'>
+            <div className='flex flex-col gap-3'>
                 <h3 className='font-medium text-dark text-sm'>Lists</h3>
                 {
                     lists?.length === 0 ? 
-                        <p className='text-dark text-xs'>Not featured yet</p> 
+                        <p className='text-dark text-xs'>Not featured in any lists yet.</p> 
                     : null
                 }
                 <div className='flex flex-col w-full h-full gap-3'>
