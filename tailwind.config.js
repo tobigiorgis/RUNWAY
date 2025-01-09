@@ -30,6 +30,7 @@ module.exports = {
       fontFamily: {
         sans: ['var(--font-geist-sans)'],
         mono: ['var(--font-geist-mono)'],
+        nanum: ['Nanum Myeongjo', 'serif'],
       },
       keyframes: {
         "accordion-down": {

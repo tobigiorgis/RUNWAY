@@ -181,7 +181,7 @@ export const ForYou = async () => {
             {posts && posts.map((posts: any, key: number) => {
                     return (
                         <>
-                        <PostInFeed posts={posts} id={posts.id} key={posts.id || key}/>
+                        <PostInFeed posts={posts} id={posts.id}/>
                         {/* <motion.div
                             key={key}
                             className='h-80 md:w-1/6 w-full rounded hover:opacity-85'

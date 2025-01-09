@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { Share, ArrowUpRight, Heart } from 'lucide-react'
 
 import { likeVideo, unlikeVideo } from '@/lib'
-import { createClient } from '@/utils/supabase/client'
+import { createClient } from '@/utils/supabase/server'
 
 export const Following = async () => {
 
@@ -17,20 +17,27 @@ export const Following = async () => {
     const supabase = createClient()
 
     const { data: { user } } = await supabase.auth.getUser()
-
+    
     let { data: following, error } = await supabase
-                .from('users_followers')
-                .select('follower_id, profiles(username, id, posts(*))')
-                .eq('user_id', user?.id)
-                .order(
-                  'created_at',
-                  { ascending: false }
-                )
+        .from('users_followers')
+        .select('follower_id')
+        .eq('user_id', user?.id)
+    
+    const followingUserIds = following?.map(follow => follow.follower_id)
+
+    let { data: posts, error: errorPosts } = await supabase
+        .from('posts')
+        .select(`*, profiles(username)`)
+        .in('user_id', followingUserIds || [])
+
+    if (errorPosts) {
+        console.log(errorPosts)
+    }
     
     console.log(following);
 
     if (!following) {
-        return <p>No posts found.</p>
+        return <p className='mt-10'>No posts found.</p>
     }
     if (error) {
         console.log(error)
@@ -173,7 +180,19 @@ export const Following = async () => {
 
   return (
     <section key='following' className='h-fit w-full md:mt-20 mt-8 flex flex-row gap-7 justify-evenly md:px-20 px-8 flex-wrap'>
-            {
+        {
+            posts && posts.map((posts: any, key: number) => {
+                return (
+                <div
+                    key={key}
+                    className='h-80 md:w-1/6 w-full rounded hover:opacity-85'
+                    style={{ backgroundImage: `url(${posts.src})`, backgroundSize: 'cover', backgroundPosition: 'center'}}
+                >
+                </div>
+            )}
+        )
+        }
+            {/* {
                 following && following.map((posts: any, key: number) => {
                     return (
                         <div
@@ -206,7 +225,7 @@ export const Following = async () => {
                                                     {posts.profiles.posts.description}
                                                 </button>
 
-                                                {/* {
+                                                {
                                                     likedPosts.includes(posts.id) ? (
                                                         <button onClick={(event) => handleUnlike(posts.id)}>
                                                             <Heart size={20} fill='red' color='red'/>
@@ -216,13 +235,13 @@ export const Following = async () => {
                                                             <Heart size={20}/>
                                                         </button>
                                                     )
-                                                } */}
+                                                }
                                             </div>
                                     </div>
                         </div>
                     )
                 })
-            }
+            } */}
     </section>
   )
 }
