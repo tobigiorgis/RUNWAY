@@ -286,6 +286,35 @@ export const createProfile = async ({ fullname, username, bio, style, website }:
   return [error, data]
 }
 
+type Apply = {
+  username: string
+  fullname: string
+  location: string
+  goal?: string
+  runway?: string
+}
+
+export const apply = async ({ username, fullname, location, goal, runway }: Apply) => {
+
+  const { data: { user } } = await supabase.auth.getUser()
+
+  const { data, error } = await supabase
+    .from('applications')
+    .insert([
+      {
+        name: fullname,
+        ig_username: username,
+        location: location,
+        goal: goal ?? null,
+        why: runway ?? null
+      }
+    ])
+
+  return [error, data]
+}
+
+
+
 // Update profile_created column in the users table to true
 export const updateProfileCreated = async () => {
   

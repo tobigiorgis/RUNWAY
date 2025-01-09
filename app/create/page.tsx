@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { NonCreatorModal } from "@/components/ui/non-creator-modal";
 import { createClient } from "@/utils/supabase/client";
+import Link from "next/link";
 
 
 export default function Create() {
@@ -30,7 +31,6 @@ export default function Create() {
   const [currentTag, setCurrentTag] = useState('')
   const router = useRouter()
 
-  const supabase = createClient()
 
   const renderDndContent = () => {
     if (previewUrl) {
@@ -118,11 +118,12 @@ export default function Create() {
       <Card className="w-full md:w-1/2 mx-auto">
         <CardHeader>
           <CardTitle>Create New Post</CardTitle>
+          <p className="text-xs">Only creators are able to create posts. <Link href={'/apply'} className="font-medium underline">Apply to be a creator.</Link></p>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className='w-full flex flex-col items-start gap-2'>
-              <Label htmlFor="image" className="font-semibold">Photo <span className="text-dark text-xs pl-1 font-normal">Required</span></Label>
+              <Label htmlFor="image" className="font-semibold">Photo*</Label>
               <div className='w-full aspect-video border-2 border-dashed border-gray-300 bg-gray-50 rounded-lg overflow-hidden relative'>
                 <input 
                   type="file" 
@@ -138,8 +139,8 @@ export default function Create() {
                       src={previewUrl}
                       alt="Preview"
                       layout="fill"
-                      objectFit="cover"
-                      className="rounded-lg"
+                      // objectFit="cover"
+                      className="rounded-lg object-fill"
                     />
                     <button
                       type="button"
@@ -165,7 +166,7 @@ export default function Create() {
             </div>
             <div className="space-y-3">
               <div>
-                <Label htmlFor="description">Description <span className="text-dark text-xs pl-1 font-normal">Required</span></Label>
+                <Label htmlFor="description">Description</Label>
                 <Textarea
                   id="description"
                   value={description}
@@ -175,7 +176,7 @@ export default function Create() {
               </div>
               <p className="text-xs text-dark">Provide the links to the products you are featuring below.</p>
               <div className="flex flex-col">
-                <label className="text-sm font-medium" htmlFor="productName">Product Name <span className="text-dark text-xs pl-1 font-normal">Required</span></label>
+                <label className="text-sm font-medium" htmlFor="productName">Product Name*</label>
                 <Input
                   type="text"
                   name="productName"
@@ -186,7 +187,7 @@ export default function Create() {
                 />
               </div>
               <div className="flex flex-col">
-                <label className="text-sm font-medium" htmlFor="productLink">Product Link <span className="text-dark text-xs pl-1 font-normal">Required</span></label>
+                <label className="text-sm font-medium" htmlFor="productLink">Product Link*</label>
                 <Input
                   type="text"
                   name="productLink"
