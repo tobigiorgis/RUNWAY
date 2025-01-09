@@ -98,7 +98,7 @@ export const NavbarTest = async () => {
     
   
   return (
-    <div className='flex flex-row justify-between items-center w-full md:top-0 fixed md:py-3 py-5 px-4 md:px-6 bg-transparency-20 bg-gray z-50 border-b border-light'>
+    <div className='flex flex-row justify-between items-center w-full md:top-0 fixed md:py-3 py-5 px-4 md:px-6 bg-transparency-20 opacity-80 bg-gray z-50 border-b border-light'>
       <div className='flex flex-row items-center md:gap-4'>
         <Link href={'/'}>
           <h1 className='md:text-sm text-m'>Runway</h1>
