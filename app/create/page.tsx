@@ -29,6 +29,7 @@ export default function Create() {
   const [tags, setTags] = useState<string[]>([]);
   const [posted, setPosted] = useState(false);
   const [currentTag, setCurrentTag] = useState('')
+  const [loading, setLoading] = useState(false); // Add loading state
   const router = useRouter()
 
 
@@ -75,7 +76,10 @@ export default function Create() {
 
     const [error, data] = await publishVideo({ postSrc: uploaded, description, products, tags});
 
+    setLoading(true); // Set loading state to true
+
     if (error) {
+      setLoading(false); // Set loading state to false
       return toast({
         title: "Post failed",
         description: `There was an error: ${Array.isArray(error) ? 'Unknown error' : error.message}`,
@@ -89,6 +93,7 @@ export default function Create() {
         // Note: Cleaning input values here won't have an effect if you're reloading the page immediately after.
         setTags([]);
         setUploaded(null);
+        setLoading(false); // Set loading state to false
         router.push('/discover?tab=forYou')
       });
     }
@@ -171,7 +176,6 @@ export default function Create() {
                   id="description"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  required
                 />
               </div>
               <p className="text-xs text-dark">Provide the links to the products you are featuring below.</p>
@@ -244,7 +248,7 @@ export default function Create() {
               </div>
             </div>
             <CardFooter className="px-0 flex justify-end">
-              <Button type="submit">Create Post</Button>
+            <Button type="submit">{loading ? 'Creating...' : 'Create Post'}</Button>
             </CardFooter>
           </form>
         </CardContent>
