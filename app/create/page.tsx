@@ -60,7 +60,8 @@ export default function Create() {
     }
   }
 
-  const handleAddProduct = () => {
+  const handleAddProduct = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault(); // Prevent default form submission
     if (productName.trim() && productLink.trim()) {
       setProducts([...products, { name: productName, link: productLink }]);
       setProductName('');
@@ -201,7 +202,7 @@ export default function Create() {
                   placeholder="Product link"
                 />
               </div>
-              <button className="text-dark text-sm font-medium" onClick={handleAddProduct}>
+              <button type="button" className="text-dark text-sm font-medium" onClick={handleAddProduct}>
                 Add product +
               </button> 
               <div className="flex flex-row flex-wrap gap-4">
