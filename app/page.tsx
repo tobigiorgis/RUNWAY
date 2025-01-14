@@ -58,7 +58,7 @@ export default function Home() {
         <div className="flex items-center justify-center text-center gap-12 flex-col">
           <Image className="md:rounded-lg flex" width={600} height={650} alt="Discover" src={`https://qqdcidmbajmncgqukjhm.supabase.co/storage/v1/object/public/uploads/landing/Group%2048.png?t=2025-01-09T10%3A45%3A46.335Z`} />
           <p className="flex items-center px-4 justify-center text-center md:w-2/3 md:text-4xl text-xl font-semibold text-black font-nanum">
-            Create a profile, get inspo, save in lists and shop from creators. Every post comes with a link-to-product so that everyone can buy the tagged product.
+            Create a profile, get inspo, save in lists and shop from creators. Every post comes with a clothes refernces so that everyone can buy them.
           </p>
         </div>
         <p className="flex items-center px-4 justify-center text-center md:w-2/3 md:text-4xl text-xl font-semibold text-black font-nanum">
