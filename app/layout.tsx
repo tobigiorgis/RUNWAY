@@ -18,8 +18,8 @@ const inter = Inter({ subsets: ['latin'] })
 // })
 
 export const metadata: Metadata = {
-  title: 'Runway | Where fashion lovers hang',
-  description: 'Find the outfit you love',
+  title: 'Runway | Making fashion inspo shoppable',
+  description: 'Shop from creators',
   icons: {
     icon: '/favicon.ico',
   },
