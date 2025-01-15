@@ -1,6 +1,6 @@
 'use client'
 import { createClient } from '@/utils/supabase/client';
-import { Bookmark, Forward, Plus, Share } from 'lucide-react'
+import { Bookmark, Copy, Forward, Plus, Share } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import { toast } from '../ui/use-toast';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
@@ -91,7 +91,7 @@ export const MobileButtons = ({postId} : {postId: string}) => {
             )
         } */}
         <button onClick={handleCopy} className='bg-dark opacity-30 p-3 rounded-3xl'>
-            <Forward size={20} color='black'/>
+            <Copy size={20} color='black'/>
         </button>
     </div>
   )
