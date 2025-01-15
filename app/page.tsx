@@ -37,22 +37,22 @@ export default function Home() {
           Create account
         </button>
       </Link> */}
-      <div className="md:hidden">
+      <div className="md:hidden flex items-center flex-col justify-center gap-4">
         {/* <WaitlistForm/> */}
         <CreateAccountButton/>
+        <div className="flex flex-col gap-1">
+          <Link
+              href='mailto:tobi@userunway.com'  
+          >
+            <p className="text-dark text-xs">Any feedback? Contact us!</p>
+          </Link>
+        </div>
       </div>
       {/* <div className="hidden md:flex">
         <CreateAccountButton/>
       </div> */}
 
       <Footer />
-      <div className="flex flex-col gap-1">
-        <Link
-            href='mailto:tobi@userunway.com'  
-        >
-          <p className="text-dark text-xs pt-20 md:pt-0">Any feedback? Contact us!</p>
-        </Link>
-      </div>
     </main>
       <section id="what-is" className="flex w-[100vw] h-auto items-center justify-center gap-8 font-medium flex-col  bg-gray">
         <div className="flex items-center justify-center text-center gap-12 flex-col">

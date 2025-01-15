@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { SmtpMessage } from "../smtp-message";
+import { GoogleSignInButton } from "@/components/Buttons/GoogleSignInButton";
 
 export default async function Signup(props: {
   searchParams: Promise<Message>;
@@ -45,6 +46,8 @@ export default async function Signup(props: {
           </SubmitButton>
           <FormMessage message={searchParams} />
         </div>
+        <span className="text-xs text-dark">or</span>
+        <GoogleSignInButton/>
       </form>
       {/* <SmtpMessage /> */}
     </>
