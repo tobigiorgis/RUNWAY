@@ -245,6 +245,9 @@ export const NavbarTest = async () => {
                     <Link href={'/sign-in'}>Login</Link>
                     {/* <Link href={'/waitlist'}>Join Waitlist</Link> */}
                 </button>
+                <button>
+                    <Link href={'/sign-up'}>Create account</Link>
+                </button>
               </div>
             )
           }

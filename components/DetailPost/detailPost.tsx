@@ -51,8 +51,8 @@ import { MobileFP } from './MobileFP';
                                     </div>
                                     <FollowButtonDetail userId={detailPost.profiles.id} followers={detailPost.profiles.followers_count}/>
                                 </div>
-                                <div className='rounded-l-lg md:h-[650px] md:w-4/6 flex relative px-4 md:mx-9 py-2 flex justify-center md:pt-20'>
-                                    <Image priority className='md:rounded-t-lg md:object-fill md:rounded-l-lg rounded-lg h-[55vh] md:h-auto md:w-auto' src={detailPost.src} alt='Image' width={500} height={200}/>
+                                <div className='rounded-l-lg md:h-[650px] h-auto md:w-4/6 flex relative px-4 md:mx-9 py-2 flex justify-center md:pt-20'>
+                                    <Image priority className='md:rounded-t-lg md:object-fill md:rounded-l-lg rounded-lg h-auto md:h-auto md:w-auto' src={detailPost.src} alt='Image' width={500} height={200}/>
                                 </div>
                                 <MobileFP postId={postId}/>
                                 <div className='md:py-10 md:px-10 py-2 px-3 w-full md:flex-1 md:w-2/6 flex flex-col justify-start gap-5 md:gap-5 md:border-l md:border-light'>
