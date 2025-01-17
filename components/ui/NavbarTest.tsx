@@ -240,12 +240,12 @@ export const NavbarTest = async () => {
               </div>
             )
             : (
-              <div className='flex justify-evenly items-center'>
-                <button>
+              <div className='flex justify-evenly items-center gap-3'>
+                <button className='text-sm'>
                     <Link href={'/sign-in'}>Login</Link>
                     {/* <Link href={'/waitlist'}>Join Waitlist</Link> */}
                 </button>
-                <button>
+                <button className='bg-black text-white p-2 rounded-lg text-sm'> 
                     <Link href={'/sign-up'}>Create account</Link>
                 </button>
               </div>
